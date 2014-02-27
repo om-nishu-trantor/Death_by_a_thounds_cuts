@@ -1,19 +1,20 @@
 GIT
-  remote: git://github.com/rweng/jquery-datatables-rails.git
+  remote: https://github.com/adelevie/parse_resource.git
+  revision: e1cc57969c43c933417f3c1f117f78de295844a5
+  specs:
+    parse_resource (1.8.0)
+      activemodel
+      activesupport
+      json
+      rest-client
+
+GIT
+  remote: https://github.com/rweng/jquery-datatables-rails.git
   revision: 788a7b24caf8fe58a5493aa3f6a065879a9f752a
   specs:
     jquery-datatables-rails (1.12.2)
       jquery-rails
       sass-rails
-
-GIT
-  remote: git@github.com:adelevie/parse_resource.git
-  revision: 7851169f01ba65c4735d5b703b7d0bc1b097f0f0
-  specs:
-    parse_resource (1.7.1)
-      activemodel
-      activesupport
-      rest-client
 
 GEM
   remote: http://rubygems.org/

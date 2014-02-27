@@ -1,0 +1,31 @@
+<div class="row">
+<fieldset>  
+	<legend>Projects</legend> 
+		<div class="span4">
+			<%= select_tag 'project_list_drop', options_for_select(project_list(@projects)) %>	
+		</div>
+		
+		<input type="hidden" id="issue_user_name" value=<%= current_user.username %>>
+		<div class="span4">
+			<%=link_to "Create new issue" , '#' ,  :id => "create_new_issue", :class => "btn primary_btn" %>	
+		</div>
+</fieldset>
+	<div class="hide" id="new_issue_div">
+		<%=render "create"%>	
+	</div>
+	
+</div>
+
+<!-- 	<%=form_tag "issue" , :id =>'new_issue_create_form' do |f|%>
+		<%=text_field_tag "project"%>
+		<%=button_tag "Save" ,:type => "button" ,:id => "create_issue" %>
+	<%end%>
+ -->
+
+<fieldset>  
+	<legend>Issues</legend> 
+		<div class = "project_list_div">
+			<%= render "project_list"%>	
+		</div>
+</fieldset>		
+<br />

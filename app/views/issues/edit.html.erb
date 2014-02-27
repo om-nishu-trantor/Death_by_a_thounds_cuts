@@ -1,0 +1,68 @@
+<div class="span12">
+	<%=form_for(@object_issues)  do |f| %>  
+		<fieldset>  
+			<legend>Update Issue</legend>  
+			<div class="control-group">
+				<div class="row"> 
+					<div class="span4">
+						<label class="" for="input01">Project</label>  
+						<div class="s">
+							<%=f.text_field :Project, :required => 'required'%>  
+						</div> 
+					</div>
+					<div class="span4">
+						<label class="" for="input01">Description</label>  
+						<div class="">
+							<%=f.text_field :Description , :required => 'required'%>
+							<!-- <textarea name="description" id="description" placeholder = "Enter Description" required></textarea> -->
+						</div> 
+					</div>
+					<div class="span4">
+						<label class="" for="input01">MitigationPlan</label>  
+						<div class="">
+							<%=f.text_field :mitigationPlan , :required => 'required'%>
+							<!-- <textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" ></textarea> -->
+						</div> 
+					</div>
+				</div>
+				<div class="row"> 
+					<div class="span4">
+						<label class="" for="input01">DateIdentified</label>  
+						<div class="s">
+						<%=f.text_field :dateIdentified , :required => 'required' ,:readonly => true, :class=>"datepicker"%>  
+						<!-- <input type="text" class="datepicker" id="dateIdentified" name="dateIdentified"required readonly value="<%=Date.today.strftime('%d-%m-%Y')%>"> -->  
+						</div> 
+					</div>
+					<div class="span4">
+						<label class="" for="input01">DateResolved</label>  
+						<div class="">  
+						<%=f.text_field :dateResolved ,:readonly => true%>
+							<!-- <input type="text" class="" id="dateResolved" name="dateResolved" readonly>   -->
+						</div> 
+					</div>
+					<div class="span4">
+						<label class="" for="input01">Status</label>  
+						<div class="">
+							<%= f.select :Status, options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]])%>  
+						</div> 
+					</div>
+				</div>
+				<div class="row"> 
+					<div class="span4">
+						<label class="" for="input01">Severity</label>  
+						<div class="">
+							<%= f.select :Severity, options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]])%>   
+						</div> 
+					</div>
+					<div class="span4">
+						<button type="submit" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Update</button>
+					</div>
+					<div class="span4">
+
+					</div>
+				</div>  
+
+			</div>  
+		</fieldset>  
+	<%end%>  
+</div>

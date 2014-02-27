@@ -1,0 +1,30 @@
+<div class="row">
+  <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th>Severity</th>
+        <th>Project</th>
+        <th>Description</th>
+        <th>MitigationPlan</th>
+        <th>Identified</th>
+        <th>Resolved</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>       
+      <% @issues.each do |issue| %>
+      <tr>
+        <td class = <%=issue.Severity%>><%=image_tag image_icon(issue.Severity)%></td>
+        <td><%= issue.Project %></td>
+        <td><%= issue.Description %></td>
+        <td><%= issue.mitigationPlan %></td>
+        <td><%= issue.dateIdentified %></td>
+        <td><%= issue.dateResolved %></td>
+        <td><%= issue.Status %></td>
+        <td><%=link_to 'update', edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" %>|<%=link_to 'delete' , "", :data_id => issue.objectId, :class => "issue_delete"%></td>
+      </tr>
+      <% end %>   
+    </tbody>
+  </table>
+</div>

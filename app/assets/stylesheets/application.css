@@ -1,0 +1,85 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require dataTables/jquery.dataTables
+ *= require dataTables/jquery.dataTables.bootstrap
+ *= require_tree . 
+*/
+
+.looks-like-glass {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 255, 255, 0.3), inset 0 10px rgba(255, 255, 255, 0.2), inset 0 10px 20px rgba(255, 255, 255, 0.25), inset 0 -15px 30px rgba(0, 0, 0, 0.3);
+    -o-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 255, 255, 0.3), inset 0 10px rgba(255, 255, 255, 0.2), inset 0 10px 20px rgba(255, 255, 255, 0.25), inset 0 -15px 30px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 255, 255, 0.3), inset 0 10px rgba(255, 255, 255, 0.2), inset 0 10px 20px rgba(255, 255, 255, 0.25), inset 0 -15px 30px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 255, 255, 0.3), inset 0 10px rgba(255, 255, 255, 0.2), inset 0 10px 20px rgba(255, 255, 255, 0.25), inset 0 -15px 30px rgba(0, 0, 0, 0.3);
+
+}
+
+body{
+        background-color: #EEE !important;
+    position: relative;
+    padding-top:60px;
+}
+
+
+.logincontainer
+{
+    width: 300%;
+    margin-top: 10%;
+    padding-left: 3%;
+}
+
+#login-form input[type="email"] , input[type="password"] {
+    width : 70%;
+}
+
+.error {
+    background: red;
+    width: 80%;
+    padding: 4px;
+}
+
+.error_explanation{
+    background: red;
+    width: 30%;
+    padding: 4px;
+}
+
+.package-note {
+    overflow: auto;
+    height: 78px;
+    background: white;
+    width: 91%;
+    left: 10px;
+    margin-left: 20px;
+    margin-top: 17px;
+    border-radius: 15px;
+}
+
+.package-note-div{
+    margin-left: 40px;
+    margin-top: 16px;
+}
+/*.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+    width: 1170px !important;
+}*/
+
+.remove_association{
+    margin-left: 10px;
+    text-decoration: none;
+}
+#treeview .k-sprite {
+    background-image: url("coloricons-sprite.png");
+}
+
+.rootfolder { background-position: 0 0; }
+.folder { background-position: 0 -16px; }
+.pdf { background-position: 0 -32px; }
+.html { background-position: 0 -48px; }
+.image { background-position: 0 -64px; }
+
+
+input[type="email"] , input[type="password"] {
+    width :  206px;
+}

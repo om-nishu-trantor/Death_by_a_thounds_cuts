@@ -36,7 +36,7 @@ gem 'jquery-datatables-rails', :git => 'https://github.com/rweng/jquery-datatabl
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-gem 'debugger'
+# gem 'debugger'
 
 group :test do
   # Pretty printed test output

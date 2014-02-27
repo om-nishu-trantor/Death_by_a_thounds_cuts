@@ -13,14 +13,14 @@
 					<div class="span4">
 						<label class="" for="input01">Description</label>  
 						<div class="">
-							<%=f.text_field :Description , :required => 'required'%>
+							<%=f.text_area :Description , :required => 'required' , :rows=>"3"%>
 							<!-- <textarea name="description" id="description" placeholder = "Enter Description" required></textarea> -->
 						</div> 
 					</div>
 					<div class="span4">
 						<label class="" for="input01">MitigationPlan</label>  
 						<div class="">
-							<%=f.text_field :mitigationPlan , :required => 'required'%>
+							<%=f.text_area :mitigationPlan , :required => 'required' , :rows=>"3"%>
 							<!-- <textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" ></textarea> -->
 						</div> 
 					</div>

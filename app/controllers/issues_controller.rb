@@ -10,7 +10,6 @@ def index
 	# @projects = ["MARKETLIVE", "CAN", nil, "LA JOLLA", "ADARA", "BRANDING", "DEALTRACTION", "FRYS ELECTRONICS", "JUGNOO", "LINK YOGI", "MOODYS"]
 	@projects = @issues.map(&:Project).uniq if @issues
 	@projects.collect! { |c| [ c, c ] unless c.nil?}  if @projects
-	debugger
 end	
 
 

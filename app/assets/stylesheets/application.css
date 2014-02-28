@@ -83,3 +83,8 @@ body{
 input[type="email"] , input[type="password"] {
     width :  206px;
 }
+
+.container-root{
+    padding-right: 70px !important;
+    padding-left: 70px !important;
+}

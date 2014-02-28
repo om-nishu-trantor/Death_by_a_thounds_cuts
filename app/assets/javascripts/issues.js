@@ -1,5 +1,6 @@
 $(document).ready(function(){
-	$('.datepicker').datepicker()
+	$('.datepicker').datepicker();
+	$("checkbox").bootstrapSwitch();
 	$('#project_list_drop').change(function() {
     	var val = $("#project_list_drop option:selected").text();
     	$.blockUI({ css: { 
@@ -31,7 +32,15 @@ $(document).ready(function(){
 		var dateResolved =  $('#new_issue_create_form #dateResolved').val();
 		var status =  $('#new_issue_create_form #status').val();
 		var severity =  $('#new_issue_create_form #severity').val();
-		if(severity == "CLOSED"){
+		var manageable = $('#new_issue_create_form #ismanageable').prop('checked');
+		var assignedto = $('#new_issue_create_form #assignedto').val();
+
+		if(manageable == true)
+		{
+			assignedto = ''
+		}
+
+		if(status == "CLOSED"){
 			isClosed = true
 			closedBy = name
 		}
@@ -45,7 +54,9 @@ $(document).ready(function(){
             'issues[Status]' : status,
             'issues[Severity]' : severity,
             'issues[isClosed]' : isClosed,
-            'issues[closedBy]' : closedBy
+            'issues[closedBy]' : closedBy,
+            'issues[isManageable]' : manageable,
+            'issues[assignedTo]' : assignedto
         }
         $.blockUI({ css: { 
 	            border: 'none', 
@@ -64,6 +75,7 @@ $(document).ready(function(){
     		configureIssueTable($('#table-issues'));
     		$("#new_issue_div").toggle();
     		$('#new_issue_create_form')[0].reset()
+    		document.getElementById("assignedto").disabled=false;
         });
 	});
 
@@ -112,9 +124,31 @@ $(document).ready(function(){
 		}else{
 			$('#dateResolved').val('')
 		}
+	});
+
+	$('.edit_issues #issues_Status').change(function(){
+		var val = $(".edit_issues #issues_Status option:selected").text();
+		if(val == "CLOSED"){
+			$('#issues_dateResolved').val(Date.today().toString("dd-MM-yyyy"))
+			
+		}else{
+			$('#issues_dateResolved').val('')
+		}
+	});
 
 
+
+	$('#new_issue_create_form #ismanageable').change(function(){
+		if($('#new_issue_create_form #ismanageable').prop('checked')){
+			document.getElementById("assignedto").disabled=true;
+		}else
+		{
+			document.getElementById("assignedto").disabled=false;
+		}
 	});	
-	
+		
+
+
+
 });	
 

@@ -20,7 +20,7 @@
 					<div class="span4">
 						<label class="" for="input01">MitigationPlan</label>  
 						<div class="">
-							<%=f.text_area :mitigationPlan , :required => 'required' , :rows=>"3"%>
+							<%=f.text_area :mitigationPlan , :rows=>"3"%>
 							<!-- <textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" ></textarea> -->
 						</div> 
 					</div>
@@ -43,7 +43,7 @@
 					<div class="span4">
 						<label class="" for="input01">Status</label>  
 						<div class="">
-							<%= f.select :Status, options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]])%>  
+							<%= f.select :Status, options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]], :selected => @object_issues.Status)%>  
 						</div> 
 					</div>
 				</div>
@@ -51,8 +51,30 @@
 					<div class="span4">
 						<label class="" for="input01">Severity</label>  
 						<div class="">
-							<%= f.select :Severity, options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]])%>   
+							<%= f.select :Severity, options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]],:selected => @object_issues.Severity) %>   
 						</div> 
+					</div>
+					<div class="span4">
+						<label class="" for="input01">Assigned To</label>
+						<div class="s">  
+							<%if current_user.isAdmin%> 
+								<%= f.select :assignedTo, options_for_select([['Please Select','Please Select']] + @users,:selected => @object_issues.assignedTo)%>
+							<%else%>
+								<%= f.select :assignedTo, options_for_select(@users)%>
+							<%end%>
+						</div>
+					</div>
+					<div class="span4">
+						<%if current_user.isAdmin%>
+							<label class="" for="input01">Is Management Issue</label>
+							<%=f.check_box :isManagementIssue %>
+							<!-- <input type="checkbox" id="ismanageable" > -->
+						<%end%>
+					</div>
+				</div>
+				<div class="row"> 
+					<div class="span4">
+						
 					</div>
 					<div class="span4">
 						<button type="submit" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Update</button>
@@ -60,7 +82,7 @@
 					<div class="span4">
 
 					</div>
-				</div>  
+				</div>   
 
 			</div>  
 		</fieldset>  

@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  
   def new
     redirect_to  issues_path if current_user 
   end  

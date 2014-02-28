@@ -51,13 +51,36 @@
 						</div> 
 					</div>
 					<div class="span4">
+					<label class="" for="input01">Assigned To</label>
+						 
+						<div class="s">  
+							<%if current_user.isAdmin%> 
+								<%= select_tag 'assignedto', options_for_select([['Please Select','Please Select']] + @users)%>
+							<%else%>
+								<%= select_tag 'assignedto', options_for_select(@users)%>
+							<%end%>
+						</div>
+					</div>
+					<div class="span4">
+						<%if current_user.isAdmin%>
+							<label class="" for="input01">Is Management Issue</label>
+							<input type="checkbox" id="ismanageable" >
+						<%end%>
+					</div>
+				</div>  
+				<div class="row"> 
+					<div class="span4">
+						
+					</div>
+					<div class="span4">
+					
+					</div>
+					<div class="span4">
 						<button type="button" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Create</button>
 						<button class="btn" , onclick="$('#new_issue_div').toggle(); return false" style="margin-top: 23px;">Cancel</button>
 					</div>
-					<div class="span4">
-
-					</div>
-				</div>  
+					
+				</div>
 
 			</div>  
 		</fieldset>  

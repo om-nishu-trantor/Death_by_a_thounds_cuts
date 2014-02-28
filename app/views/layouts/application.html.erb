@@ -1,7 +1,7 @@
 <!DOCTYPE html>  
 <html>  
 <head>  
-  <title>Parse-Rails-Boilerplate</title>  
+  <title>Death BY A Thound Cuts</title>  
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>  
@@ -17,15 +17,20 @@
             <span class="icon-bar"></span>
           </a>
      
-          <%= link_to 'TRACKER', root_path, :class => "brand" %>
+          <%= link_to 'Death By a Thousand  Cuts', root_path, :class => "brand" %>
 
           <div class="container nav-collapse">
             <ul class="nav pull-right">
               <% if current_user %>  
                 <li>
                   <%= link_to('#') do %>
-                    <i class="icon-user icon-white"></i>&nbsp;<%="Welcome " + current_user.email%>
+                    <i class="icon-user icon-white"></i>&nbsp;<%="Welcome " + current_user.Name%>
                   <%end%>
+                </li>
+                <li>
+                  <% if can? :new, User %>
+                  <%= link_to "Sign up", sign_up_path %>
+                  <% end %>
                 </li>
                 <li>
                   <%= link_to(log_out_path) do %>
@@ -33,8 +38,9 @@
                   <%end%>
                 </li>
               <%else%>
-               <%= link_to "Sign up", sign_up_path %> or 
+              <li>
                <%= link_to "Log in", log_in_path %>
+              </li>
               <% end -%>
             </ul>
           </div>
@@ -48,7 +54,7 @@
   </div>
       
   <% end %>  
- <div class="container container-root"> 
+ <div class="container-fluid container-root"> 
 	<%= yield %>  
 </div>
   

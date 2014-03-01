@@ -4,7 +4,9 @@ function configureIssueTable(tableNode) {
 		 * We set specific options for each columns here. Some columns contain raw data to enable correct sorting, so we convert it for display
 		 * @url http://www.datatables.net/usage/columns
 		 */
-        aoColumns : [{
+        aoColumns : [
+        { "bVisible" : false 
+        },{
             bSortable : false
         },{
             bSortable : 'string'
@@ -29,6 +31,21 @@ function configureIssueTable(tableNode) {
             ]
         }
 		
+    });
+
+    $('.filter-btn-ser').on('click', function(){
+        var val = $(this).attr("data-text");
+        oTable.fnFilter(val,null,true,true,true,false);  
+    });
+
+    $('.filter-btn-stat').on('click', function(){
+        table_fil = $('#table-issues').dataTable();
+        table_fil.fnFilter("CLOSED",null,true,true,true,false);  
+    });
+    
+    $('.filter-btn-all').on('click', function(){
+        table_fil = $('#table-issues').dataTable();
+        table_fil.fnFilter('');  
     });
     
 };

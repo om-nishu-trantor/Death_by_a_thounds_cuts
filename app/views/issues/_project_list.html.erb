@@ -1,30 +1,44 @@
-<div class="row">
-  <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
-    <thead>
-      <tr>
-        <th>Severity</th>
-        <th>Project</th>
-        <th>Description</th>
-        <th>MitigationPlan</th>
-        <th>Identified</th>
-        <th>Resolved</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>       
-      <% @issues.each do |issue| %>
-      <tr>
-        <td class = <%=issue.Severity%>><%=image_tag image_icon(issue.Severity)%></td>
-        <td><%= issue.Project %></td>
-        <td><%= issue.Description %></td>
-        <td><%= issue.mitigationPlan %></td>
-        <td><%= issue.dateIdentified %></td>
-        <td><%= issue.dateResolved %></td>
-        <td><%= issue.Status %></td>
-        <td><%=link_to 'update', edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" %>|<%=link_to 'delete' , "", :data_id => issue.objectId, :class => "issue_delete"%></td>
-      </tr>
-      <% end %>   
-    </tbody>
-  </table>
-</div>
+<div class = "project_list_div">
+  <div class="panel panel-primary">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Issue List</div>
+    <div class="panel-body">
+      <button type="button" class="btn btn-default navbar-btn filter-btn-all" data-text = "ALL">ALL <span class="badge" id = ""><%=@serverty.count if @serverty%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "HIGH">HIGH <span class="badge"><%=@serverty.count("HIGH") if @serverty%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "MEDIUM">MEDIUM <span class="badge"><%=@serverty.count("MEDIUM") if @serverty%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "LOW">LOW <span class="badge"><%=@serverty.count("LOW") if @serverty%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-stat" data-text = "CLOSED" id = "closed_issue_button">CLOSED <span class="badge" ><%=@closed.count("CLOSED") if @closed%></span></button>
+    </div>  
+    <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Severity</th>
+          <th>Severity</th>
+          <th>Project</th>
+          <th>Description</th>
+          <th>MitigationPlan</th>
+          <th>Identified</th>
+          <th>Resolved</th>
+          <th>Status</th>
+          <th>Action</th>
+
+        </tr>
+      </thead>
+      <tbody>       
+        <% @issues.each do |issue| %>
+        <tr>
+          <td ><%=issue.Severity%></td>
+          <td class = <%=issue.Severity%>><%=image_tag image_icon(issue.Severity)%></td>
+          <td><%= issue.Project %></td>
+          <td><%= issue.Description %></td>
+          <td><%= issue.mitigationPlan %></td>
+          <td><%= issue.dateIdentified %></td>
+          <td><%= issue.dateResolved %></td>
+          <td><%= issue.Status %></td>
+          <td><%=link_to 'update', edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" %>|<%=link_to 'delete' , "", :data_id => issue.objectId, :class => "issue_delete"%></td>
+        </tr>
+        <% end %>   
+      </tbody>
+    </table>
+  </div>
+</div>  

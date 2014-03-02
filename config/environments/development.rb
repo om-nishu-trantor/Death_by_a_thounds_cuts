@@ -27,4 +27,16 @@ ParseRailsBoilerplate::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  ActionMailer::Base.smtp_settings = {
+      :address        => 'smtp.mandrillapp.com',
+      :port           => '587',
+      :authentication => :plain,
+      :user_name      => 'raman.bedi@trantorinc.com',
+      :password       => '493d3174-2694-46bc-9ff6-9cb9aa394402',
+      :domain         => 'mandrillapp.com'
+  }
+  ActionMailer::Base.delivery_method ||= :smtp
+
+  config.action_mailer.default_url_options = {:host => 'deathbyathousandcuts.herokuapp.com'}
 end

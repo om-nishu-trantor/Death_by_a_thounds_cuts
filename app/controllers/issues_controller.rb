@@ -1,5 +1,6 @@
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
+	after_filter :send_mail, :only => [:create, :update, :destroy] 
 	
 	def index
 		if params[:project]
@@ -47,7 +48,8 @@ class IssuesController < ApplicationController
 				if @issues
 					@serverty = @issues.map(&:Severity)
 					@closed = @issues.map(&:Status)
-				end	
+				end
+				
 				format.html { render :partial => "project_list" , :layout => false }
 			else
 				@issues = issue_query params[:issues][:Project]
@@ -113,8 +115,24 @@ class IssuesController < ApplicationController
 		end
 	end
 
-def create_full_data issues
-	
+def send_mail
+	type = params[:action]
+	case type
+	when type == "create"
+		User::EMAILNOTIFY.each do |email|
+			UserNotifier.send_create_notification_mail(email, params[:issue]).deliver!
+		end	
+	when type == "update"
+		User::EMAILNOTIFY.each do |email|
+			UserNotifier.send_update_notification_mail(email, params[:issue]).deliver!
+		end	
+	else
+		User::EMAILNOTIFY.each do |email|
+			UserNotifier.send_delete_notification_mail(email, params[:issue]).deliver!
+		end	
+	end	
+								
+
 	
 end	
 

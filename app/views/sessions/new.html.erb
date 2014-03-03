@@ -1,25 +1,5 @@
-<!-- <div class="row-fluid">
-  <div class="looks-like-glass span4 offset4 logincontainer">
-    <h3>Sign In</h3>
-    <div style = "margin-left: 12%">
-      <%= form_tag sessions_path do %>  
-        <div class="form-inputs">
-          <%= text_field_tag :user_name, nil,:placeholder => "User name", :required => 'required'%>  
-          <%= password_field_tag :password, nil,:placeholder => "password", :required => 'required'  %>
-        </div>
-        <div>
-          <%= button_tag "Sign in" ,:type => "submit" , :class => "btn btn-primary" ,:id => "login_button_form"  %>
-        </div>
-      <% end %>
-      
-    </div>
-  </div>
-</div> -->
-
-
-
 <div class="row">
-        <div class="col-sm-6 col-md-6 col-md-offset-3">
+        <div class="col-md-6 col-md-offset-3">
             <h1 class="text-center login-title">Sign in to Death By a Thousand Cuts</h1>
             <div class="account-wall">
                 <img class="profile-img" src="/assets/ContinuumGlobal-logo.jpg" alt="">
@@ -27,11 +7,9 @@
                 <%= form_tag sessions_path , :class => 'form-signin' do %>  
                 <input class="form-control" placeholder="User Name" required autofocus="" type="text" name = "user_name">
                 <input class="form-control" placeholder="Password" required type="password" name = "password">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign in</button>
-                                <a href="#" class="pull-right need-help">For help please contact Admin </a><span class="clearfix"></span>
-                <!-- </form>
- -->        <% end %>    
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                       <a href="#" class="pull-right need-help">For help please contact Admin </a><span class="clearfix"></span>
+                <% end %>    
             </div>
         </div>
     </div>

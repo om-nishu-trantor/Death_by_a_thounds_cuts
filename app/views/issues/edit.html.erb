@@ -5,21 +5,21 @@
 	<div class="panel-body">
 		<%=form_for(@object_issues)  do |f| %>  
 		<div class="control-group">
-			<div class="col-md-12"> 
-				<div class="col-md-4">
+			<div class="col-sm-12"> 
+				<div class="col-sm-4">
 					<label class="" for="input01">Project</label>  
 					<div class="s">
 						<%=f.text_field :Project, :required => 'required'%>  
 					</div> 
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<label class="" for="input01">Description</label>  
 					<div class="">
 						<%=f.text_area :Description , :required => 'required' , :rows=>"3"%>
 						<!-- <textarea name="description" id="description" placeholder = "Enter Description" required></textarea> -->
 					</div> 
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<label class="" for="input01">MitigationPlan</label>  
 					<div class="">
 						<%=f.text_area :mitigationPlan , :rows=>"3"%>
@@ -27,36 +27,36 @@
 					</div> 
 				</div>
 			</div>
-			<div class="col-md-12"> 
-				<div class="col-md-4">
+			<div class="col-sm-12"> 
+				<div class="col-sm-4">
 					<label class="" for="input01">DateIdentified</label>  
 					<div class="s">
 						<%=f.text_field :dateIdentified , :required => 'required' ,:readonly => true, :class=>"datepicker"%>  
 						<!-- <input type="text" class="datepicker" id="dateIdentified" name="dateIdentified"required readonly value="<%=Date.today.strftime('%d-%m-%Y')%>"> -->  
 					</div> 
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<label class="" for="input01">DateResolved</label>  
 					<div class="">  
 						<%=f.text_field :dateResolved ,:readonly => true%>
 						<!-- <input type="text" class="" id="dateResolved" name="dateResolved" readonly>   -->
 					</div> 
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<label class="" for="input01">Status</label>  
 					<div class="">
 						<%= f.select :Status, options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]], :selected => @object_issues.Status)%>  
 					</div> 
 				</div>
 			</div>
-			<div class="col-md-12"> 
-				<div class="col-md-4">
+			<div class="col-sm-12"> 
+				<div class="col-sm-4">
 					<label class="" for="input01">Severity</label>  
 					<div class="">
 						<%= f.select :Severity, options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]],:selected => @object_issues.Severity) %>   
 					</div> 
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<label class="" for="input01">Assigned To</label>
 					<div class="s">  
 						<%if current_user.isAdmin%> 
@@ -66,7 +66,7 @@
 						<%end%>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<%if current_user.isAdmin%>
 					<label class="" for="input01">Is Management Issue</label>
 					<%=f.check_box :isManagementIssue %>
@@ -74,14 +74,14 @@
 					<%end%>
 				</div>
 			</div>
-			<div class="col-md-12"> 
-				<div class="col-md-4">
+			<div class="col-sm-12"> 
+				<div class="col-sm-4">
 
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<button type="submit" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Update</button>
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 
 				</div>
 			</div>   

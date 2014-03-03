@@ -16,10 +16,17 @@ class UserNotifier < ActionMailer::Base
     setup_mail mail_to, object, "Issue Deleted"
   end
 
-  def setup_mail mail_to, object, sub
-    @mail_to = mail_to
-    @object = object
-    mail(:to => mail_to , :subject => sub )
+  def send_close_notification_mail object
+    setup_mail object
+  end
+
+  def send_mobile_notification_mail header, body
+    @body_data = body
+    mail(:to => (User::EMAILNOTIFYTEST).join(',') , :subject => header )
+  end
+  def setup_mail object 
+    @object_data = object
+    mail(:to => (User::EMAILNOTIFYTEST).join(',') , :subject => "DBTC: Issue Resolved #{object.Project}" )
   end  
 
 

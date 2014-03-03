@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	$('.datepicker').datepicker();
+	$('.datepicker').datepicker({
+		format : 'dd-mm-yyyy'
+	});
 	$("checkbox").bootstrapSwitch();
 	$('#project_list_drop').change(function() {
     	var val = $("#project_list_drop option:selected").text();
@@ -55,7 +57,7 @@ $(document).ready(function(){
             'issues[Severity]' : severity,
             'issues[isClosed]' : isClosed,
             'issues[closedBy]' : closedBy,
-            'issues[isManageable]' : manageable,
+            'issues[isManagementIssue]' : manageable,
             'issues[assignedTo]' : assignedto
         }
         $.blockUI({ css: { 

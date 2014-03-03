@@ -1,6 +1,5 @@
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
-	after_filter :send_mail, :only => [:create, :update, :destroy] 
 	
 	def index
 		if params[:project]
@@ -37,7 +36,7 @@ class IssuesController < ApplicationController
 
 	def create
 		params[:issues][:isClosed] = params[:issues][:isClosed] == "true" ? true : false
-		params[:issues][:isManagementIssue] = params[:issues][:isManageable] == "true" ? true : false
+		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "true" ? true : false
 		params[:issues][:isDeleted] = false
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
 		params[:issues][:createdBy] = current_user.Name
@@ -45,6 +44,7 @@ class IssuesController < ApplicationController
 		respond_to do |format|
 			if @issue.save
 				@issues = issue_query params[:issues][:Project]
+				send_mail @issue if params[:issues][:Status] == "CLOSED"
 				if @issues
 					@serverty = @issues.map(&:Severity)
 					@closed = @issues.map(&:Status)
@@ -76,7 +76,8 @@ class IssuesController < ApplicationController
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
 		params[:issues][:lastUpdatedBy] = current_user.Name
 		@issue = @object_issues.update_attributes(params[:issues])
-		if @issues
+		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
+		if @issues 
 			@serverty = @issues.map(&:Severity)
 			@closed = @issues.map(&:Status)
 		end	
@@ -115,26 +116,9 @@ class IssuesController < ApplicationController
 		end
 	end
 
-def send_mail
-	type = params[:action]
-	case type
-	when type == "create"
-		User::EMAILNOTIFY.each do |email|
-			UserNotifier.send_create_notification_mail(email, params[:issue]).deliver!
-		end	
-	when type == "update"
-		User::EMAILNOTIFY.each do |email|
-			UserNotifier.send_update_notification_mail(email, params[:issue]).deliver!
-		end	
-	else
-		User::EMAILNOTIFY.each do |email|
-			UserNotifier.send_delete_notification_mail(email, params[:issue]).deliver!
-		end	
+	def send_mail object
+		UserNotifier.send_close_notification_mail(object).deliver!
 	end	
-								
-
-	
-end	
 
 
 end

@@ -37,7 +37,7 @@ gem "cancan"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-# gem 'debugger'
+	 gem 'debugger'
 
 group :test do
   # Pretty printed test output

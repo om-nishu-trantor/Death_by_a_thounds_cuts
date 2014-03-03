@@ -57,7 +57,7 @@
 
 						<div class="s">  
 							<%if current_user.isAdmin%> 
-							<%= select_tag 'assignedto', options_for_select([['Please Select','Please Select']] + @users)%>
+							<%= select_tag 'assignedto', options_for_select([['Please Select','Please Select']] + @users , :selected => 'RAJAT JULKA')%>
 							<%else%>
 							<%= select_tag 'assignedto', options_for_select(@users)%>
 							<%end%>

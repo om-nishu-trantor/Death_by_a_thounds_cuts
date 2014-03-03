@@ -30,17 +30,23 @@ $(document).ready(function(){
 		if(project.length == 0 || start_date.length == 0 || end_date.length == 0  )
 		{
 			alert("please enter information")
+			return false;
 
 		}else{
-			$.blockUI({ css: { 
-	            border: 'none', 
-	            padding: '15px', 
-	            backgroundColor: '#000', 
-	            '-webkit-border-radius': '10px', 
-	            '-moz-border-radius': '10px', 
-	            opacity: .5, 
-	            color: '#fff' 
-        	}
+			if($(this).attr('data_pdf') == "true")
+			{
+				$.get('/issues/pdf_report.pdf',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
+	    		});
+			}else{	
+				$.blockUI({ css: { 
+		            border: 'none', 
+		            padding: '15px', 
+		            backgroundColor: '#000', 
+		            '-webkit-border-radius': '10px', 
+		            '-moz-border-radius': '10px', 
+		            opacity: .5, 
+		            color: '#fff' 
+	        	}
         	});
         	$.get('/issues/fetch_issue_report',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
 	    		$('.project_list_report_div').empty();
@@ -48,6 +54,7 @@ $(document).ready(function(){
 	    		$.unblockUI();
 	    		configureIssueReportTable($('#table-issues-report'));
 	    	});
+        }
 		}
 
 	});
@@ -173,6 +180,7 @@ $(document).ready(function(){
 	$('#new_issue_create_form #ismanageable').change(function(){
 		if($('#new_issue_create_form #ismanageable').prop('checked')){
 			document.getElementById("assignedto").disabled=true;
+			document.getElementById("assignedto").value = "Please Select"
 		}else
 		{
 			document.getElementById("assignedto").disabled=false;

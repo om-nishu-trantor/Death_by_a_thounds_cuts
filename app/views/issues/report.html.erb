@@ -3,11 +3,12 @@
 	<div class="row-fluid">
 			<fieldset class="fieldset">
 				<legend>Projects</legend>
-				<div class="col-sm-8">
+				<div class="col-sm-12">
 					<%= select_tag 'project_list_report', options_for_select(project_list(@projects)) , :style=>"margin-top: 8px; margin-right: 10px; width: 38%;" %>
 					<input type="text" class="datepicker" id="dateStartReport" required readonly placeholder = "Start dateIdentified" %> 
 					<input type="text" class="datepicker" id="dateEndReport" required readonly placeholder = "End dateIdentified"%>
-					<%=link_to "Find" , '#' , :class => "btn btn-primary find_issues" %> 
+					<%=link_to "Find" , '#' , :class => "btn btn-primary find_issues",:data_pdf => false  %> 
+					<%=link_to "PDF" , '#' , :class => "btn btn-primary find_issues",:data_pdf => true ,:target => "_blank"%> 
 				</div>
 				<div class="col-sm-8">
 					

@@ -8,7 +8,7 @@ class IssuesController < ApplicationController
 			@issues = issue_query
 		end
 		@projects = @issues.map(&:Project).uniq if @issues
-		@users =  current_user.isAdmin ? User.all.map(&:Name) : [current_user].map(&:Name)
+		@users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
 		@users.collect! { |c| [ c, c ] unless c.nil?} if @users
 		@projects.collect! { |c| [ c, c ] unless c.nil?}  if @projects
 		if @issues
@@ -64,7 +64,7 @@ class IssuesController < ApplicationController
 
 	def edit
 		@object_issues = Issues.find_by_objectId(params[:id])
-		@users =  current_user.isAdmin ? User.all.map(&:Name) : [current_user].map(&:Name)
+		@users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
 		@users.collect! { |c| [ c, c ] unless c.nil?} if @users
 	end	
 

@@ -1,0 +1,20 @@
+<fieldset class="fieldset">
+	<legend>Issues Report</legend>
+	<div class="row-fluid">
+			<fieldset class="fieldset">
+				<legend>Projects</legend>
+				<div class="col-sm-8">
+					<%= select_tag 'project_list_report', options_for_select(project_list(@projects)) , :style=>"margin-top: 8px; margin-right: 10px; width: 38%;" %>
+					<input type="text" class="datepicker" id="dateStartReport" required readonly placeholder = "Start dateIdentified" %> 
+					<input type="text" class="datepicker" id="dateEndReport" required readonly placeholder = "End dateIdentified"%>
+					<%=link_to "Find" , '#' , :class => "btn btn-primary find_issues" %> 
+				</div>
+				<div class="col-sm-8">
+					
+				</div>
+			</fieldset>
+			<div class = "project_list_report_div">
+				<%= render "project_list_report"%>
+			</div">	
+	</div>  
+</fieldset>

@@ -21,7 +21,37 @@ $(document).ready(function(){
 	    		$.unblockUI();
 	    		configureIssueTable($('#table-issues'));
 	    	});	
-    })
+    });
+
+	$('.find_issues').on('click',function(){
+		var project = $('#project_list_report').val();
+		var start_date = $('#dateStartReport').val();
+		var end_date = $('#dateEndReport').val();
+		if(project.length == 0 || start_date.length == 0 || end_date.length == 0  )
+		{
+			alert("please enter information")
+
+		}else{
+			$.blockUI({ css: { 
+	            border: 'none', 
+	            padding: '15px', 
+	            backgroundColor: '#000', 
+	            '-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px', 
+	            opacity: .5, 
+	            color: '#fff' 
+        	}
+        	});
+        	$.get('/issues/fetch_issue_report',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
+	    		$('.project_list_report_div').empty();
+	    		$('.project_list_report_div').html(data)
+	    		$.unblockUI();
+	    		configureIssueReportTable($('#table-issues-report'));
+	    	});
+		}
+
+	});
+
 
 	$('#new_issue_create_form #create_issue').on('click',function(){
 		var name = $('#issue_user_name').val();

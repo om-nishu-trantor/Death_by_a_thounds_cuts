@@ -116,9 +116,48 @@ class IssuesController < ApplicationController
 		end
 	end
 
+	def report
+		@issues_obj = issue_query
+		@issues = []
+		@projects = @issues_obj.map(&:Project).uniq if @issues_obj
+		@projects.collect! { |c| [ c, c ] unless c.nil?}  if @projects
+	end	
+
+	def fetch_issue_report
+		@issues = setupdata params
+		respond_to do |format|
+			format.html { render :partial => "project_list_report" , :layout => false }
+		end
+	end	
+	def pdf_report
+		setupdata params
+		respond_to do |format|
+      		format.html
+      		format.pdf do
+        		render :pdf => "sample",
+        		:header => {:html => { :template => 'issues/header.html.erb'}, :spacing => 5},
+          		:footer => {:html => { :template => 'issues/footer.html.erb'}},
+          		:margin => {:top                => 10,                     # default 10 (mm)
+                           :bottom             => 10,
+                           :left               => 10,
+                           :right              => 10}
+      		end
+    	end
+	end	
+
+
 	def send_mail object
 		UserNotifier.send_close_notification_mail(object).deliver!
 	end	
 
+	def setupdata params
+		if params[:project] == "All"
+			@issues = issue_query
+			@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
+		else
+			@issues = issue_query params[:project]
+			@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
+		end
+	end	
 
 end

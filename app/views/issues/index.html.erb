@@ -1,11 +1,10 @@
 <fieldset class="fieldset">
-	<legend>Issues</legend>
 	<div class="row-fluid">
-			<fieldset class="fieldset">
-				<legend>Projects</legend>
+			<fieldset>
 				<div class="col-sm-4">
-					<%= select_tag 'project_list_drop', options_for_select(project_list(@projects)) , :style=>"margin-top: 8px; margin-right: 10px; width: 38%;" %>
-					<%=link_to "Create new issue" , '#' , :class => "btn btn-primary create_new_issue" %>
+					<label class="control-label"><strong style="font-size: 16px; color:#428BCA">Select Project</strong></label>
+					<%= select_tag 'project_list_drop', options_for_select(project_list(@projects)) , :style=>"margin-top: 8px; margin-left: 10px; width: 38%;" %>
+					<%#=link_to "Create new issue" , '#' , :class => "btn btn-primary create_new_issue" %>
 				</div>
 				<div class="col-sm-8">
 					

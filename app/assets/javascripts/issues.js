@@ -187,7 +187,10 @@ $(document).ready(function(){
 		}
 	});	
 		
-	
+	$(".project_list_div").delegate("#panel-body-active button", "click", function(event) {	
+		$('#panel-body-active button').removeClass('active');
+		$(this).addClass('active');
+	});
 
 
 });	

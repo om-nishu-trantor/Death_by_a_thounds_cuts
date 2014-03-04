@@ -16,11 +16,11 @@
       <ul class="nav navbar-nav">
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Welcome <%=current_user.Name%></a></li>
+        <li><%=link_to "Create new issue" , '#' , :class => "create_new_issue" %></li>
         <% if can? :new, User %>
          <li><a href=<%=sign_up_path %>>Create User</a></li>
+         <li><a href=<%=report_issues_path%>>Report</a></li>
         <%end%>
-        <li><a href=<%=report_issues_path%>>Report</a></li>
         <li><a href=<%=log_out_path%>>Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->

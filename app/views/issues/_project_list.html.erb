@@ -1,9 +1,23 @@
+<style type="text/css">
+  /*
+ * Filter
+ */
+.dataTables_filter {
+    margin-top: -49px !important;
+    margin-right: 10px;
+}
+.dataTables_length{
+  margin-left: 15px;
+  margin-bottom: 3px;
+}
+</style>
+
 <div class = "project_list_div">
   <div class="panel panel-primary">
     <!-- Default panel contents -->
-    <div class="panel-heading">Issue List</div>
-    <div class="panel-body">
-      <button type="button" class="btn btn-default navbar-btn filter-btn-all" data-text = "ALL">ALL <span class="badge" id = ""><%=@serverty.count if @serverty%></span></button>
+    <div class="panel-heading">Cuts</div>
+    <div class="panel-body" id = "panel-body-active">
+      <button type="button" class="btn btn-default navbar-btn filter-btn-all active" data-text = "ALL">ALL <span class="badge" id = ""><%=@serverty.count if @serverty%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "HIGH">HIGH <span class="badge"><%=@serverty.count("HIGH") if @serverty%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "MEDIUM">MEDIUM <span class="badge"><%=@serverty.count("MEDIUM") if @serverty%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "LOW">LOW <span class="badge"><%=@serverty.count("LOW") if @serverty%></span></button>
@@ -11,7 +25,7 @@
     </div>  
     <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
       <thead>
-        <tr>
+        <tr style="background-color: #F1EEEE;">
           <th>Severity</th>
           <th>Severity</th>
           <th>Project</th>

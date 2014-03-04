@@ -3,6 +3,7 @@ module Api
   	http_basic_authenticate_with name: "admin", password: "password"
     after_filter :send_thirdparty_mail
   	respond_to :json
+    require 'json'
 
   	def send_mail
   		case request.format
@@ -13,7 +14,8 @@ module Api
 
 
     def send_thirdparty_mail
-      UserNotifier.send_mobile_notification_mail(params[:header], params[:body]).deliver!
+      json_body = JSON.parse(params.first[0])
+      UserNotifier.send_mobile_notification_mail(json_body['header'], json_body['body']).deliver!
     end  
 
   end

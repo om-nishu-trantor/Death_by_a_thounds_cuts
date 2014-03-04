@@ -15,8 +15,8 @@
           <th>Severity</th>
           <th>Severity</th>
           <th>Project</th>
-          <th>Description</th>
-          <th>MitigationPlan</th>
+          <th style="width: 200px !important;">Description</th>
+          <th style="width: 200px !important;">MitigationPlan</th>
           <th>Identified</th>
           <th>Resolved</th>
           <th>Status</th>
@@ -35,7 +35,13 @@
           <td><%= issue.dateIdentified %></td>
           <td><%= issue.dateResolved %></td>
           <td><%= issue.Status %></td>
-          <td><%=link_to 'update', edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" %>|<%=link_to 'delete' , "", :data_id => issue.objectId, :class => "issue_delete"%></td>
+          <td><%=link_to edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" do %>
+          <i><%=image_tag "glyphicons_150_edit.png"%></i>
+          <%end%>
+          <%=link_to  "", :data_id => issue.objectId, :class => "issue_delete" do %>
+          <i><%=image_tag "glyphicons_207_remove_2.png"%></i>
+          <%end%>
+          </td>
         </tr>
         <% end %>   
       </tbody>

@@ -42,7 +42,7 @@
         <% @issues.each do |issue| %>
         <tr>
           <td ><%=issue.Severity%></td>
-          <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '33%' %></td>
+          <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
           <td><%= issue.Project %></td>
           <td><%= issue.Description %></td>
           <td><%= issue.mitigationPlan %></td>

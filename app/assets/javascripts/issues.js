@@ -73,6 +73,11 @@ $(document).ready(function(){
 		var severity =  $('#new_issue_create_form #severity').val();
 		var manageable = $('#new_issue_create_form #ismanageable').prop('checked');
 		var assignedto = $('#new_issue_create_form #assignedto').val();
+		if(project.length == 0  || description.length ==0)
+		{
+			alert("Please Enter project name and description ")
+			return false;
+		}
 
 		if(manageable == true)
 		{

@@ -162,12 +162,12 @@ class IssuesController < ApplicationController
 
   def all_users
   	users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
-		users.collect! { |c| [ c, c ] } if users
+	users.collect! { |c| [ c, c ] } if users
   end
 
   def all_projects issues
   	projects = @issues.map(&:Project).uniq if issues
-		projects.collect! { |c| [ c, c ] }  if projects
+	projects.collect! { |c| [ c, c ] }  if projects
   end
 
   def category issues

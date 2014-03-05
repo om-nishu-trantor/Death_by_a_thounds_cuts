@@ -10,7 +10,7 @@ class IssuesController < ApplicationController
 
 
 	def fetch_issue
-		if params[:project] == "All"
+		if params[:project] == "ALL"
 			@issues = issue_query	
 		else
 			@issues = issue_query params[:project]
@@ -129,7 +129,7 @@ class IssuesController < ApplicationController
 		end
 	end	
 	def pdf_report
-		setupdata params
+		@issues = setupdata params
 		respond_to do |format|
 			format.html
 			format.pdf do
@@ -150,7 +150,7 @@ class IssuesController < ApplicationController
   end	
 
   def setupdata params
-  	if params[:project] == "All"
+  	if params[:project] == "ALL"
   		@issues = issue_query
   		@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
   	else

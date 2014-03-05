@@ -23,7 +23,8 @@ $(document).ready(function(){
 	    	});	
     });
 
-	$('.find_issues').on('click',function(){
+	$('.find_issues').on('click',function(event){
+		event.preventDefault();
 		var project = $('#project_list_report').val();
 		var start_date = $('#dateStartReport').val();
 		var end_date = $('#dateEndReport').val();
@@ -35,8 +36,19 @@ $(document).ready(function(){
 		}else{
 			if($(this).attr('data_pdf') == "true")
 			{
-				$.get('/issues/pdf_report.pdf',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
-	    		});
+				$.blockUI({ css: { 
+		            border: 'none', 
+		            padding: '15px', 
+		            backgroundColor: '#000', 
+		            '-webkit-border-radius': '10px', 
+		            '-moz-border-radius': '10px', 
+		            opacity: .5, 
+		            color: '#fff' 
+	        	}
+        	});
+				window.location.replace('/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date)
+				// $.get('/issues/pdf_report.pdf',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
+	   //  		});
 			}else{	
 				$.blockUI({ css: { 
 		            border: 'none', 

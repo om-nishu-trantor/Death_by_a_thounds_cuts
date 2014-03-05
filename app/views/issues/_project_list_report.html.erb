@@ -25,7 +25,8 @@
           <th>Status</th>
         </tr>
       </thead>
-      <tbody>       
+      <tbody>
+      <% if @issues%>        
         <% @issues.each do |issue| %>
         <tr>
           <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
@@ -36,7 +37,8 @@
           <td><%= issue.dateResolved %></td>
           <td><%= issue.Status %></td>
         </tr>
-        <% end %>   
+        <% end %>
+      <%end%>     
       </tbody>
     </table>
   </div>

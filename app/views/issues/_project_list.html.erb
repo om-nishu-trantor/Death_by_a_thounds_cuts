@@ -38,7 +38,8 @@
 
         </tr>
       </thead>
-      <tbody>       
+      <tbody>
+      <% if @issues%>        
         <% @issues.each do |issue| %>
         <tr>
           <td ><%=issue.Severity%></td>
@@ -57,7 +58,8 @@
           <%end%>
           </td>
         </tr>
-        <% end %>   
+        <% end %>
+      <%end%>    
       </tbody>
     </table>
   </div>

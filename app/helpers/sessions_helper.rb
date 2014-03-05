@@ -1,7 +1,7 @@
 module SessionsHelper
 
 def project_list projects
-	list = [["All","All"]] 
+	list = [["ALL","ALL"]] 
 	list = list + projects unless list.nil?
 	list
 end

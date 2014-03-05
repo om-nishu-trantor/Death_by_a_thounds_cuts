@@ -1,3 +1,30 @@
 <div id = "content">
-  
+  <table  class="table  no-margin" id="" cellspacing="0" width="100%" style="margin-top: 15%;" border="1">
+      <thead>
+        <tr style="background-color: #F1EEEE;">
+          <th>Severity</th>
+          <th>Project</th>
+          <th>Description</th>
+          <th>MitigationPlan</th>
+          <th>Identified</th>
+          <th>Resolved</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody> 
+      <% if @issues%>      
+        <% @issues.each do |issue| %>
+        <tr>
+          <td class = <%=issue.Severity%> style="text-align: center;"><%=issue.Severity%></td>
+          <td><%= issue.Project %></td>
+          <td><%= issue.Description %></td>
+          <td><%= issue.mitigationPlan %></td>
+          <td><%= issue.dateIdentified %></td>
+          <td><%= issue.dateResolved %></td>
+          <td><%= issue.Status %></td>
+        </tr>
+        <% end %>  
+       <%end%>  
+      </tbody>
+    </table>
 </div>

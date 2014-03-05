@@ -46,7 +46,7 @@ $(document).ready(function(){
 		            color: '#fff' 
 	        	}
         	});
-				window.location.replace('/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date)
+				window.location = '/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date
 				// $.get('/issues/pdf_report.pdf',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
 	   //  		});
 			}else{	

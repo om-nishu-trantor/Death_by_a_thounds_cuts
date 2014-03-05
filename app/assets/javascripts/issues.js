@@ -60,7 +60,7 @@ $(document).ready(function(){
 	});
 
 
-	$('#new_issue_create_form #create_issue').on('click',function(){
+	$('#create_issue').on('click',function(){
 		var name = $('#issue_user_name').val();
 		var isClosed = false
 		var closedBy = '' 
@@ -97,6 +97,7 @@ $(document).ready(function(){
             'issues[isManagementIssue]' : manageable,
             'issues[assignedTo]' : assignedto
         }
+        $('#create_new_issue').modal('hide')
         $.blockUI({ css: { 
 	            border: 'none', 
 	            padding: '15px', 

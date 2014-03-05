@@ -179,3 +179,6 @@ body{
     padding: 3px !important;
     font-size: 18px !important;
 }
+.dropdown-menu {
+    z-index: 1095 !important;
+}

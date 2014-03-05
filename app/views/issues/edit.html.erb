@@ -76,15 +76,31 @@
 			</div>
 			<div class="col-sm-12"> 
 				<div class="col-sm-4">
+					<label class="" for="input01">Comments</label>  
+					<div class="">
+						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "50" %>
+					</div>
+				</div>
+				<div class="col-sm-4">
 
 				</div>
 				<div class="col-sm-4">
 					<button type="submit" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Update</button>
 				</div>
-				<div class="col-sm-4">
-
-				</div>
+				
 			</div>   
+			<div class="col-sm-12"> 
+				<div class="col-sm-6">
+					<% if !@object_issues.CommentsArray.nil? %>
+						Following are the audit trails.<br/>						
+						<%@object_issues.CommentsArray.each do |comment|%>
+							Note :<%= comment[0] %><br/>
+							<%= comment[1] %><br/><br/>
+						<%end%>
+					<%end%>
+				</div>
+			</div> 
+
 		</div>  
 		<%end%>  
 	</div>

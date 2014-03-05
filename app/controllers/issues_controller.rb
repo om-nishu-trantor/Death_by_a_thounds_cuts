@@ -2,19 +2,10 @@ class IssuesController < ApplicationController
 	before_filter :authenticate_user!
 	
 	def index
-		if params[:project]
-			@issues = issue_query params[:project]
-		else
-			@issues = issue_query
-		end
-		@projects = @issues.map(&:Project).uniq if @issues
-		@users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
-		@users.collect! { |c| [ c, c ] unless c.nil?} if @users
-		@projects.collect! { |c| [ c, c ] unless c.nil?}  if @projects
-		if @issues
-			@serverty = @issues.map(&:Severity)
-			@closed = @issues.map(&:Status)
-		end
+		@issues =  params[:project] ? issue_query(params[:project]) : issue_query
+		@projects = all_projects @issues
+		@users = all_users
+		@serverty, @closed  = category(@issues)
 	end	
 
 
@@ -64,8 +55,7 @@ class IssuesController < ApplicationController
 
 	def edit
 		@object_issues = Issues.find_by_objectId(params[:id])
-		@users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
-		@users.collect! { |c| [ c, c ] unless c.nil?} if @users
+		@users = all_users	
 	end	
 
 	def update
@@ -74,6 +64,14 @@ class IssuesController < ApplicationController
 		params[:issues][:closedBy] = params[:issues][:Status] == "CLOSED" ? current_user.Name : ''
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
+		comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
+		if @object_issues.CommentsArray.nil? && !params[:issues][:CommentsArray].blank?
+			params[:issues][:CommentsArray] = comment
+		elsif !@object_issues.CommentsArray.nil? && params[:issues][:CommentsArray].blank?	
+			params[:issues][:CommentsArray] = @object_issues.CommentsArray
+		else
+			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
+		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
@@ -117,6 +115,7 @@ class IssuesController < ApplicationController
 	end
 
 	def report
+		@users = all_users
 		@issues_obj = issue_query
 		@issues = []
 		@projects = @issues_obj.map(&:Project).uniq if @issues_obj
@@ -132,32 +131,52 @@ class IssuesController < ApplicationController
 	def pdf_report
 		setupdata params
 		respond_to do |format|
-      		format.html
-      		format.pdf do
-        		render :pdf => "sample",
-        		:header => {:html => { :template => 'issues/header.html.erb'}, :spacing => 5},
-          		:footer => {:html => { :template => 'issues/footer.html.erb'}},
+			format.html
+			format.pdf do
+				render :pdf => "sample",
+				:header => {:html => { :template => 'issues/header.html.erb'}, :spacing => 5},
+				:footer => {:html => { :template => 'issues/footer.html.erb'}},
           		:margin => {:top                => 10,                     # default 10 (mm)
-                           :bottom             => 10,
-                           :left               => 10,
-                           :right              => 10}
-      		end
-    	end
-	end	
+          			:bottom             => 10,
+          			:left               => 10,
+          			:right              => 10}
+      end
+    end
+  end	
 
 
-	def send_mail object
-		UserNotifier.send_close_notification_mail(object).deliver!
-	end	
+  def send_mail object
+  	UserNotifier.send_close_notification_mail(object).deliver!
+  end	
 
-	def setupdata params
-		if params[:project] == "All"
-			@issues = issue_query
-			@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
-		else
-			@issues = issue_query params[:project]
-			@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
+  def setupdata params
+  	if params[:project] == "All"
+  		@issues = issue_query
+  		@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
+  	else
+  		@issues = issue_query params[:project]
+  		@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
+  	end
+  end	
+
+
+  def all_users
+  	users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
+		users.collect! { |c| [ c, c ] } if users
+  end
+
+  def all_projects issues
+  	projects = @issues.map(&:Project).uniq if issues
+		projects.collect! { |c| [ c, c ] }  if projects
+  end
+
+  def category issues
+  	serverty = status = []
+		if issues 
+			serverty = issues.map(&:Severity)
+			status = issues.map(&:Status)
 		end
-	end	
+		return 	serverty, status
+  end	
 
 end

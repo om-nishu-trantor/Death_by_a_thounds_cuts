@@ -1,91 +1,83 @@
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title">Create New Issue</h3>
-	</div>
-	<div class="panel-body">
-		<form class="form-horizontal" , id = "new_issue_create_form">  
-			<div class="control-group">
-				<div class="col-sm-12"> 
-					<div class="col-sm-4">
-						<label class="" for="input01">Project</label>  
-						<div class="s">  
-							<input type="text" class="" id="project" name="project" required> 
-						</div> 
-					</div>
-					<div class="col-sm-4">
-						<label class="" for="input01">Description</label>  
-						<div class="">
-							<textarea name="description" id="description" placeholder = "Enter Description" required></textarea>
-						</div> 
-					</div>
-					<div class="col-sm-4">
-						<label class="" for="input01">MitigationPlan</label>  
-						<div class="">
-							<textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" ></textarea>
-						</div> 
-					</div>
+<form class="form-horizontal" , id = "new_issue_create_form">  
+	<div class="control-group">
+		<div class="col-sm-12"> 
+			<div class="col-sm-4">
+				<label class="" for="input01">Project</label>  
+				<div class="s">  
+					<input type="text" class="" id="project" name="project" required> 
+				</div> 
+			</div>
+			<div class="col-sm-4">
+				<label class="" for="input01">Description</label>  
+				<div class="">
+					<textarea name="description" id="description" placeholder = "Enter Description" required rows="2" cols="35"></textarea>
+				</div> 
+			</div>
+			<div class="col-sm-4">
+				<label class="" for="input01">MitigationPlan</label>  
+				<div class="">
+					<textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" rows="2" cols="35"></textarea>
+				</div> 
+			</div>
+		</div>
+		<div class="col-sm-12"> 
+			<div class="col-sm-4">
+				<label class="" for="input01">DateIdentified</label>  
+				<div class="s">  
+					<input type="text" class="datepicker" id="dateIdentified" name="dateIdentified"required readonly value="<%=Date.today.strftime('%d-%m-%Y')%>">  
+				</div> 
+			</div>
+			<div class="col-sm-4">
+				<label class="" for="input01">DateResolved</label>  
+				<div class="">  
+					<input type="text" class="" id="dateResolved" name="dateResolved" readonly>  
+				</div> 
+			</div>
+			<div class="col-sm-4">
+				<label class="" for="input01">Status</label>  
+				<div class="">
+					<%= select_tag 'status', options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]])%>  
+				</div> 
+			</div>
+		</div>
+		<div class="col-sm-12"> 
+			<div class="col-sm-4">
+				<label class="" for="input01">Severity</label>  
+				<div class="">
+					<%= select_tag 'severity', options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]])%>   
+				</div> 
+			</div>
+			<div class="col-sm-4">
+				<label class="" for="input01">Assigned To</label>
+
+				<div class="s">  
+					<%if current_user.isAdmin%> 
+					<%= select_tag 'assignedto', options_for_select([['Please Select','Please Select']] + @users , :selected => 'RAJAT JULKA')%>
+					<%else%>
+					<%= select_tag 'assignedto', options_for_select(@users)%>
+					<%end%>
 				</div>
-				<div class="col-sm-12"> 
-					<div class="col-sm-4">
-						<label class="" for="input01">DateIdentified</label>  
-						<div class="s">  
-							<input type="text" class="datepicker" id="dateIdentified" name="dateIdentified"required readonly value="<%=Date.today.strftime('%d-%m-%Y')%>">  
-						</div> 
-					</div>
-					<div class="col-sm-4">
-						<label class="" for="input01">DateResolved</label>  
-						<div class="">  
-							<input type="text" class="" id="dateResolved" name="dateResolved" readonly>  
-						</div> 
-					</div>
-					<div class="col-sm-4">
-						<label class="" for="input01">Status</label>  
-						<div class="">
-							<%= select_tag 'status', options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]])%>  
-						</div> 
-					</div>
-				</div>
-				<div class="col-sm-12"> 
-					<div class="col-sm-4">
-						<label class="" for="input01">Severity</label>  
-						<div class="">
-							<%= select_tag 'severity', options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]])%>   
-						</div> 
-					</div>
-					<div class="col-sm-4">
-						<label class="" for="input01">Assigned To</label>
+			</div>
+			<div class="col-sm-4">
+				<%if current_user.isAdmin%>
+				<label class="" for="input01">Is Management Issue</label>
+				<input type="checkbox" id="ismanageable" >
+				<%end%>
+			</div>
+		</div>  
+		<div class="col-sm-12"> 
+			<div class="col-sm-4">
 
-						<div class="s">  
-							<%if current_user.isAdmin%> 
-							<%= select_tag 'assignedto', options_for_select([['Please Select','Please Select']] + @users , :selected => 'RAJAT JULKA')%>
-							<%else%>
-							<%= select_tag 'assignedto', options_for_select(@users)%>
-							<%end%>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<%if current_user.isAdmin%>
-						<label class="" for="input01">Is Management Issue</label>
-						<input type="checkbox" id="ismanageable" >
-						<%end%>
-					</div>
-				</div>  
-				<div class="col-sm-12"> 
-					<div class="col-sm-4">
+			</div>
+			<div class="col-sm-4">
 
-					</div>
-					<div class="col-sm-4">
+			</div>
+			<div class="col-sm-4">
+				<!-- <button type="button" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Create</button>
+				<button class="btn create_new_issue" , style="margin-top: 23px;">Cancel</button> -->
+			</div>
+		</div>
+	</div>  
+</form>  
 
-					</div>
-					<div class="col-sm-4">
-						<button type="button" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Create</button>
-						<button class="btn create_new_issue" , style="margin-top: 23px;">Cancel</button>
-					</div>
-
-				</div>
-
-			</div>  
-		</form>  
-	</div>
-</div>
 

@@ -2,7 +2,8 @@ class IssuesController < ApplicationController
 	before_filter :authenticate_user!
 	
 	def index
-		@issues =  params[:project] ? issue_query(params[:project]) : issue_query
+		# @issues =  params[:project] ? issue_query(params[:project]) : issue_query
+		@issues =  issue_query
 		@projects = all_projects @issues
 		@users = all_users
 		@serverty, @closed  = category(@issues)
@@ -69,7 +70,7 @@ class IssuesController < ApplicationController
 			params[:issues][:CommentsArray] = comment
 		elsif !@object_issues.CommentsArray.nil? && params[:issues][:CommentsArray].blank?	
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray
-		else
+		elsif !@object_issues.CommentsArray.nil? && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name

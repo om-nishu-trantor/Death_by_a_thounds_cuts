@@ -85,13 +85,13 @@
 
 				</div>
 				<div class="col-sm-4">
-					<button type="submit" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Update</button>
+					<button type="submit" class="btn btn-primary"  style="margin-top: 23px;" >Update</button>
 				</div>
 				
 			</div>   
 			<div class="col-sm-12"> 
 				<div class="col-sm-6">
-					<% if !@object_issues.CommentsArray.nil? %>
+					<% if !@object_issues.CommentsArray.blank? || @object_issues.CommentsArray.class == Array %>
 						Following are the audit trails.<br/>						
 						<%@object_issues.CommentsArray.each do |comment|%>
 							Note :<%= comment[0] %><br/>

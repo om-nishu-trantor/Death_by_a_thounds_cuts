@@ -1,9 +1,17 @@
+<script type="text/javascript">
+$(function() {
+<% if params[:project]%>
+    table_fil = $('#table-issues').dataTable();
+    table_fil.fnFilter('<%=params[:project]%>',null,true,true,true,false);
+<%end%>
+});      
+</script>
 <fieldset class="fieldset">
 	<div class="row-fluid">
 			<fieldset>
 				<div class="col-sm-4">
 					<label class="control-label"><strong style="font-size: 16px; color:#428BCA">Select Project</strong></label>
-					<%= select_tag 'project_list_drop', options_for_select(project_list(@projects)) , :style=>"margin-top: 8px; margin-left: 10px; width: 38%;" %>
+					<%= select_tag 'project_list_drop', options_for_select(project_list(@projects),:selected => params[:project]) , :style=>"margin-top: 8px; margin-left: 10px; width: 38%;" %>
 					<%#=link_to "Create new issue" , '#' , :class => "btn btn-primary create_new_issue" %>
 				</div>
 				<div class="col-sm-8">

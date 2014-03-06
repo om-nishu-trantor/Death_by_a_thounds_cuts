@@ -84,12 +84,6 @@ function configureIssueReportTable(tableNode) {
 };
 
 
-
-
-
-
-
-
 $(function() {
     $('#table-issues').each(function(i) {
         configureIssueTable($(this));

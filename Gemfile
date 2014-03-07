@@ -19,7 +19,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
-
+gem 'thin'
 gem 'jquery-rails'
 # gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
 gem 'parse_resource', :git => 'https://github.com/adelevie/parse_resource.git'
@@ -37,7 +37,7 @@ gem "cancan"
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-# gem 'debugger'
+#gem 'debugger'
 gem 'wkhtmltopdf-binary'
 gem 'wisepdf'
 group :test do

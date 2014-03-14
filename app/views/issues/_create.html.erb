@@ -10,13 +10,13 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">Description</label>  
 				<div class="">
-					<textarea name="description" id="description" placeholder = "Enter Description" required rows="2" cols="35"></textarea>
+					<textarea name="description" id="description" placeholder = "Enter Description" required rows="2" cols="35" style = "width: 100%;" ></textarea>
 				</div> 
 			</div>
 			<div class="col-sm-4">
 				<label class="" for="input01">MitigationPlan</label>  
 				<div class="">
-					<textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" rows="2" cols="35"></textarea>
+					<textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" rows="2" cols="35" style = "width: 100%;"></textarea>
 				</div> 
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 
 				<div class="s">  
 					<%if current_user.isAdmin%> 
-					<%= select_tag 'assignedto', options_for_select([['Please Select','Please Select']] + @users , :selected => 'RAJAT JULKA')%>
+					<%= select_tag 'assignedto', options_for_select([['Please Select','Please Select']] + @users , :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
 					<%else%>
 					<%= select_tag 'assignedto', options_for_select(@users)%>
 					<%end%>

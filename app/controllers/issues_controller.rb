@@ -21,6 +21,7 @@ class IssuesController < ApplicationController
 		params[:issues][:isDeleted] = false
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
 		params[:issues][:createdBy] = current_user.Name
+		params[:issues][:Project] = (params[:issues][:Project]).upcase
 		@issue = Issues.new(params[:issues])
 		if @issue.save
 			@issues = issue_query params[:issues][:Project]
@@ -34,6 +35,11 @@ class IssuesController < ApplicationController
 	end	
 
 	def edit
+		@object_issues = Issues.find_by_objectId(params[:id])
+		@users = all_users	
+	end	
+
+	def show
 		@object_issues = Issues.find_by_objectId(params[:id])
 		@users = all_users	
 	end	
@@ -63,7 +69,7 @@ class IssuesController < ApplicationController
 	def destroy 
 		issue = Issues.find_by_objectId(params[:id])
 		issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
-		@issues = issue_query issue.Project
+		@issues = issue_query
 		@serverty, @closed  = category(@issues)	
 		format_create response	
 	end	

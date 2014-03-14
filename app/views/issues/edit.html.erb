@@ -22,13 +22,13 @@
 				<div class="col-sm-4">
 					<label class="" for="input01">Description</label>  
 					<div class="">
-						<%=f.text_area :Description , :required => 'required' , :rows=>"3"%>
+						<%=f.text_area :Description , :required => 'required' , :rows=>"3" , :style => "width: 100%;" %>
 					</div> 
 				</div>
 				<div class="col-sm-4">
 					<label class="" for="input01">MitigationPlan</label>  
 					<div class="">
-						<%=f.text_area :mitigationPlan , :rows=>"3"%>
+						<%=f.text_area :mitigationPlan , :rows=>"3" , :style => "width: 100%;" %>
 					</div> 
 				</div>
 			</div>
@@ -78,15 +78,15 @@
 				</div>
 			</div>
 			<div class="col-sm-12"> 
-				<div class="col-sm-4">
+				<div class="col-sm-8">
 					<label class="" for="input01">Comments</label>  
 					<div class="">
-						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "120" %>
+						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "50" , :style => "width: 100%;" %>
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<!-- <div class="col-sm-4">
 
-				</div>
+				</div> -->
 				<div class="col-sm-4">
 					<button type="submit" class="btn btn-primary"  style="margin-top: 23px;" >Update</button>
 				</div>
@@ -101,7 +101,7 @@
 					<span ><span style = "color: #428BCA;">Audit Trail For :</span><b><%= "#{data[4]} #{data[5]}" %></b></span><br/>
 					<span ><span style = "color: #428BCA;">Created By      :</span> <b><%= "#{data[2]}" %></b></span><br/>
 					<span ><span style = "color: #428BCA;">Note		 	  		 :</span> <%= comment[0] %></span>
-					<br/><br/>
+					<hr/>
 					<%end%>
 					<%end%>
 				</div>

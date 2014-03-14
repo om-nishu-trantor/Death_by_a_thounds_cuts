@@ -1,3 +1,10 @@
+<style type="text/css">
+	.span_head{
+		padding: 10px;
+		color: #3276B1;
+		font-size: 17px;
+	}	
+</style>
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">Update Issue</h3>
@@ -16,14 +23,12 @@
 					<label class="" for="input01">Description</label>  
 					<div class="">
 						<%=f.text_area :Description , :required => 'required' , :rows=>"3"%>
-						<!-- <textarea name="description" id="description" placeholder = "Enter Description" required></textarea> -->
 					</div> 
 				</div>
 				<div class="col-sm-4">
 					<label class="" for="input01">MitigationPlan</label>  
 					<div class="">
 						<%=f.text_area :mitigationPlan , :rows=>"3"%>
-						<!-- <textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" ></textarea> -->
 					</div> 
 				</div>
 			</div>
@@ -32,14 +37,12 @@
 					<label class="" for="input01">DateIdentified</label>  
 					<div class="s">
 						<%=f.text_field :dateIdentified , :required => 'required' ,:readonly => true, :class=>"datepicker"%>  
-						<!-- <input type="text" class="datepicker" id="dateIdentified" name="dateIdentified"required readonly value="<%=Date.today.strftime('%d-%m-%Y')%>"> -->  
 					</div> 
 				</div>
 				<div class="col-sm-4">
 					<label class="" for="input01">DateResolved</label>  
 					<div class="">  
 						<%=f.text_field :dateResolved ,:readonly => true%>
-						<!-- <input type="text" class="" id="dateResolved" name="dateResolved" readonly>   -->
 					</div> 
 				</div>
 				<div class="col-sm-4">
@@ -78,7 +81,7 @@
 				<div class="col-sm-4">
 					<label class="" for="input01">Comments</label>  
 					<div class="">
-						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "50" %>
+						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "120" %>
 					</div>
 				</div>
 				<div class="col-sm-4">
@@ -89,14 +92,17 @@
 				</div>
 				
 			</div>   
-			<div class="col-sm-12"> 
-				<div class="col-sm-6">
+			<div class="col-sm-12" style="margin-left: 15px;"> 
+				<div class="">
 					<% if !@object_issues.CommentsArray.blank? || @object_issues.CommentsArray.class == Array %>
-						Following are the audit trails.<br/>						
-						<%@object_issues.CommentsArray.each do |comment|%>
-							Note :<%= comment[0] %><br/>
-							<%= comment[1] %><br/><br/>
-						<%end%>
+					<h4 style="padding: 7px;background: #CCC;">Following are the audit trails.</h4>
+					<%@object_issues.CommentsArray.each do |comment|%>
+					<%data = comment[1].split(' ')%>
+					<span ><span style = "color: #428BCA;">Audit Trail For :</span><b><%= "#{data[4]} #{data[5]}" %></b></span><br/>
+					<span ><span style = "color: #428BCA;">Created By      :</span> <b><%= "#{data[2]}" %></b></span><br/>
+					<span ><span style = "color: #428BCA;">Note		 	  		 :</span> <%= comment[0] %></span>
+					<br/><br/>
+					<%end%>
 					<%end%>
 				</div>
 			</div> 

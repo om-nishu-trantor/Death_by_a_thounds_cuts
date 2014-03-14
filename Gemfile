@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.3'
-ruby '1.9.3'
+# ruby '1.9.3'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
@@ -24,7 +24,6 @@ gem 'jquery-rails'
 # gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
 gem 'parse_resource', :git => 'https://github.com/adelevie/parse_resource.git'
 gem 'jquery-datatables-rails', :git => 'https://github.com/rweng/jquery-datatables-rails.git'
-gem 'thin'
 gem "cancan"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

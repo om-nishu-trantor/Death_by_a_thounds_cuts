@@ -57,6 +57,8 @@ class IssuesController < ApplicationController
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray
 		elsif !@object_issues.CommentsArray.nil? && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
+		elsif @object_issues.CommentsArray.nil? && params[:issues][:CommentsArray].blank?
+			params[:issues][:CommentsArray] = nil
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name
 		params[:issues][:Project] = (params[:issues][:Project]).upcase	

@@ -13,19 +13,19 @@
   <% end %>  
   <p>  
     <%= f.label :email %><br />  
-    <%= f.text_field :email %>  
+    <%= f.text_field :email ,:required => true%>  
   </p>
   <p>  
     <%= f.label :Name %><br />  
-    <%= f.text_field :Name %>  
+    <%= f.text_field :Name ,:required => true%>  
   </p>
   <p>  
     <%= f.label :username %><br />  
-    <%= f.text_field :username %>  
+    <%= f.text_field :username ,:required => true%>  
   </p>  
   <p>  
     <%= f.label :password %><br />  
-    <%= f.password_field :password %>  
+    <%= f.password_field :password ,:required => true%>
   </p>  
   <p class="button"><%= f.submit %></p>  
 <% end %>  

@@ -33,6 +33,7 @@
           <th style="width: 200px !important;">MitigationPlan</th>
           <th>Identified</th>
           <th>Resolved</th>
+          <th>Assigned To</th>
           <th>Status</th>
           <th>Action</th>
 
@@ -49,6 +50,7 @@
           <td><%= issue.mitigationPlan %></td>
           <td><%= issue.dateIdentified %></td>
           <td><%= issue.dateResolved %></td>
+          <td><%= issue.assignedTo %></td>
           <td><%= issue.Status %></td>
           <td><%=link_to edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" ,:title => "EDIT" do %>
           <i><%=image_tag "glyphicons_150_edit.png"%></i>

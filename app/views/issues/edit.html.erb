@@ -65,7 +65,7 @@
 						<%if current_user.isAdmin%> 
 						<%= f.select :assignedTo, options_for_select([['Please Select','Please Select']] + @users,:selected => @object_issues.assignedTo)%>
 						<%else%>
-						<%= f.select :assignedTo, options_for_select(@users)%>
+						<%= f.select :assignedTo, options_for_select([[@object_issues.assignedTo,@object_issues.assignedTo]])%>
 						<%end%>
 					</div>
 				</div>
@@ -89,6 +89,7 @@
 				</div> -->
 				<div class="col-sm-4">
 					<button type="submit" class="btn btn-primary"  style="margin-top: 23px;" >Update</button>
+					<%=link_to "Cancel" , '/' , :class => "btn btn-primary" , :style =>"margin-top: 23px;"%>
 				</div>
 				
 			</div>   

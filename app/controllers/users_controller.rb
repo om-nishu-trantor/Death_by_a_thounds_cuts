@@ -9,7 +9,9 @@ class UsersController < ApplicationController
     
   def create  
     @users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
-    @users.collect! { |c| [ c, c ] } if @users  
+    @users.collect! { |c| [ c, c ] } if @users
+    params[:user][:username] = (params[:user][:username]).downcase
+    params[:user][:isAdmin] = false
     @user = User.new(params[:user])  
     if @user.save  
       redirect_to root_url, :notice => "Signed up!"  

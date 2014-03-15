@@ -59,6 +59,7 @@ class IssuesController < ApplicationController
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name
+		params[:issues][:Project] = (params[:issues][:Project]).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
 		@serverty, @closed  = category(@issues)

@@ -5,6 +5,7 @@ $(document).ready(function(){
 	$("checkbox").bootstrapSwitch();
 	$('#project_list_drop').change(function() {
     	var val = $("#project_list_drop option:selected").text();
+    	window.history.pushState("object or string", "Title",'issues?project='+val);
     	$.blockUI({ css: { 
 	            border: 'none', 
 	            padding: '15px', 
@@ -85,14 +86,18 @@ $(document).ready(function(){
 		var severity =  $('#new_issue_create_form #severity').val();
 		var manageable = $('#new_issue_create_form #ismanageable').prop('checked');
 		var assignedto = $('#new_issue_create_form #assignedto').val();
-		if(project.length == 0  || description.length ==0)
+		if(project.length == 0)
 		{
-			alert("Please Enter project name and description ")
+			alert("Please Enter project name")
 			return false;
 		}
 
-		if(manageable == true)
-		{
+		if (description.length ==0){
+			alert("Please Enter description ")
+			return false;
+		}
+
+		if(manageable == true){
 			assignedto = ''
 		}
 
@@ -148,7 +153,21 @@ $(document).ready(function(){
 	});	
 
 	$(".project_list_div").delegate(".issue_delete", "click", function(event) {
+			event.preventDefault();
+			object_id = $(this).attr('data_id')
+			$('#id-confirm-delete').attr('data_id',object_id)
+			$('#delete_issue').modal('show')
+	});	
+
+	$(".project_list_div").delegate(".issue_update", "click", function(event) {
+			object_id = $(this).attr('data_id')
+			project = $('#project_list_drop').val();
+			$(this).attr('href','/issues/'+object_id+'/edit?project='+project )
+	});
+
+	$(".project_list_div").delegate("#id-confirm-delete", "click", function(event) {
 		event.preventDefault();
+		$('#delete_issue').modal('hide')
 		object_id = $(this).attr('data_id')
 		$.blockUI({ css: { 
 	            border: 'none', 

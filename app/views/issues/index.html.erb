@@ -1,11 +1,3 @@
-<script type="text/javascript">
-$(function() {
-<% if params[:project]%>
-    table_fil = $('#table-issues').dataTable();
-    table_fil.fnFilter('<%=params[:project]%>',null,true,true,true,false);
-<%end%>
-});      
-</script>
 <fieldset class="fieldset">
 	<div class="row-fluid">
 			<fieldset>

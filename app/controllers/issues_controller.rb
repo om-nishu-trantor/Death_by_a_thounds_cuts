@@ -5,6 +5,7 @@ class IssuesController < ApplicationController
 		@issues =  issue_query
 		@projects = all_projects @issues
 		@users = all_users
+		@issues =  params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 		@serverty, @closed  = category(@issues)
 	end	
 
@@ -65,7 +66,7 @@ class IssuesController < ApplicationController
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
 		@serverty, @closed  = category(@issues)
-		redirect_to issues_path(:project => params[:issues][:Project])
+		redirect_to issues_path(:project => params[:project])
 	end
 
 

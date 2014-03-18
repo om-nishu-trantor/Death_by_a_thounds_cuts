@@ -2,6 +2,39 @@ $(document).ready(function(){
 	$('.datepicker').datepicker({
 		format : 'dd-mm-yyyy'
 	});
+	var startDate=null;
+	var endDate=null;
+	var nowTemp = new Date();
+	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	$('.startDate').datepicker({
+		format : 'dd-mm-yyyy',
+		onRender: function(date) {
+		    return date.valueOf() > now.valueOf() ? 'disabled' : '';
+		  }
+	}).on('changeDate', function(ev){
+            startDate=new Date(ev.date.getFullYear(),ev.date.getMonth(),ev.date.getDate(),0,0,0);
+            if(endDate!=null && endDate!='undefined'){
+                if(endDate < startDate){
+                        alert("End Date is less than Start Date");
+                        $('.startDate').val('');
+                }
+            }
+        });
+	$('.endDate').datepicker({
+		format : 'dd-mm-yyyy',
+		onRender: function(date) {
+		    return date.valueOf() > now.valueOf() ? 'disabled' : '';
+		  }
+	}).on('changeDate', function(ev){
+            endDate=new Date(ev.date.getFullYear(),ev.date.getMonth(),ev.date.getDate(),0,0,0);
+            if(startDate!=null && startDate!='undefined'){
+                if(endDate < startDate){
+                    alert("End Date is less than Start Date");
+                    $('.endDate').val('');
+                }
+            }
+        });
+
 	$("checkbox").bootstrapSwitch();
 	$('#project_list_drop').change(function() {
     	var val = $("#project_list_drop option:selected").text();

@@ -24,6 +24,7 @@ class IssuesController < ApplicationController
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
 		params[:issues][:createdBy] = current_user.Name
 		params[:issues][:Project] = (params[:issues][:Project]).upcase
+		params[:issues][:CommentsArray] = []
 		@issue = Issues.new(params[:issues])
 		if @issue.save
 			# @issues = issue_query params[:issues][:Project]
@@ -49,6 +50,7 @@ class IssuesController < ApplicationController
 
 	def update
 		@object_issues = Issues.find_by_objectId(params[:id])
+		params[:issues][:CommentsArray] =[]
 		params[:issues][:isClosed] = params[:issues][:Status] == "CLOSED" ? true : false
 		params[:issues][:closedBy] = params[:issues][:Status] == "CLOSED" ? current_user.Name : ''
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
@@ -67,7 +69,7 @@ class IssuesController < ApplicationController
 		params[:issues][:Project] = (params[:issues][:Project]).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
-		# @serverty, @closed  = category(@issues)
+		# @serverty, @closed  = category(@issues)	
 		redirect_to issues_path(:project => params[:project])
 	end
 

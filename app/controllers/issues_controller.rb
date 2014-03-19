@@ -17,6 +17,7 @@ class IssuesController < ApplicationController
 	end
 
 	def create
+		@issues = []
 		params[:issues][:isClosed] = params[:issues][:isClosed] == "true" ? true : false
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "true" ? true : false
 		params[:issues][:isDeleted] = false
@@ -25,11 +26,12 @@ class IssuesController < ApplicationController
 		params[:issues][:Project] = (params[:issues][:Project]).upcase
 		@issue = Issues.new(params[:issues])
 		if @issue.save
-			@issues = issue_query params[:issues][:Project]
+			# @issues = issue_query params[:issues][:Project]
 			send_mail @issue if params[:issues][:Status] == "CLOSED"
+			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
 		else
-			@issues = issue_query params[:issues][:Project]
+			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
 		end
 		format_create response
@@ -73,7 +75,8 @@ class IssuesController < ApplicationController
 	def destroy 
 		issue = Issues.find_by_objectId(params[:id])
 		issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
-		@issues = issue_query
+		@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
+		@issues = issue_query if @issues.blank?
 		@serverty, @closed  = category(@issues)	
 		format_create response	
 	end	

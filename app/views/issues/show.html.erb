@@ -73,14 +73,16 @@
 			</div>
 			<div class="col-sm-12" style="margin-left: 15px;"> 
 				<div class="">
-					<% if !@object_issues.CommentsArray.blank? || @object_issues.CommentsArray.class == Array %>
+					<% if !@object_issues.CommentsArray.nil?  %>
+					<% if !@object_issues.CommentsArray.blank? %>
 					<h4 style="padding: 7px;background: #CCC;">Following are the audit trails.</h4>
-					<%@object_issues.CommentsArray.each do |comment|%>
+					<%(@object_issues.CommentsArray.reverse).each do |comment|%>
 					<%data = comment[1].split(' ')%>
 					<span ><span style = "color: #428BCA;">Audit Trail For :</span><b><%= "#{data[4]} #{data[5]}" %></b></span><br/>
 					<span ><span style = "color: #428BCA;">Created By      :</span> <b><%= "#{data[2]}" %></b></span><br/>
 					<span ><span style = "color: #428BCA;">Note		 	  		 :</span> <%= comment[0] %></span>
 					<hr/>
+					<%end%>
 					<%end%>
 					<%end%>
 				</div>

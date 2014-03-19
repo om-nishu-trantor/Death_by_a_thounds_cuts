@@ -1,6 +1,7 @@
 <%= "Issue #{@object_data.Project} has been marked as closed by user #{@object_data.closedBy}"%>
 	<br/><br/>
-<% if !@object_data.CommentsArray.blank? || @object_data.CommentsArray.class == Array %>
+<% if !@object_issues.CommentsArray.nil?  %>	
+<% if !@object_data.CommentsArray.blank?%>
 	Following is the audit trail.
 	<br/><br/>
 	<%@object_data.CommentsArray.each do |comment|%>
@@ -9,6 +10,9 @@
 		<%= comment[1] %>
 		<br/><br/>
 	<%end%>
+<%else%>
+	No audit trail available.
+<%end%>
 <%else%>
 	No audit trail available.
 <%end%>

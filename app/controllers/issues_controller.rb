@@ -61,13 +61,13 @@ class IssuesController < ApplicationController
 		elsif !@object_issues.CommentsArray.nil? && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
 		elsif @object_issues.CommentsArray.nil? && params[:issues][:CommentsArray].blank?
-			params[:issues][:CommentsArray] = nil
+			params[:issues][:CommentsArray] = []
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name
 		params[:issues][:Project] = (params[:issues][:Project]).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
-		@serverty, @closed  = category(@issues)
+		# @serverty, @closed  = category(@issues)
 		redirect_to issues_path(:project => params[:project])
 	end
 

@@ -105,7 +105,8 @@
 			</div>   
 			<div class="col-sm-12" style="margin-left: 15px;"> 
 				<div class="">
-					<% if !@object_issues.CommentsArray.blank? || @object_issues.CommentsArray.class == Array %>
+				<% if !@object_issues.CommentsArray.nil?  %>	
+					<% if !@object_issues.CommentsArray.blank?  %>
 					<h4 style="padding: 7px;background: #CCC;">Following are the audit trails.</h4>
 					<%@object_issues.CommentsArray.each do |comment|%>
 					<%data = comment[1].split(' ')%>
@@ -115,6 +116,7 @@
 					<hr/>
 					<%end%>
 					<%end%>
+				<%end%>	
 				</div>
 			</div> 
 

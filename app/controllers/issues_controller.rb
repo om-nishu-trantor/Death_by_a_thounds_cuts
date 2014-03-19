@@ -50,19 +50,18 @@ class IssuesController < ApplicationController
 
 	def update
 		@object_issues = Issues.find_by_objectId(params[:id])
-		params[:issues][:CommentsArray] =[]
 		params[:issues][:isClosed] = params[:issues][:Status] == "CLOSED" ? true : false
 		params[:issues][:closedBy] = params[:issues][:Status] == "CLOSED" ? current_user.Name : ''
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
 		comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
-		if @object_issues.CommentsArray.nil? && !params[:issues][:CommentsArray].blank?
+		if (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank? ) && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = comment
-		elsif !@object_issues.CommentsArray.nil? && params[:issues][:CommentsArray].blank?	
+		elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?	
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray
-		elsif !@object_issues.CommentsArray.nil? && !params[:issues][:CommentsArray].blank?
+		elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
-		elsif @object_issues.CommentsArray.nil? && params[:issues][:CommentsArray].blank?
+		elsif (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = []
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name

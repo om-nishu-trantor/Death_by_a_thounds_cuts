@@ -111,7 +111,9 @@ class IssuesController < ApplicationController
 
 	def fetch_issue_report
 		@issues = setupdata params
-		format_create response
+		respond_to do |format|
+			format.html { render :partial => "project_list_report" , :layout => false }
+		end
 	end	
 	def pdf_report
 		@issues = setupdata params

@@ -259,12 +259,23 @@ $('.edit_issues #issues_Status').change(function(){
 $('#new_issue_create_form #ismanageable').change(function(){
 	if($('#new_issue_create_form #ismanageable').prop('checked')){
 		document.getElementById("assignedto").disabled=true;
-		document.getElementById("assignedto").value = "Please Select"
+		document.getElementById("assignedto").value = "RAJAT JULKA"
 	}else
 	{
 		document.getElementById("assignedto").disabled=false;
 	}
 });	
+
+$('.edit_issues #issues_isManagementIssue').change(function(){
+	if($('.edit_issues #issues_isManagementIssue').prop('checked')){
+		document.getElementById("issues_assignedTo").disabled=true;
+		document.getElementById("issues_assignedTo").value = "RAJAT JULKA"
+	}else
+	{
+		document.getElementById("issues_assignedTo").disabled=false;
+	}
+});
+
 
 $(".project_list_div").delegate("#panel-body-active button", "click", function(event) {	
 	$('#panel-body-active button').removeClass('active');

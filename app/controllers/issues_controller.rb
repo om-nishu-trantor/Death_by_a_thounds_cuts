@@ -23,8 +23,8 @@ class IssuesController < ApplicationController
 		params[:issues][:isDeleted] = false
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
 		params[:issues][:createdBy] = current_user.Name
-		params[:issues][:Project] = (params[:issues][:Project]).upcase
-		params[:issues][:CommentsArray] = []
+		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase
+		# params[:issues][:CommentsArray] = []
 		@issue = Issues.new(params[:issues])
 		if @issue.save
 			# @issues = issue_query params[:issues][:Project]
@@ -58,14 +58,16 @@ class IssuesController < ApplicationController
 		if (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank? ) && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = comment
 		elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?	
-			params[:issues][:CommentsArray] = @object_issues.CommentsArray
+			# params[:issues][:CommentsArray] = @object_issues.CommentsArray
+			params[:issues].delete :CommentsArray
 		elsif ( !@object_issues.CommentsArray.nil? || !@object_issues.CommentsArray.blank?) && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = @object_issues.CommentsArray + comment	
 		elsif (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank?) && params[:issues][:CommentsArray].blank?
-			params[:issues][:CommentsArray] = []
+			# params[:issues][:CommentsArray] = []
+			params[:issues].delete :CommentsArray
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name
-		params[:issues][:Project] = (params[:issues][:Project]).upcase	
+		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
 		# @serverty, @closed  = category(@issues)	

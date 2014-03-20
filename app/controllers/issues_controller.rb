@@ -24,7 +24,7 @@ class IssuesController < ApplicationController
 		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
 		params[:issues][:createdBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase
-		# params[:issues][:CommentsArray] = []
+		params[:issues][:CommentsArray] = nil
 		@issue = Issues.new(params[:issues])
 		if @issue.save
 			# @issues = issue_query params[:issues][:Project]

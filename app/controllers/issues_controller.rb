@@ -69,6 +69,9 @@ class IssuesController < ApplicationController
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	
+		logger.error "======================================="
+		logger.error params[:issues].inspect
+		logger.error "======================================="
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
 		# @serverty, @closed  = category(@issues)	

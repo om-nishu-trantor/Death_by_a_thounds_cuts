@@ -21,7 +21,7 @@ class IssuesController < ApplicationController
 		params[:issues][:isClosed] = params[:issues][:isClosed] == "true" ? true : false
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "true" ? true : false
 		params[:issues][:isDeleted] = false
-		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
+		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:createdBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase
 		params[:issues][:CommentsArray] = []
@@ -52,7 +52,7 @@ class IssuesController < ApplicationController
 		@object_issues = Issues.find_by_objectId(params[:id])
 		params[:issues][:isClosed] = params[:issues][:Status] == "CLOSED" ? true : false
 		params[:issues][:closedBy] = params[:issues][:Status] == "CLOSED" ? current_user.Name : ''
-		params[:issues][:assignedTo] = nil if params[:issues][:assignedTo] == "Please Select"
+		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
 		comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
 		if (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank? ) && !params[:issues][:CommentsArray].blank?

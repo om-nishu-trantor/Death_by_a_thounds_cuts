@@ -124,3 +124,9 @@
 		<%end%>  
 	</div>
 </div>
+<script>
+ if(<%= @object_issues.isManagementIssue == true %>)
+ 	{
+	document.getElementById("issues_assignedTo").disabled=true;
+	}
+</script>

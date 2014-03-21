@@ -182,3 +182,6 @@ body{
 .dropdown-menu {
     z-index: 1095 !important;
 }
+.dataTables_paginate{
+    margin-top: 5px !important;
+}

@@ -13,9 +13,10 @@ class UsersController < ApplicationController
     params[:user][:username] = (params[:user][:username]).downcase
     params[:user][:isAdmin] = false
     @user = User.new(params[:user])  
-    if @user.save  
-      redirect_to root_url, :notice => "Signed up!"  
-    else  
+    if @user.save 
+      redirect_to issues_path, :notice => "User created successfully"  
+    else 
+      flash.now.alert = "Some thing went wrong"  
       render "new"  
     end  
   end

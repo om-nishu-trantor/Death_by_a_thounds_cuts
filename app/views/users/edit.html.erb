@@ -1,0 +1,19 @@
+<h1>Reset Password</h1>  
+  
+<%= form_for @user do |f| %>  
+  <% if @user.errors.any? %>  
+    <div class="error_messages">  
+      <h2>Form is invalid</h2>  
+      <ul>  
+        <% for message in @user.errors.full_messages %>  
+          <li><%= message %></li>  
+        <% end %>  
+      </ul>  
+    </div>  
+  <% end %>  
+  <p>  
+    <%= f.label :password %><span style="color: #FF0000;padding: 4px;">*</span><br />  
+    <%= f.password_field :password ,:required => true%>
+  </p>  
+  <p class="button"><%= f.submit %></p>  
+<% end %>  

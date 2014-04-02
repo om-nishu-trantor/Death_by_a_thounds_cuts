@@ -40,11 +40,19 @@ class IssuesController < ApplicationController
 
 	def edit
 		@object_issues = Issues.find_by_objectId(params[:id])
+		if @object_issues.nil?
+			flash[:notice] = "Issue not found"
+			redirect_to issues_path, :notice => "Cut not found"
+		end
 		@users = all_users	
 	end	
 
 	def show
 		@object_issues = Issues.find_by_objectId(params[:id])
+		if @object_issues.nil?
+			flash[:notice] = "Issue not found"
+			redirect_to issues_path, :notice => "Cut not found"
+		end
 		@users = all_users	
 	end	
 

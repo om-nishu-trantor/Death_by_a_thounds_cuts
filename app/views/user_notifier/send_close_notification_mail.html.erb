@@ -1,4 +1,4 @@
-<%= "The issue #{@object_data.Project} has been marked as closed by user #{@object_data.closedBy}"%>
+<%= "Following Cut for project #{@object_data.Project} has been closed by user #{@object_data.closedBy}"%>
 	<br/><br/>
 The details are:<br/>
 <%=@object_data.Description%><br/><br/>
@@ -7,10 +7,9 @@ The details are:<br/>
 	Following is the audit trail.
 	<br/><br/>
 	<%@object_data.CommentsArray.each do |comment|%>
-		Note: <%= comment[0] %>
-		<br/>
+		Note :<%= simple_format(comment[0]) %>
 		<%= comment[1] %>
-		<br/><br/>
+		<br/><hr/>
 	<%end%>
 <%else%>
 	No audit trail available.

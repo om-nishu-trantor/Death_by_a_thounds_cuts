@@ -80,7 +80,7 @@
 					<%data = comment[1].split(' ')%>
 					<span ><span style = "color: #428BCA;">Audit Trail For :</span><b><%= "#{data[4]} #{data[5]}" %></b></span><br/>
 					<span ><span style = "color: #428BCA;">Created By      :</span> <b><%= "#{data[2]}" %></b></span><br/>
-					<span ><span style = "color: #428BCA;">Note		 	  		 :</span> <%= comment[0] %></span>
+					<span ><span style = "color: #428BCA;float: left;margin-right: 5px;">Note		 	  		 :</span> <%= simple_format(comment[0]) %></span>
 					<hr/>
 					<%end%>
 					<%end%>

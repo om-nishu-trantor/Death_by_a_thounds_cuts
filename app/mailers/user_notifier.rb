@@ -1,5 +1,5 @@
 class UserNotifier < ActionMailer::Base
-  
+  include ActionView::Helpers::TextHelper
   default from: "noreply@deathbyadousandcuts.com"
   
   # layout 'email'
@@ -26,7 +26,7 @@ class UserNotifier < ActionMailer::Base
   end
   def setup_mail object 
     @object_data = object
-    mail(:to => (User::EMAILNOTIFYTEST).join(',') , :subject => "DBTC: Issue Resolved #{object.Project}" )
+    mail(:to => (User::EMAILNOTIFYTEST).join(',') , :subject => "DBTC: #{object.Project} cut fixed: "+truncate(object.Description, length: 25)  )
   end  
 
 

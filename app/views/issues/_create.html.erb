@@ -4,7 +4,8 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">Project<span style="color: #FF0000;padding: 4px;">*</span></label>  
 				<div class="s">  
-					<input type="text" class="" id="project" name="project" required> 
+					<!-- <input type="text" class="" id="project" name="project" required>  -->
+					<%= select_tag 'project', options_for_select(project_list(projects),:selected => params[:project]) , :style=>"width: 100%;" %>
 				</div> 
 			</div>
 			<div class="col-sm-4">
@@ -52,9 +53,9 @@
 
 				<div class="s">  
 					<%if current_user.isAdmin%> 
-					<%= select_tag 'assignedto', options_for_select(@users , :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
+					<%= select_tag 'assignedto', options_for_select(users, :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
 					<%else%>
-					<%= select_tag 'assignedto', options_for_select(@users)%>
+					<%= select_tag 'assignedto', options_for_select(users)%>
 					<%end%>
 				</div>
 			</div>

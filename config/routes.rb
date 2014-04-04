@@ -5,7 +5,8 @@ ParseRailsBoilerplate::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"  
   root :to => "sessions#new"  
   resources :users  
-  resources :sessions 
+  resources :sessions
+  resources :projects 
   namespace :api do
     resources :mailers do
       collection do

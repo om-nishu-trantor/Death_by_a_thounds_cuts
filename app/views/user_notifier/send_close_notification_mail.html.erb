@@ -8,10 +8,8 @@ The details are:<br/>
 	<br/><br/>
 	<%@object_data.CommentsArray.each do |comment|%>
 		Note :<%= simple_format(comment[0]) %>
-		<!-- <br/> -->
 		<%= comment[1] %>
-		<br/>
-		<hr/>
+		<br/><hr/>
 	<%end%>
 <%else%>
 	No audit trail available.

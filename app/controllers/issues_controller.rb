@@ -29,6 +29,7 @@ class IssuesController < ApplicationController
 		if @issue.save
 			# @issues = issue_query params[:issues][:Project]
 			send_mail @issue if params[:issues][:Status] == "CLOSED"
+			UserNotifier.send_create_notification_mail(@issue).deliver!
 			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
 		else
@@ -78,6 +79,9 @@ class IssuesController < ApplicationController
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
+		if @issue
+			UserNotifier.send_update_notification_mail(@object_issues).deliver!
+		end
 		# @serverty, @closed  = category(@issues)	
 		redirect_to issues_path(:project => params[:project])
 	end
@@ -85,7 +89,10 @@ class IssuesController < ApplicationController
 
 	def destroy 
 		issue = Issues.find_by_objectId(params[:id])
-		issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
+		issue_create = issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
+		if issue_create
+			UserNotifier.send_delete_notification_mail(issue).deliver!
+		end	
 		@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 		@issues = issue_query if @issues.blank?
 		@serverty, @closed  = category(@issues)	

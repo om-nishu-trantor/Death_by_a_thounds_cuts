@@ -42,8 +42,11 @@
         </tr>
       </thead>
       <tbody>
+      <%issue_list = []%>
       <% if @issues%>        
         <% @issues.each do |issue| %>
+        <%unless issue_list.include? issue.objectId %>
+        <%issue_list << issue.objectId%>
         <tr>
           <td ><%=issue.Severity%></td>
           <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
@@ -64,6 +67,7 @@
           <%end%>
           </td>
         </tr>
+        <%end%>
         <% end %>
       <%end%>    
       </tbody>

@@ -93,8 +93,19 @@ class IssuesController < ApplicationController
 	end	
 
 	def issue_query project = nil
-		Issues.where(query(project)).all
+		issues = Issues.where(query(project)).all
+		unless  current_user.isAdmin
+			issues = issues + Issues.where(get_created_by_data(project)).all
+		end
+		issues	
 	end
+
+	def get_created_by_data project
+		query = {:isDeleted => false}
+		query.merge!(:createdBy => current_user.Name)
+		query.merge!(:Project => project)  if project
+		query
+	end	
 
 	def query project
 		query = {:isDeleted => false}

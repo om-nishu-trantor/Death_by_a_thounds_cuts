@@ -3,7 +3,7 @@
 			<fieldset>
 				<div class="col-sm-4">
 					<label class="control-label"><strong style="font-size: 16px; color:#428BCA">Select Project</strong></label>
-					<%= select_tag 'project_list_drop', options_for_select(project_list(@projects),:selected => params[:project]) , :style=>"margin-top: 8px; margin-left: 10px; width: 52%;" %>
+					<%= select_tag 'project_list_drop', options_for_select(project_list(projects),:selected => params[:project]) , :style=>"margin-top: 8px; margin-left: 10px; width: 52%;" %>
 					<%#=link_to "Create new issue" , '#' , :class => "btn btn-primary create_new_issue" %>
 				</div>
 				<div class="col-sm-8">

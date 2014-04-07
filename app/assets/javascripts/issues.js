@@ -120,14 +120,22 @@ $(document).ready(function(){
 		var manageable = $('#new_issue_create_form #ismanageable').prop('checked');
 		var assignedto = $('#new_issue_create_form #assignedto').val();
 		var project_select = $('#project_list_drop').val();
+		var cut_title = $('#cut_title').val()
+		
+		if(cut_title.length == 0)
+		{
+			alert("Please Enter cut title")
+			return false;
+		}
+
 		if(project.length == 0)
 		{
-			alert("Please Enter project name")
+			alert("Please Enter cut name")
 			return false;
 		}
 
 		if (description.length ==0){
-			alert("Please Enter description ")
+			alert("Please Enter cut description ")
 			return false;
 		}
 
@@ -152,6 +160,7 @@ $(document).ready(function(){
 			'issues[closedBy]' : closedBy,
 			'issues[isManagementIssue]' : manageable,
 			'issues[assignedTo]' : assignedto,
+			'issues[title]' : cut_title,
 			'project' : project_select
 		}
 		$('#create_new_issue').modal('hide')

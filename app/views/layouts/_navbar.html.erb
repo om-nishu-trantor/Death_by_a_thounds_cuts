@@ -19,7 +19,9 @@
         <li>
           <a href="/">Dashboard</a>
         </li>
-        <li><a href=<%= projects_path() %>>Create Project</a></li>
+        <%if current_user.isAdmin%>
+          <li><a href=<%= projects_path() %>>Create Project</a></li>
+        <%end%>
         <li>
           <a href="#create_new_issue" data-toggle = "modal" >Create new cut</a>
         </li>

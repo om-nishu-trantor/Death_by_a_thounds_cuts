@@ -1,11 +1,20 @@
 <form class="form-horizontal" , id = "new_issue_create_form">  
 	<div class="control-group">
+
+		<div class="col-sm-12">
+			<div class="col-sm-12">
+				<label class="" for="input01">Cut Title<span style="color: #FF0000;padding: 4px;">*</span></label>  
+				<div class="s">  
+					<input type="text" class="" id="cut_title" name="title" required style="width: 65%;"> 
+				</div> 
+			</div>
+		</div>	
 		<div class="col-sm-12"> 
 			<div class="col-sm-4">
 				<label class="" for="input01">Project<span style="color: #FF0000;padding: 4px;">*</span></label>  
 				<div class="s">  
 					<!-- <input type="text" class="" id="project" name="project" required>  -->
-					<%= select_tag 'project', options_for_select(project_list(projects),:selected => params[:project]) , :style=>"width: 100%;" %>
+					<%= select_tag 'project', options_for_select(projects,:selected => params[:project]) , :style=>"width: 100%;" %>
 				</div> 
 			</div>
 			<div class="col-sm-4">

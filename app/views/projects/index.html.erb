@@ -17,8 +17,9 @@
 			<label class="" for="input01">Project List</label>
 			<ul class="list-group" id = "project_list_create_form">
 				<% @projects.each do |project|%>
-				<li class="list-group-item list-group-item-info"><%= project.ProjectName%><%= link_to "javascript:;", :class => "delete_project",  :data_id => project.objectId do %> <span class="badge">delete</span>
-				  <%end%>
+				<li class="list-group-item list-group-item-info"><%= project.ProjectName%>
+				<!-- <%#= link_to "javascript:;", :class => "delete_project",  :data_id => project.objectId do %> <span class="badge">delete</span> -->
+				  <%#end%>
 				</li>
 				<%end%>
 			</ul>

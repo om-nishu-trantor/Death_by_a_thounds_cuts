@@ -93,7 +93,7 @@ class IssuesController < ApplicationController
 	end	
 
 	def issue_query project = nil
-			Issues.where(query(project)).all
+		Issues.where(query(project)).all
 	end
 
 	def query project

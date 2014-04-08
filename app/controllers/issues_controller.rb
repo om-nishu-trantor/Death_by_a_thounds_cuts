@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
-	before_filter :check_read, :only => [:index, :fetch_issue]
+	before_filter :check_read, :only => [:index, :fetch_issue, :create, :destroy]
 	before_filter :mark_read, :only => [:show, :edit]
 	def index
 		@issues =  issue_query
@@ -30,6 +30,7 @@ class IssuesController < ApplicationController
 		if @issue.save
 			# @issues = issue_query params[:issues][:Project]
 			send_mail @issue if params[:issues][:Status] == "CLOSED"
+			send_notification "create", @issue
 			UserNotifier.send_create_notification_mail(@issue).deliver!
 			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
@@ -81,6 +82,7 @@ class IssuesController < ApplicationController
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
 		if @issue
+			send_notification "update", @object_issues
 			mark_unread @object_issues.objectId
 			UserNotifier.send_update_notification_mail(@object_issues).deliver!
 		end
@@ -93,6 +95,7 @@ class IssuesController < ApplicationController
 		issue = Issues.find_by_objectId(params[:id])
 		issue_create = issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
 		if issue_create
+			send_notification "delete", issue
 			mark_unread issue.objectId
 			UserNotifier.send_delete_notification_mail(issue).deliver!
 		end	
@@ -204,5 +207,20 @@ class IssuesController < ApplicationController
 	read_issues = WebRead.find_all_by_issues_id id
 	WebRead.destroy_all(read_issues) unless read_issues.blank?
   end	
+
+  def send_notification type, object
+  	data =  if type == "create"
+  		{ :alert => "Cut #{object.title} for project #{object.Project} has been created by user #{object.createdBy}" }
+	elsif type == "update"
+		{ :alert => "Cut #{object.title} for project #{object.Project} has been updated by user #{object.lastUpdatedBy}"}
+	elsif type == "delete"
+		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
+	end			
+		
+	push = Parse::Push.new(data, "user_1")
+	push.type = "ios"
+	push.save
+  end	
+
 
 end

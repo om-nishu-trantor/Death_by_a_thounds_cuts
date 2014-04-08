@@ -1,1 +1,4 @@
-send create mail <%=@object%>
+<%= "Following Cut for project #{@object_data.Project} has been created by user #{@object_data.createdBy}"%>
+	<br/><br/>
+The details are:<br/>
+<%=@object_data.Description%><br/><br/>

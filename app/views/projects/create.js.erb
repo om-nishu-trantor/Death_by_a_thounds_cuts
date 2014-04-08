@@ -1,0 +1,15 @@
+<% if @success %>
+	$("#flash_create_message").empty();
+    $("#flash_create_message").html("<%= escape_javascript @success%>");
+    $("#flash_error_message").hide();
+    $("#flash_create_message").show();
+    $('#project_list_create_form').prepend("<li class='list-group-item list-group-item-info'><%=@project.ProjectName%></li>")
+<% end %>
+<% if @error %>
+	$("#flash_error_message").empty();
+    $("#flash_error_message").html("<%= escape_javascript @error%>");
+    $("#flash_create_message").hide();
+    $("#flash_error_message").show();
+<% end %>
+$('#create_project_button').prop('disabled', false).html("Create Project");
+$('#project_ProjectName').val('')

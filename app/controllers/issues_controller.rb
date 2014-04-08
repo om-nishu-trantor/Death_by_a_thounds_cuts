@@ -1,6 +1,7 @@
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
-	
+	before_filter :check_read, :only => [:index, :fetch_issue, :create, :destroy]
+	before_filter :mark_read, :only => [:show, :edit]
 	def index
 		@issues =  issue_query
 		@projects = all_projects @issues
@@ -29,6 +30,8 @@ class IssuesController < ApplicationController
 		if @issue.save
 			# @issues = issue_query params[:issues][:Project]
 			send_mail @issue if params[:issues][:Status] == "CLOSED"
+			send_notification "create", @issue
+			UserNotifier.send_create_notification_mail(@issue).deliver!
 			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
 		else
@@ -43,7 +46,7 @@ class IssuesController < ApplicationController
 		if @object_issues.nil?
 			flash[:notice] = "Issue not found"
 			redirect_to issues_path, :notice => "Cut not found"
-		end
+		end	
 		@users = all_users	
 	end	
 
@@ -78,6 +81,11 @@ class IssuesController < ApplicationController
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
+		if @issue
+			send_notification "update", @object_issues
+			mark_unread @object_issues.objectId
+			UserNotifier.send_update_notification_mail(@object_issues).deliver!
+		end
 		# @serverty, @closed  = category(@issues)	
 		redirect_to issues_path(:project => params[:project])
 	end
@@ -85,7 +93,12 @@ class IssuesController < ApplicationController
 
 	def destroy 
 		issue = Issues.find_by_objectId(params[:id])
-		issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
+		issue_create = issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
+		if issue_create
+			send_notification "delete", issue
+			mark_unread issue.objectId
+			UserNotifier.send_delete_notification_mail(issue).deliver!
+		end	
 		@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 		@issues = issue_query if @issues.blank?
 		@serverty, @closed  = category(@issues)	
@@ -93,8 +106,19 @@ class IssuesController < ApplicationController
 	end	
 
 	def issue_query project = nil
-			Issues.where(query(project)).all
+		issues = Issues.where(query(project)).all
+		unless  current_user.isAdmin
+			issues = issues + Issues.where(get_created_by_data(project)).all
+		end
+		issues	
 	end
+
+	def get_created_by_data project
+		query = {:isDeleted => false}
+		query.merge!(:createdBy => current_user.Name)
+		query.merge!(:Project => project)  if project
+		query
+	end	
 
 	def query project
 		query = {:isDeleted => false}
@@ -166,5 +190,37 @@ class IssuesController < ApplicationController
   		status = issues.map(&:Status)
   	end
   	return 	serverty, status
+  end
+
+  def check_read
+  	@read_issues = []
+  	read_iss = WebRead.find_all_by_user_id(current_user.objectId)
+ 	@read_issues = read_iss.map(&:issues_id) if !read_iss.blank?
   end	
+
+  def mark_read
+  	read_issues = WebRead.where(:user_id =>current_user.objectId ,:issues_id => params[:id] ).first
+  	WebRead.create(:user_id => current_user.objectId, :issues_id => params[:id] ) if read_issues.nil?
+  end	
+
+  def mark_unread id
+	read_issues = WebRead.find_all_by_issues_id id
+	WebRead.destroy_all(read_issues) unless read_issues.blank?
+  end	
+
+  def send_notification type, object
+  	data =  if type == "create"
+  		{ :alert => "Cut #{object.title} for project #{object.Project} has been created by user #{object.createdBy}" }
+	elsif type == "update"
+		{ :alert => "Cut #{object.title} for project #{object.Project} has been updated by user #{object.lastUpdatedBy}"}
+	elsif type == "delete"
+		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
+	end			
+		
+	push = Parse::Push.new(data, "user_1")
+	push.type = "ios"
+	push.save
+  end	
+
+
 end

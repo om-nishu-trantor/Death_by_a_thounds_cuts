@@ -22,23 +22,50 @@
 		<%=form_for(@object_issues)  do |f| %>  
 		<div class="control-group">
 			<div class="col-sm-12"> 
+				<div class="col-sm-12">
+					<label class="" for="input01">Cut Title<span style="color: #FF0000;padding: 4px;">*</span></label>  
+					<div class="s">
+						<%#=f.text_field :Project, :required => 'required'%>  
+						<%if current_user.isAdmin%>
+							<%=f.text_field :title, :required => 'required', :style => "width:65%"%>  
+						<%else%>
+							<%=@object_issues.title%>
+						<%end%>
+						<%=hidden_field_tag :project , params[:project] %>
+					</div> 
+				</div>
+			</div>	
+			<div class="col-sm-12"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">Project<span style="color: #FF0000;padding: 4px;">*</span></label>  
 					<div class="s">
-						<%=f.text_field :Project, :required => 'required'%>  
+						<%#=f.text_field :Project, :required => 'required'%>  
+						<%if current_user.isAdmin%>
+							<%=f.select :Project, options_for_select(projects, :selected =>@object_issues.Project ) , :style=>"width: 100%;" %>
+						<%else%>
+							<%=@object_issues.Project%>
+						<%end%>
 						<%=hidden_field_tag :project , params[:project] %>
 					</div> 
 				</div>
 				<div class="col-sm-4">
 					<label class="" for="input01">Description<span style="color: #FF0000;padding: 4px;">*</span></label>  
 					<div class="">
-						<%=f.text_area :Description , :required => 'required' , :rows=>"3" , :style => "width: 100%;" %>
+						<%if current_user.isAdmin%>
+							<%=f.text_area :Description , :required => 'required' , :rows=>"3" , :style => "width: 100%;" %>
+						<%else%>
+							<%=@object_issues.Description%>
+						<%end%>	
 					</div> 
 				</div>
 				<div class="col-sm-4">
 					<label class="" for="input01">MitigationPlan</label>  
 					<div class="">
-						<%=f.text_area :mitigationPlan , :rows=>"3" , :style => "width: 100%;" %>
+						<%if current_user.isAdmin%>
+							<%=f.text_area :mitigationPlan , :rows=>"3" , :style => "width: 100%;" %>
+						<%else%>
+							<%=@object_issues.mitigationPlan%>
+						<%end%>
 					</div> 
 				</div>
 			</div>
@@ -89,9 +116,9 @@
 			</div>
 			<div class="col-sm-12"> 
 				<div class="col-sm-8">
-					<label class="" for="input01">Comments</label>  
+					<label class="" for="input01">Comments<span style="color: #FF0000;padding: 4px;">*</span></label>  
 					<div class="">
-						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "50" , :style => "width: 100%;" %>
+						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "50", :style => "width: 100%;", :required => 'required' %>
 					</div>
 				</div>
 				<!-- <div class="col-sm-4">

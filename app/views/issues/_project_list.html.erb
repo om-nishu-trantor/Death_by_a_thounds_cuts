@@ -28,11 +28,13 @@
         <tr style="background-color: #F1EEEE;">
           <th>Severity</th>
           <th>Severity</th>
+          <th>Title</th>
           <th>Project</th>
           <th style="width: 200px !important;">Description</th>
           <th style="width: 200px !important;">MitigationPlan</th>
           <th>Identified</th>
           <th>Resolved</th>
+          <th style="width: 100px !important;">Created By</th>
           <th style="width: 100px !important;">Assigned To</th>
           <th>Status</th>
           <th>Action</th>
@@ -40,16 +42,21 @@
         </tr>
       </thead>
       <tbody>
+      <%issue_list = []%>
       <% if @issues%>        
         <% @issues.each do |issue| %>
-        <tr>
+        <%unless issue_list.include? issue.objectId %>
+        <%issue_list << issue.objectId%>
+        <tr class=<%= (@read_issues.include? issue.objectId) ? 'read_issue' : 'unread_issue' %>>
           <td ><%=issue.Severity%></td>
           <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
+          <td><%= issue.title %></td>
           <td><%= issue.Project %></td>
           <td><%=link_to issue.Description , issue_path(:id=>issue.objectId) %></td>
           <td><%= issue.mitigationPlan %></td>
           <td><%= issue.dateIdentified %></td>
           <td><%= issue.dateResolved %></td>
+          <td><%= issue.createdBy %></td>
           <td><%= issue.assignedTo %></td>
           <td><%= issue.Status %></td>
           <td><%=link_to edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" ,:title => "EDIT" do %>
@@ -60,6 +67,7 @@
           <%end%>
           </td>
         </tr>
+        <%end%>
         <% end %>
       <%end%>    
       </tbody>

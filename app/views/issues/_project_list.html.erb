@@ -47,7 +47,7 @@
         <% @issues.each do |issue| %>
         <%unless issue_list.include? issue.objectId %>
         <%issue_list << issue.objectId%>
-        <tr>
+        <tr class=<%= (@read_issues.include? issue.objectId) ? 'read_issue' : 'unread_issue' %>>
           <td ><%=issue.Severity%></td>
           <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
           <td><%= issue.title %></td>

@@ -1,6 +1,7 @@
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
-	
+	before_filter :check_read, :only => [:index, :fetch_issue]
+	before_filter :mark_read, :only => [:show, :edit]
 	def index
 		@issues =  issue_query
 		@projects = all_projects @issues
@@ -80,6 +81,7 @@ class IssuesController < ApplicationController
 		@issue = @object_issues.update_attributes(params[:issues])
 		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
 		if @issue
+			mark_unread @object_issues.objectId
 			UserNotifier.send_update_notification_mail(@object_issues).deliver!
 		end
 		# @serverty, @closed  = category(@issues)	
@@ -91,6 +93,7 @@ class IssuesController < ApplicationController
 		issue = Issues.find_by_objectId(params[:id])
 		issue_create = issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
 		if issue_create
+			mark_unread issue.objectId
 			UserNotifier.send_delete_notification_mail(issue).deliver!
 		end	
 		@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
@@ -184,5 +187,22 @@ class IssuesController < ApplicationController
   		status = issues.map(&:Status)
   	end
   	return 	serverty, status
+  end
+
+  def check_read
+  	@read_issues = []
+  	read_iss = WebRead.find_all_by_user_id(current_user.objectId)
+ 	@read_issues = read_iss.map(&:issues_id) if !read_iss.blank?
   end	
+
+  def mark_read
+  	read_issues = WebRead.where(:user_id =>current_user.objectId ,:issues_id => params[:id] ).first
+  	WebRead.create(:user_id => current_user.objectId, :issues_id => params[:id] ) if read_issues.nil?
+  end	
+
+  def mark_unread id
+	read_issues = WebRead.find_all_by_issues_id id
+	WebRead.destroy_all(read_issues) unless read_issues.blank?
+  end	
+
 end

@@ -23,6 +23,7 @@ gem 'thin'
 gem 'jquery-rails'
 # gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
 gem 'parse_resource', :git => 'https://github.com/adelevie/parse_resource.git'
+gem "parse-ruby-client"
 gem 'jquery-datatables-rails', :git => 'https://github.com/rweng/jquery-datatables-rails.git'
 gem "cancan"
 # To use ActiveModel has_secure_password

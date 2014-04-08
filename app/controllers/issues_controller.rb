@@ -216,8 +216,7 @@ class IssuesController < ApplicationController
 	elsif type == "delete"
 		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
 	end			
-		
-	push = Parse::Push.new(data, "user_1")
+	push = Parse::Push.new(data, "DBTC")
 	push.type = "ios"
 	push.save
   end	

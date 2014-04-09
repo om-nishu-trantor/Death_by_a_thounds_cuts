@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
 		@error = "Project should be unique, please reload page to get new projects if project is not in list" if Project.find_by_ProjectName(params[:project][:ProjectName])
 		if @error.nil?
 			if @project.save
-				@success = "Project #{params[:project][:ProjectName]} created successfuly"
+				@success = "Project #{params[:project][:ProjectName]} created successfully"
 			else
 				@error = @project.errors
 			end	

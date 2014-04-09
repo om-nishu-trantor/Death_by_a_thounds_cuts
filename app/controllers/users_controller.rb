@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save 
       redirect_to issues_path, :notice => "User created successfully"  
     else 
-      flash.now[:danger] = "Some thing went wrong"  
+      flash.now[:danger] = @user.errors.full_messages.first
       render "new"  
     end
   end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       flash[:success] = "User updated successfully"
       redirect_to edit_user_path  
     else
-      flash.now[:danger] = "Some thing went wrong"
+      flash.now[:danger] = @user.errors.full_messages.first
       redirect_to edit_user_path
     end  
   end  

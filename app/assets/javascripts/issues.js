@@ -307,5 +307,11 @@ $(document).ready(function(){
 			}
 		});
 	});
+
+	$('.title_link').on('click', function(){
+		$(this).parents('tr').removeClass('unread_issue').addClass('read_issue');
+	});
+
+
 });	
 

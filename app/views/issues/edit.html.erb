@@ -21,7 +21,7 @@
 	<div class="panel-body">
 		<%=form_for(@object_issues)  do |f| %>  
 		<div class="control-group">
-			<div class="col-sm-12"> 
+			<div class="col-sm-12 create_cut_field"> 
 				<div class="col-sm-12">
 					<label class="" for="input01">Cut Title<span style="color: #FF0000;padding: 4px;">*</span></label>  
 					<div class="s">
@@ -35,7 +35,7 @@
 					</div> 
 				</div>
 			</div>	
-			<div class="col-sm-12"> 
+			<div class="col-sm-12 create_cut_field"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">Project<span style="color: #FF0000;padding: 4px;">*</span></label>  
 					<div class="s">
@@ -69,7 +69,7 @@
 					</div> 
 				</div>
 			</div>
-			<div class="col-sm-12"> 
+			<div class="col-sm-12 create_cut_field"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">DateIdentified</label>  
 					<div class="s">
@@ -89,7 +89,7 @@
 					</div> 
 				</div>
 			</div>
-			<div class="col-sm-12"> 
+			<div class="col-sm-12 create_cut_field"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">Severity</label>  
 					<div class="">
@@ -114,7 +114,7 @@
 					<%end%>
 				</div>
 			</div>
-			<div class="col-sm-12"> 
+			<div class="col-sm-12 create_cut_field"> 
 				<div class="col-sm-8">
 					<label class="" for="input01">Comments<span style="color: #FF0000;padding: 4px;">*</span></label>  
 					<div class="">
@@ -130,7 +130,7 @@
 				</div>
 				
 			</div>   
-			<div class="col-sm-12" style="margin-left: 15px;"> 
+			<div class="col-sm-12 create_cut_field" style="margin-left: 15px;"> 
 				<div class="">
 				<% if !@object_issues.CommentsArray.nil?  %>	
 					<% if !@object_issues.CommentsArray.blank?  %>

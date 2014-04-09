@@ -8,5 +8,5 @@
 	margin-bottom: 10px;
 }
 .sorting_disabled{
-	cursor: auto;
+	cursor: auto !important;
 }

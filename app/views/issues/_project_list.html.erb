@@ -27,17 +27,13 @@
       <thead>
         <tr style="background-color: #F1EEEE;">
           <th>Severity</th>
-          <th>Severity</th>
+          <th style="width: 75px !important;">Severity</th>
           <th>Title</th>
           <th>Project</th>
-          <th style="width: 200px !important;">Description</th>
-          <th style="width: 200px !important;">MitigationPlan</th>
-          <th>Identified</th>
-          <th>Resolved</th>
-          <th style="width: 100px !important;">Created By</th>
-          <th style="width: 100px !important;">Assigned To</th>
-          <th>Status</th>
-          <th>Action</th>
+          <th >Created By</th>
+          <th >Assigned To</th>
+          <th style="width: 120px !important;">Status</th>
+          <th >Action</th>
 
         </tr>
       </thead>
@@ -50,12 +46,8 @@
         <tr class=<%= (@read_issues.include? issue.objectId) ? 'read_issue' : 'unread_issue' %>>
           <td ><%=issue.Severity%></td>
           <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
-          <td><%= issue.title %></td>
+          <td><%=link_to issue.title, issue_path(:id=>issue.objectId), :class =>"title_link", :title => "show" %></td>
           <td><%= issue.Project %></td>
-          <td><%=link_to issue.Description , issue_path(:id=>issue.objectId) %></td>
-          <td><%= issue.mitigationPlan %></td>
-          <td><%= issue.dateIdentified %></td>
-          <td><%= issue.dateResolved %></td>
           <td><%= issue.createdBy %></td>
           <td><%= issue.assignedTo %></td>
           <td><%= issue.Status %></td>

@@ -4,3 +4,9 @@
 .read_issue{
 	background-color: white !important;
 }
+.create_cut_field{
+	margin-bottom: 10px;
+}
+.sorting_disabled{
+	cursor: auto;
+}

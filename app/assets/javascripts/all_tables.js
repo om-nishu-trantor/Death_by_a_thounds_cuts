@@ -19,14 +19,6 @@ function configureIssueTable(tableNode) {
         },{
             bSortable : 'string'
         },{
-            bSortable : 'string'
-        },{
-            bSortable : 'string'
-        },{
-            bSortable : 'string'
-        },{
-            bSortable : 'string'
-        },{
             bSortable : false
         }], 
         sPaginationType:"full_numbers",

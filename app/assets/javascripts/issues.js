@@ -335,7 +335,7 @@ $(document).ready(function(){
 				if(result == "Project deleted successfully")
 				{
 					obj.parent().remove();
-					$("#new_issue_create_form #project option:[value='" + obj.parent().text().split(' ')[0].trim() + "']").remove();
+					$.each($("#new_issue_create_form #project option"),function(){ if($(this).val() == obj.parent().text().split(' ')[0].trim().toUpperCase()){$(this).remove()} })
 				}	
 			}
 		});

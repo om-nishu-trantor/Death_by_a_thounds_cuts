@@ -210,6 +210,7 @@ class IssuesController < ApplicationController
 
   def mark_unread id
 	read_issues = WebRead.find_all_by_issues_id id
+	read_issues.select!{|s| s.user_id != current_user.objectId}
 	WebRead.destroy_all(read_issues) unless read_issues.blank?
   end	
 

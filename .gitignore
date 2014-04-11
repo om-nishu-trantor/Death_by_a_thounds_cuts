@@ -13,5 +13,5 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-
+/app/views/sessions/new.html.erb
 /config/parse_resource.yml

@@ -22,11 +22,15 @@ class ProjectsController < ApplicationController
 	def destroy 
 		project = Project.find_by_objectId(params[:id])
 		respond_to do |format|
-			if project.destroy
-				format.html { render :partial => "project_list" , :layout => false }
+			if project	
+				if project.destroy
+					format.html { render :text => "Project deleted successfully" , :layout => false, :valid => true }
+				else
+					format.html { render :text => "Something went wrong" , :layout => false, :valid => false }
+				end	
 			else
-				format.html { render :partial => "project_list" , :layout => false }
-			end	
+				format.html { render :text => "Project deleted successfully" , :layout => false, :valid => true }
+			end
 		end
 	end
 

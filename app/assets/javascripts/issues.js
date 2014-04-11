@@ -312,6 +312,34 @@ $(document).ready(function(){
 		$(this).parents('tr').removeClass('unread_issue').addClass('read_issue');
 	});
 
+	$("#project_list_create_form").delegate(".delete_project", "click", function(event) {
+		event.preventDefault();
+		obj = $(this)
+		object_id = $(this).attr('data_id')
+		$.blockUI({ css: { 
+			border: 'none', 
+			padding: '15px', 
+			backgroundColor: '#000', 
+			'-webkit-border-radius': '10px', 
+			'-moz-border-radius': '10px', 
+			opacity: .5, 
+			color: '#fff' 
+		} 
+	});
+		$.ajax({
+			url: '/projects/'+object_id,
+			type: 'DELETE',
+			success: function(result) {
+				$.unblockUI();
+				alert(result)
+				if(result == "Project deleted successfully")
+				{
+					obj.parent().remove();
+					$("#new_issue_create_form #project option:[value='" + obj.parent().text().split(' ')[0].trim() + "']").remove();
+				}	
+			}
+		});
+	});
 
 });	
 

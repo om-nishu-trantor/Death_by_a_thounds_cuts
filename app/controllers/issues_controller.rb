@@ -61,6 +61,7 @@ class IssuesController < ApplicationController
 
 	def update
 		@object_issues = Issues.find_by_objectId(params[:id])
+		closed_status = (@object_issues.Status == "CLOSED")
 		params[:issues][:isClosed] = params[:issues][:Status] == "CLOSED" ? true : false
 		params[:issues][:closedBy] = params[:issues][:Status] == "CLOSED" ? current_user.Name : ''
 		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
@@ -80,11 +81,15 @@ class IssuesController < ApplicationController
 		params[:issues][:lastUpdatedBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	
 		@issue = @object_issues.update_attributes(params[:issues])
-		send_mail @object_issues if params[:issues][:Status] == "CLOSED"
+		
 		if @issue
 			send_notification "update", @object_issues
 			mark_unread @object_issues.objectId
-			UserNotifier.send_update_notification_mail(@object_issues).deliver!
+			if params[:issues][:Status] == "CLOSED" && !closed_status
+				send_mail @object_issues
+			else	
+				UserNotifier.send_update_notification_mail(@object_issues).deliver!
+			end
 		end
 		# @serverty, @closed  = category(@issues)	
 		redirect_to issues_path(:project => params[:project])

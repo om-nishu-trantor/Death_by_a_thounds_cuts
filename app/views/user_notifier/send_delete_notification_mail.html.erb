@@ -7,10 +7,11 @@ Description: <%=@object_data.Description%><br/><br/>
 <% if !@object_data.CommentsArray.blank?%>
 	Following is the audit trail.
 	<br/><br/>
-	<% comment = @object_data.CommentsArray.each.last %>
+	<%@object_data.CommentsArray.each do |comment|%>
 		Note :<%= simple_format(comment[0]) %>
 		<%= comment[1] %>
 		<br/><hr/>
+	<%end%>
 <%else%>
 	No audit trail available.
 <%end%>

@@ -2,7 +2,11 @@
         <div class="col-md-6 col-md-offset-3">
             <h1 class="text-center login-title">Sign in to Death By a Thousand Cuts</h1>
             <div class="account-wall">
-                <img class="profile-img" src="/assets/Trantor1.png" alt="">
+                <% if request.host == 'trantor-dbtc'%>
+                    <img class="profile-img" src="/assets/Trantor1.png" alt="">
+                <%else%>
+                    <img class="profile-img" src="/assets/ContinuumGlobal-logo.jpg" alt="">
+                <%end%>
                 <!-- <form class="form-signin"> -->
                 <%= form_tag sessions_path , :class => 'form-signin' do %>  
                 <input class="form-control" placeholder="Username" required autofocus="" type="text" name = "user_name" style="margin-bottom:10px">
@@ -12,8 +16,12 @@
                 <% end %>
                 <div class="col-sm-12" style="height: 42px;background-color: white;">
                     <div class="col-sm-3 col-sm-offset-9">
-                        <img class="" src="/assets/Trantor1.png" alt="" style="
-    width: 100%;"></div>
+                    <% if request.host == 'trantor-dbtc'%>
+                        <img class="" src="/assets/Trantor1.png" alt="" style="width: 100%;">
+                    <%else%>
+                        <img class="" src="/assets/ContinuumGlobal-logo.jpg" alt="" style="width: 100%;">
+                    <%end%>
+                        </div>
                 </div>   
             </div>
         </div>

@@ -2,6 +2,7 @@ class IssuesController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :check_read, :only => [:index, :fetch_issue, :create, :destroy]
 	before_filter :mark_read, :only => [:show, :edit]
+	
 	def index
 		@issues =  issue_query
 		@projects = all_projects @issues

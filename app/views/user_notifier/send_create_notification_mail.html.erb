@@ -1,4 +1,7 @@
 <%= "Following Cut for project #{@object_data.Project} has been created by user #{@object_data.createdBy}"%>
 	<br/><br/>
 The details are:<br/>
-<%=@object_data.Description%><br/><br/>
+Description: <%=@object_data.Description%><br/>
+Status: <%=@object_data.Status%><br/>
+Severity: <%=@object_data.Severity%><br/>
+Mitigation Plan: <%=@object_data.mitigationPlan%><br/>

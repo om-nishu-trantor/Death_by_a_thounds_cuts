@@ -1,7 +1,12 @@
-<%= "Following Cut for project #{@object_data.Project} has been closed by user #{@object_data.closedBy}"%>
+<%= "Following Cut for #{@object_data.Project} has been updated by user #{@object_data.closedBy}"%>
 	<br/><br/>
-The details are:<br/>
-<%=@object_data.Description%><br/><br/>
+Current status summary:<br/>
+Title : <%=@object_data.title%><br/>
+Description : <%=@object_data.Description%><br/>
+Status : <%=@object_data.Status%><br/>
+Severity : <%=@object_data.Severity%><br/>
+MitigationPlan : <%=@object_data.mitigationPlan%><br/>
+<br/>
 <% if !@object_data.CommentsArray.nil?  %>	
 <% if !@object_data.CommentsArray.blank?%>
 	Following is the audit trail.

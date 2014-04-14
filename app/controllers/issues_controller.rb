@@ -2,6 +2,7 @@ class IssuesController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :check_read, :only => [:index, :fetch_issue, :create, :destroy]
 	before_filter :mark_read, :only => [:show, :edit]
+	
 	def index
 		@issues =  issue_query
 		@projects = all_projects @issues
@@ -210,6 +211,7 @@ class IssuesController < ApplicationController
 
   def mark_unread id
 	read_issues = WebRead.find_all_by_issues_id id
+	read_issues.select!{|s| s.user_id != current_user.objectId}
 	WebRead.destroy_all(read_issues) unless read_issues.blank?
   end	
 

@@ -2,8 +2,8 @@
   
 <%= form_for @user do |f| %>  
   <p>  
-    <%= f.label :email %><span style="color: #FF0000;padding: 4px;">*</span><br />  
-    <%= f.text_field :email ,:required => true%>  
+    <label class="" for="input01">Email<span style="color: #FF0000;padding: 4px;">*</span></label><br />  
+    <%= f.email_field :email ,:required => true%>  
   </p>
   <p>  
     <%= f.label :Name %><span style="color: #FF0000;padding: 4px;">*</span><br />  

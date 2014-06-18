@@ -19,12 +19,13 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
 end
+
 gem 'thin'
 gem 'jquery-rails'
 # gem 'parse_resource', :git => 'git@github.com:adelevie/parse_resource.git'
 gem 'parse_resource', :git => 'https://github.com/adelevie/parse_resource.git'
 gem "parse-ruby-client"
-gem 'jquery-datatables-rails', :git => 'https://github.com/rweng/jquery-datatables-rails.git'
+gem 'jquery-datatables-rails', '1.12.2'
 gem "cancan"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

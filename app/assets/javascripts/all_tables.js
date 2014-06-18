@@ -22,12 +22,7 @@ function configureIssueTable(tableNode) {
             bSortable : false
         }], 
         sPaginationType:"full_numbers",
-        "sDom":'T<"clear">lfrtip',
-        "oTableTools": {
-            "aButtons": [
-                
-            ]
-        }
+        "sDom":'T<"clear">lfrtip'
 		
     });
 
@@ -71,12 +66,7 @@ function configureIssueReportTable(tableNode) {
             bSortable : 'string'
         }], 
         sPaginationType:"full_numbers",
-        "sDom":'T<"clear">lfrtip',
-        "oTableTools": {
-            "aButtons": [
-                
-            ]
-        }
+        "sDom":'T<"clear">lfrtip'
         
     });
 };

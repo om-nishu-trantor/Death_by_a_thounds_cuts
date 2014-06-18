@@ -17,11 +17,11 @@
     <!-- Default panel contents -->
     <div class="panel-heading">Cuts</div>
     <div class="panel-body" id = "panel-body-active">
-      <button type="button" class="btn btn-default navbar-btn filter-btn-all active" data-text = "ALL">ALL <span class="badge" id = ""><%=@serverty.count if @serverty%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-all active" data-text = "ALL">ALL ACTIVE <span class="badge" id = ""><%=(@serverty.count - @closed.count("CLOSED")) if @serverty && @closed%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "HIGH">HIGH <span class="badge"><%=@serverty.count("HIGH") if @serverty%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "MEDIUM">MEDIUM <span class="badge"><%=@serverty.count("MEDIUM") if @serverty%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "LOW">LOW <span class="badge"><%=@serverty.count("LOW") if @serverty%></span></button>
-      <button type="button" class="btn btn-default navbar-btn filter-btn-stat" data-text = "Resolved" id = "closed_issue_button">Resolved <span class="badge" ><%=@closed.count("Resolved") if @closed%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-stat" data-text = "CLOSED" id = "closed_issue_button">CLOSED <span class="badge" ><%=@closed.count("CLOSED") if @closed%></span></button>
     </div>  
     <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
       <thead>

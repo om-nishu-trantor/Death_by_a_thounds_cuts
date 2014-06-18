@@ -143,7 +143,7 @@ $(document).ready(function(){
 			assignedto = ''
 		}
 
-		if(status == "Resolved"){
+		if(status == "CLOSED"){
 			isClosed = true
 			closedBy = name
 		}
@@ -243,10 +243,9 @@ $(document).ready(function(){
 
 	$('#new_issue_create_form #status').change(function(){
 		var val = $("#new_issue_create_form #status option:selected").text();
-		if(val == "Resolved"){
+		if(val == "CLOSED"){
 			$('#dateResolved').val(Date.today().toString("dd-MM-yyyy"))
 			$('#issues_dateResolved').val(Date.today().toString("dd-MM-yyyy"))
-
 		}else{
 			$('#dateResolved').val('')
 		}
@@ -254,7 +253,7 @@ $(document).ready(function(){
 
 	$('.edit_issues #issues_Status').change(function(){
 		var val = $(".edit_issues #issues_Status option:selected").text();
-		if(val == "Resolved"){
+		if(val == "CLOSED"){
 			$('#issues_dateResolved').val(Date.today().toString("dd-MM-yyyy"))
 
 		}else{

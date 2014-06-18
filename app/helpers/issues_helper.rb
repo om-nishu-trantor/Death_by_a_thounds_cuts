@@ -6,7 +6,7 @@ def image_icon arg
 end	
 
 def status
-	[["Assigned","Assigned"],["On Hold","On Hold"],["Resolved","Resolved"]]
+	[["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"],["ASSIGNED","ASSIGNED"],["ON HOLD","ON HOLD"],["RESOLVED","RESOLVED"]]
 end
 
 def servity

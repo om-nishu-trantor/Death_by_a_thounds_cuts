@@ -38,12 +38,12 @@ function configureIssueTable(tableNode) {
 
     $('.filter-btn-stat').on('click', function(){
         table_fil = $('#table-issues').dataTable();
-        table_fil.fnFilter("Resolved",null,true,true,true,false);  
+        table_fil.fnFilter("CLOSED",null,true,true,true,false);  
     });
     
     $('.filter-btn-all').on('click', function(){
         table_fil = $('#table-issues').dataTable();
-        table_fil.fnFilter('');  
+        table_fil.fnFilter('^((?!CLOSED).)*$',null,true,false);  
     });
     
 };

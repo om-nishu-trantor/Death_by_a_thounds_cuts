@@ -21,7 +21,7 @@
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "HIGH">HIGH <span class="badge"><%=@serverty.count("HIGH") if @serverty%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "MEDIUM">MEDIUM <span class="badge"><%=@serverty.count("MEDIUM") if @serverty%></span></button>
       <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "LOW">LOW <span class="badge"><%=@serverty.count("LOW") if @serverty%></span></button>
-      <button type="button" class="btn btn-default navbar-btn filter-btn-stat" data-text = "CLOSED" id = "closed_issue_button">CLOSED <span class="badge" ><%=@closed.count("CLOSED") if @closed%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-stat" data-text = "Resolved" id = "closed_issue_button">Resolved <span class="badge" ><%=@closed.count("Resolved") if @closed%></span></button>
     </div>  
     <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
       <thead>

@@ -5,4 +5,13 @@ def image_icon arg
  return "l_green_icon.png "if arg == "LOW"	
 end	
 
+def status
+	[["Assigned","Assigned"],["On Hold","On Hold"],["Resolved","Resolved"]]
+end
+
+def servity
+	[["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]]
+end	
+
+
 end

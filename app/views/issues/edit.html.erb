@@ -85,7 +85,7 @@
 				<div class="col-sm-4">
 					<label class="" for="input01">Status</label>  
 					<div class="">
-						<%= f.select :Status, options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]], :selected => @object_issues.Status)%>  
+						<%= f.select :Status, options_for_select(status, :selected => @object_issues.Status)%>  
 					</div> 
 				</div>
 			</div>
@@ -93,7 +93,7 @@
 				<div class="col-sm-4">
 					<label class="" for="input01">Severity</label>  
 					<div class="">
-						<%= f.select :Severity, options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]],:selected => @object_issues.Severity) %>   
+						<%= f.select :Severity, options_for_select(servity,:selected => @object_issues.Severity) %>   
 					</div> 
 				</div>
 				<div class="col-sm-4">

@@ -46,7 +46,7 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">Status</label>  
 				<div class="">
-					<%= select_tag 'status', options_for_select([["OPEN","OPEN"],["IN-PROGRESS","IN-PROGRESS"],["CLOSED","CLOSED"]])%>  
+					<%= select_tag 'status', options_for_select(status)%>  
 				</div> 
 			</div>
 		</div>
@@ -54,7 +54,7 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">Severity</label>  
 				<div class="">
-					<%= select_tag 'severity', options_for_select([["LOW","LOW"],["MEDIUM","MEDIUM"],["HIGH","HIGH"]])%>   
+					<%= select_tag 'severity', options_for_select(servity)%>   
 				</div> 
 			</div>
 			<div class="col-sm-4">

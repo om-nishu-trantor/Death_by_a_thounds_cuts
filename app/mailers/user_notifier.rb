@@ -22,11 +22,11 @@ class UserNotifier < ActionMailer::Base
 
   def send_mobile_notification_mail header, body
     @body_data = body
-    mail(:to => (User::EMAILNOTIFYTEST).join(',') , :subject => header )
+    mail(:to => (User::EMAILNOTIFYMAIN).join(',') , :subject => header )
   end
   def setup_mail object, sub
     @object_data = object
-    mail(:to => (User::EMAILNOTIFYTEST).join(',') , :subject => sub )
+    mail(:to => (User::EMAILNOTIFYMAIN).join(',') , :subject => sub )
   end  
 
 

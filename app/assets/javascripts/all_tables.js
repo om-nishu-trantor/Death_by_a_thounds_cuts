@@ -45,7 +45,8 @@ function configureIssueTable(tableNode) {
         table_fil = $('#table-issues').dataTable();
         table_fil.fnFilter('^((?!CLOSED).)*$',null,true,false);  
     });
-    
+    table_fil = $('#table-issues').dataTable();
+    table_fil.fnFilter('^((?!CLOSED).)*$',null,true,false);
 };
 
 function configureIssueReportTable(tableNode) {

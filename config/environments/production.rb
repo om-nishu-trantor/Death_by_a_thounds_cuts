@@ -69,5 +69,5 @@ ParseRailsBoilerplate::Application.configure do
   }
   ActionMailer::Base.delivery_method ||= :smtp
 
-  config.action_mailer.default_url_options = {:host => 'deathbyathousandcuts.herokuapp.com'}
+  config.action_mailer.default_url_options = {:host => '112.196.25.148:8000'}
 end

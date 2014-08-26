@@ -12,6 +12,8 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'execjs'
+  gem 'therubyracer'
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
@@ -38,6 +40,7 @@ gem "cancan"
 #gem 'debugger'
 gem 'wkhtmltopdf-binary'
 gem 'wisepdf'
+
 group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false

@@ -27,16 +27,16 @@ ParseRailsBoilerplate::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-
-  ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.gmail.com',
-      :port           => '587',
-      :authentication => :plain,
-      :user_name      => 'dbtc.chd.trantorinc@gmail.com',
-      :password       => 'welcomeDBTC',
-      :domain         => 'gmail.com'
-  }
+  #
+  #ActionMailer::Base.smtp_settings = {
+  #    :address        => 'smtp.gmail.com',
+  #    :port           => '587',
+  #    :authentication => :plain,
+  #    :user_name      => 'dbtc.chd.trantorinc@gmail.com',
+  #    :password       => 'welcomeDBTC',
+  #    :domain         => 'gmail.com'
+  #}
   ActionMailer::Base.delivery_method ||= :smtp
 
-  config.action_mailer.default_url_options = {:host => 'deathbyathousandcuts.herokuapp.com'}
+  config.action_mailer.default_url_options = {:host => 'localhost:3000'}
 end

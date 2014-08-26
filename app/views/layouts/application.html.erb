@@ -1,48 +1,51 @@
-<!DOCTYPE html>  
-<html>  
-  <head>  
-    <title>Death BY A Thousand Cuts</title>  
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tag %>  
-  </head>  
-  <body> 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Death BY A Thousand Cuts</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
 
-    <% if current_user %>  
-      <%= render "layouts/navbar"%>
-    <%end%>
-     
-    <% flash.each do |name, msg| %>  
-      <div class="alert alert-<%=name%>" style="text-align: center;">
-        <a class="close" href="#">×</a>
-        <%= content_tag :div, msg, :id => "flash#{name}" %>
-      </div>
-    <% end %>  
+<% if current_user %>
+    <%= render "layouts/navbar" %>
+<% end %>
 
-    <div class="container-fluid container-root"> 
-    	<%= yield %>
-      <%if current_user%>
-        <input type="hidden" id="issue_user_name" value=<%= current_user.username %>>
-        <div class="modal fade" id="create_new_issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog" style="width: 65%;">
-            <div class="modal-content" >
-              <div class="modal-header" style="background-color: #428BCA;height: 47px;">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Create New Cut  
-              </div>
-              <div class="modal-body" style="height: 300px;">
-                <%=render "/issues/create"%>
-              </div>
-              <div class="modal-footer" style="background-color: whiteSmoke;">
-                <button type="button" data-dismiss="modal" class="btn">Close</button>
-                <button type="button" class="btn btn-primary"  id ="create_issue">Create</button>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->  
-        </div>
-      <%end%> 
-
+<% flash.each do |name, msg| %>
+    <div class="alert alert-<%= name %>" style="text-align: center;">
+      <a class="close" href="#">×</a>
+      <%= content_tag :div, msg, :id => "flash#{name}" %>
     </div>
-    
-  </body>  
+<% end %>
+
+<div class="container-fluid container-root">
+  <%= yield %>
+  <% if current_user %>
+      <input type="hidden" id="issue_user_name" value=<%= current_user.username %>>
+
+      <div class="modal fade" id="create_new_issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 65%;">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #428BCA;height: 47px;">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              Create New Cut
+            </div>
+            <div class="modal-body" style="height: 300px;">
+              <%= render "/issues/create" %>
+            </div>
+            <div class="modal-footer" style="background-color: whiteSmoke;">
+              <button type="button" data-dismiss="modal" class="btn">Close</button>
+              <button type="button" class="btn btn-primary" id="create_issue">Create</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+  <% end %>
+
+</div>
+
+</body>
 </html>  

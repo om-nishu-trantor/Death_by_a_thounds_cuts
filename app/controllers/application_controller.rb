@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def accessible_projects
-    @accessible_projects = current_user.projects
+    @accessible_projects = (current_user ? current_user.projects : [])
   end
 
   def projects

@@ -172,10 +172,10 @@ class IssuesController < ApplicationController
   def setupdata params
   	if params[:project] == "ALL"
   		@issues = issue_query
-  		@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
+  		@issues.select{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
   	else
   		@issues = issue_query params[:project]
-  		@issues.select!{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
+  		@issues.select{|issue| ((params[:start_date].to_date)..(params[:end_date].to_date)) === issue.dateIdentified.to_date }
   	end
   end	
 

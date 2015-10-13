@@ -80,7 +80,8 @@ $(document).ready(function(){
 					color: '#fff' 
 				}
 			});
-				window.location = '/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date
+			// window.location = '/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date
+			window.open('/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date, '_blank');
 			// $.get('/issues/pdf_report.pdf',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
    //  		});
 	}else{	

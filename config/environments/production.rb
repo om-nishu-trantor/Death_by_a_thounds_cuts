@@ -1,4 +1,4 @@
-ParseRailsBoilerplate::Application.configure do
+  ParseRailsBoilerplate::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -60,12 +60,13 @@ ParseRailsBoilerplate::Application.configure do
   config.active_support.deprecation = :notify
 
   ActionMailer::Base.smtp_settings = {
-      :address        => 'smtp.gmail.com',
-      :port           => '587',
-      :authentication => :plain,
-      :user_name      => 'dbtc.chd.trantorinc@gmail.com',
-      :password       => 'welcomeDBTC',
-      :domain         => 'gmail.com'
+     :user_name => "foundation3",
+    :password => "71j2WG",
+    :domain => "foundation3.com",
+    :address => "smtp.sendgrid.net",
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
   }
   ActionMailer::Base.delivery_method ||= :smtp
 

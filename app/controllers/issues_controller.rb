@@ -222,9 +222,12 @@ class IssuesController < ApplicationController
 		{ :alert => "Cut #{object.title} for project #{object.Project} has been updated by user #{object.lastUpdatedBy}"}
 	elsif type == "delete"
 		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
-	end			
-	push = Parse::Push.new(data, "DBTC")
-	push.type = "ios"
+	end	
+	
+	deviceId = User.find_by_Name(object.assignedTo).objectId
+	push = Parse::Push.new(data)
+	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', deviceId)
+	push.where = query.where
 	push.save
   end	
 

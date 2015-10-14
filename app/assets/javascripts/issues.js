@@ -84,15 +84,16 @@ $(document).ready(function(){
 			window.open('/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date, '_blank');
 			// $.get('/issues/pdf_report.pdf',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
    //  		});
-	}else{	
-		$.blockUI({ css: { 
-			border: 'none', 
-			padding: '15px', 
-			backgroundColor: '#000', 
-			'-webkit-border-radius': '10px', 
-			'-moz-border-radius': '10px', 
-			opacity: .5, 
-			color: '#fff' 
+	    $.unblockUI();
+	}else{
+		$.blockUI({ css: {
+			border: 'none',
+			padding: '15px',
+			backgroundColor: '#000',
+			'-webkit-border-radius': '10px',
+			'-moz-border-radius': '10px',
+			opacity: .5,
+			color: '#fff'
 		}
 	});
 		$.get('/issues/fetch_issue_report',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){

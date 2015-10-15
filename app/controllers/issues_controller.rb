@@ -23,15 +23,22 @@ class IssuesController < ApplicationController
 		params[:issues][:isClosed] = params[:issues][:isClosed] == "true" ? true : false
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "true" ? true : false
 		params[:issues][:isDeleted] = false
+
+    assigned_user_id = params[:issues][:assignedTo]
+
+    # Set assigned_to with UserId name.
+    params[:issues][:assignedTo] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:assignedTo].blank?
+
 		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:createdBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase
 		params[:issues][:CommentsArray] = []
 		@issue = Issues.new(params[:issues])
+
 		if @issue.save
 			# @issues = issue_query params[:issues][:Project]
 			send_mail @issue if params[:issues][:Status] == "CLOSED"
-			send_notification "create", @issue
+			send_notification "create", @issue, assigned_user_id
 			UserNotifier.send_create_notification_mail(@issue).deliver!
 			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
@@ -40,7 +47,7 @@ class IssuesController < ApplicationController
 			@serverty, @closed  = category(@issues)
 		end
 		format_create response
-	end	
+	end
 
 	def edit
 		@object_issues = Issues.find_by_objectId(params[:id])
@@ -215,7 +222,7 @@ class IssuesController < ApplicationController
 	WebRead.destroy_all(read_issues) unless read_issues.blank?
   end	
 
-  def send_notification type, object
+  def send_notification type, object, assigned_user_id
   	data =  if type == "create"
   		{ :alert => "Cut #{object.title} for project #{object.Project} has been created by user #{object.createdBy}" }
 	elsif type == "update"
@@ -224,9 +231,8 @@ class IssuesController < ApplicationController
 		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
 	end	
 	
-	deviceId = User.find_by_Name(object.assignedTo).objectId
 	push = Parse::Push.new(data)
-	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', deviceId)
+	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', assigned_user_id)
 	push.where = query.where
 	push.save
   end	

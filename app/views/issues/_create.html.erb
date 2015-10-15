@@ -60,11 +60,11 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">Assigned To</label>
 
-				<div class="s">  
-					<%if current_user.isAdmin%> 
-					<%= select_tag 'assignedto', options_for_select(users, :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
+				<div class="s">
+					<%if current_user.isAdmin%>
+					<%= select_tag 'assignedto', options_for_select(all_users_with_id, :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
 					<%else%>
-					<%= select_tag 'assignedto', options_for_select(users)%>
+					<%= select_tag 'assignedto', options_for_select(all_users_with_id)%>
 					<%end%>
 				</div>
 			</div>
@@ -75,7 +75,7 @@
 				<%end%>
 			</div>
 		</div>  
-		<div class="col-sm-12 create_cut_field"> 
+		<div class="col-sm-12 create_cut_field">
 			<div class="col-sm-4">
 
 			</div>

@@ -1,6 +1,6 @@
-class ApplicationController < ActionController::Base  
-  protect_from_forgery  
-  helper_method :current_user, :projects, :users  
+class ApplicationController < ActionController::Base 
+  protect_from_forgery
+  helper_method :current_user, :projects, :users, :all_users_with_id  
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -27,6 +27,13 @@ class ApplicationController < ActionController::Base
   def users
     @users = []
     users =  current_user.isAdmin ? User.all.map(&:Name) : ['RAJAT JULKA']
-    @users = users.collect! { |c| [ c, c ] } if users 
-  end  
-end  
+    @users = users.collect! { |c| [ c, c ] } if users
+  end
+
+  def all_users_with_id
+    @users = []
+    users =  current_user.isAdmin ? User.all : [User.find_by_Name("RAJAT JULKA")]
+    @users = users.collect! { |c| [c.Name, c.objectId] } if users  
+  end
+
+end

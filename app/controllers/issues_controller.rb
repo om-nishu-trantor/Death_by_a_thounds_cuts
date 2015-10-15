@@ -95,7 +95,7 @@ class IssuesController < ApplicationController
 		@issue = @object_issues.update_attributes(params[:issues])
 		
 		if @issue
-			send_notification "update", @object_issues, assigned_user_id
+			# send_notification "update", @object_issues, assigned_user_id
 			mark_unread @object_issues.objectId
 			if params[:issues][:Status] == "CLOSED" && !closed_status
 				send_mail @object_issues
@@ -114,7 +114,7 @@ class IssuesController < ApplicationController
 
     assigned_user_id = User.find_by_Name(issue.assignedTo).objectId
 		if issue_create
-			send_notification "delete", issue, assigned_user_id
+			# send_notification "delete", issue, assigned_user_id
 			mark_unread issue.objectId
 			UserNotifier.send_delete_notification_mail(issue).deliver!
 		end	

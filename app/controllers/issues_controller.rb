@@ -98,9 +98,9 @@ class IssuesController < ApplicationController
 			# send_notification "update", @object_issues, assigned_user_id
 			mark_unread @object_issues.objectId
 			if params[:issues][:Status] == "CLOSED" && !closed_status
-				send_mail @object_issues
+				# send_mail @object_issues
 			else	
-				UserNotifier.send_update_notification_mail(@object_issues).deliver!
+				# UserNotifier.send_update_notification_mail(@object_issues).deliver!
 			end
 		end
 		# @serverty, @closed  = category(@issues)	
@@ -116,7 +116,7 @@ class IssuesController < ApplicationController
 		if issue_create
 			# send_notification "delete", issue, assigned_user_id
 			mark_unread issue.objectId
-			UserNotifier.send_delete_notification_mail(issue).deliver!
+			# UserNotifier.send_delete_notification_mail(issue).deliver!
 		end	
 		@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 		@issues = issue_query if @issues.blank?

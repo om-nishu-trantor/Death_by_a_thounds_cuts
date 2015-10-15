@@ -100,7 +100,7 @@
 					<label class="" for="input01">Assigned To</label>
 					<div class="s">  
 						<%if current_user.isAdmin%> 
-						<%= f.select :assignedTo, options_for_select(@users,:selected => @object_issues.assignedTo)%>
+						<%= f.select :assignedTo, options_for_select(all_users_with_id,:selected => @object_issues.assignedTo)%>
 						<%else%>
 						<%= f.select :assignedTo, options_for_select([[@object_issues.assignedTo,@object_issues.assignedTo]])%>
 						<%end%>

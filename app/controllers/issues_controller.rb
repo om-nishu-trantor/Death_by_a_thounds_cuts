@@ -54,9 +54,8 @@ class IssuesController < ApplicationController
 		if @object_issues.nil?
 			flash[:notice] = "Issue not found"
 			redirect_to issues_path, :notice => "Cut not found"
-		end	
-		@users = all_users	
-	end	
+		end
+	end
 
 	def show
 		@object_issues = Issues.find_by_objectId(params[:id])
@@ -65,13 +64,18 @@ class IssuesController < ApplicationController
 			redirect_to issues_path, :notice => "Cut not found"
 		end
 		@users = all_users	
-	end	
+	end
 
 	def update
 		@object_issues = Issues.find_by_objectId(params[:id])
 		closed_status = (@object_issues.Status == "CLOSED")
 		params[:issues][:isClosed] = params[:issues][:Status] == "CLOSED" ? true : false
 		params[:issues][:closedBy] = params[:issues][:Status] == "CLOSED" ? current_user.Name : ''
+
+    assigned_user_id = params[:issues][:assignedTo]
+    # Set assigned_to with UserId name.
+    params[:issues][:assignedTo] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:assignedTo].blank?
+
 		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
 		comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
@@ -91,7 +95,7 @@ class IssuesController < ApplicationController
 		@issue = @object_issues.update_attributes(params[:issues])
 		
 		if @issue
-			send_notification "update", @object_issues
+			send_notification "update", @object_issues, assigned_user_id
 			mark_unread @object_issues.objectId
 			if params[:issues][:Status] == "CLOSED" && !closed_status
 				send_mail @object_issues
@@ -107,8 +111,10 @@ class IssuesController < ApplicationController
 	def destroy 
 		issue = Issues.find_by_objectId(params[:id])
 		issue_create = issue.update_attributes(:isDeleted => true ,:deletedBy => current_user.Name,:lastUpdatedBy => current_user.Name) if issue 
+
+    assigned_user_id = User.find_by_Name(issue.assignedTo).objectId
 		if issue_create
-			send_notification "delete", issue
+			send_notification "delete", issue, assigned_user_id
 			mark_unread issue.objectId
 			UserNotifier.send_delete_notification_mail(issue).deliver!
 		end	
@@ -225,17 +231,17 @@ class IssuesController < ApplicationController
   def send_notification type, object, assigned_user_id
   	data =  if type == "create"
   		{ :alert => "Cut #{object.title} for project #{object.Project} has been created by user #{object.createdBy}" }
-	elsif type == "update"
-		{ :alert => "Cut #{object.title} for project #{object.Project} has been updated by user #{object.lastUpdatedBy}"}
-	elsif type == "delete"
-		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
-	end	
-	
-	push = Parse::Push.new(data)
-	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', assigned_user_id)
-	push.where = query.where
-	push.save
-  end	
+  	elsif type == "update"
+  		{ :alert => "Cut #{object.title} for project #{object.Project} has been updated by user #{object.lastUpdatedBy}"}
+  	elsif type == "delete"
+  		{ :alert => "Cut #{object.title} for project #{object.Project} has been delete by user #{object.deletedBy}"}
+  	end	
+  	
+  	push = Parse::Push.new(data)
 
+  	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', assigned_user_id)
+  	push.where = query.where
+  	push.save
+    end	
 
 end

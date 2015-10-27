@@ -26,6 +26,9 @@
         <li>
           <a href="#create_new_issue" data-toggle = "modal" >Create new cut</a>
         </li>
+        <li>
+          <a href="#import_new_issue" data-toggle = "modal" >Import Cuts</a>
+        </li>
         <li><a href=<%= edit_user_path(:id => current_user.objectId) %>>Reset Password</a></li>
         <% if can? :new, User %>
          <li><a href=<%=sign_up_path %>>Create User</a></li>

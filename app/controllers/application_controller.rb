@@ -36,4 +36,10 @@ class ApplicationController < ActionController::Base
     @users = users.collect! { |c| [c.Name, c.objectId] } if users  
   end
 
+  def get_file_format(file_to_upload)
+    fmt = file_to_upload.original_filename.split('.')
+    indx = fmt.length - 1
+    return fmt[indx].downcase
+  end
+
 end

@@ -198,6 +198,11 @@ $(document).ready(function(){
 		// $("#update_issue_div").hide();
 	});	
 
+	$('.create_new_issue').on('click',function(){
+	$("#new_issue_div").collapse('toggle');
+	// $("#update_issue_div").hide();
+    });	
+
 	$('#update_issue').on('click',function(){
 		$("#update_issue_div").toggle();
 		$("#new_issue_div").hide();

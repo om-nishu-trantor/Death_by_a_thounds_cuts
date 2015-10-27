@@ -40,6 +40,34 @@
             </div><!-- /.modal-content -->
           </div><!-- /.modal-dialog -->  
         </div>
+
+        <div class="modal fade" id="import_new_issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" style="width: 65%;">
+            <div class="modal-content" >
+              <div class="modal-header" style="background-color: #428BCA;height: 47px;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                Import New Cuts  
+              </div>
+              <div class="modal-body" style="height: 60px;">
+                <%= form_tag upload_issues_issues_path, id: "upload_cuts_file_form", multipart: true do %>
+                  <span class="wrap1">
+                    <%= file_field_tag :file, accept: 'text/csv', class: "btn"%>
+                  </span>
+                <% end %>
+                <div class="control-group">
+                  <div class="col-sm-12">
+                  <b class='downloadCompanySample'><a class='downloadCompanySample' href="/issues/sample_issues_csv">Click here</a></b> to download sample format of CSV file.
+                  </div>  
+                </div>
+              </div>
+              <div class="modal-footer" style="background-color: whiteSmoke;">
+                <button type="button" data-dismiss="modal" class="btn">Close</button>
+                <button type="button" class="btn btn-primary"  id ="upload_issue" 
+                 onclick="javascript: $('#upload_cuts_file_form').submit();">Upload</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->  
+        </div>
       <%end%> 
 
     </div>

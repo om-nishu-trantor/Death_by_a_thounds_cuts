@@ -16,7 +16,8 @@ ParseRailsBoilerplate::Application.routes.draw do
   end
   resources :issues do
   	collection do
-  		get :fetch_issue, :pdf_report, :report, :fetch_issue_report
+  		get :fetch_issue, :pdf_report, :report, :fetch_issue_report, :sample_issues_csv
+      post :upload_issues
   	end	
   end	
 end

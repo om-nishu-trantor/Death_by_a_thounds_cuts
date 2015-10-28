@@ -42,3 +42,6 @@ group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
 end
+
+# Roo gem- For importing CSV and Excel
+gem 'roo', '~> 2.1.0'

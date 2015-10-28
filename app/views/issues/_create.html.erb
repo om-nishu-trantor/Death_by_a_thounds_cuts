@@ -62,9 +62,9 @@
 
 				<div class="s">
 					<%if current_user.isAdmin%>
-					<%= select_tag 'assignedto', options_for_select(all_users_with_id, :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
+						<%= select_tag 'assignedto', options_for_select(all_users_with_id, :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
 					<%else%>
-					<%= select_tag 'assignedto', options_for_select(all_users_with_id)%>
+						<%= select_tag 'assignedto', options_for_select(all_users_with_id)%>
 					<%end%>
 				</div>
 			</div>

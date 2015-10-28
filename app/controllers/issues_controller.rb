@@ -53,26 +53,28 @@ class IssuesController < ApplicationController
 	def upload_issues
     if request.post?
       if params[:file].blank?
-        flash[:error] = "Select file to upload"
+        flash[:error] = "Select file to upload" and return
       else
-        if get_file_format(params[:file]) == 'xls'
+        #if get_file_format(params[:file]) == 'xlsx'
           begin
-            # PROCESS XLS 
+            Issues.import(params[:file])
+            redirect_to root_url, notice: "Issues imported." 
+
           rescue Exception => e
-            flash[:error] = "Uploaded XLS is not in valid format specified in sample CSV. Please download sample xls for verification."
+            flash[:error] = "Uploaded XLS is not in valid format specified in sample CSV. Please download sample xls for verification." and return
           end
-        else
-          flash[:error] = "Invalid file format, Please upload .xls file."
-        end
+        #else
+          #flash[:error] = "Invalid file format, Please upload .xls file." and return
+        # end
       end
     end
 	end
 
 	def sample_issues_csv
-		headers_for_csv = ["S.No", "Project", "Title", "Description", "MitigationPlan", "DateIdentified", "Status", "Severity", "AssignedTo", "Is Management Issue"]
+		headers_for_csv = ["S.No", "Project", "Title", "Description", "MitigationPlan", "DateIdentified", "Status", "Severity", "assignedTo", "Is Management Issue"]
     dir_path = "#{Rails.root}/"
     FileUtils.mkdir_p(dir_path) unless File.directory?(dir_path)
-    file_name = 'upload_cuts_sample_format.xls'
+    file_name = 'upload_cuts_sample_format.xlsx'
     file_path = "#{dir_path}/#{file_name}"
 
     CSV.open(file_path, "w") do |file|
@@ -80,7 +82,7 @@ class IssuesController < ApplicationController
       file << ["1", "LinkYogi", "My first Cut title", "My first Cut description", "Plan detail", "26-10-2015", "OPEN/IN-PROGRESS/CLOSED/ASSIGNED/ON HOLD/RESOLVED", "LOW/MEDIUM/HIGH", "UserName", "true/false"]
     end
 
-    send_data File.read(file_path), :filename => 'upload_cuts_sample_format.xls', :disposition => 'attachment'
+    send_data File.read(file_path), :filename => 'upload_cuts_sample_format.xlsx', :disposition => 'attachment'
 
   # spreadsheet = StringIO.new 
   # book.write spreadsheet 

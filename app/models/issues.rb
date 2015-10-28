@@ -9,9 +9,7 @@ class Issues < ParseResource::Base
       # issue = find_by_id(row["id"]) || new
       # product.attributes = row.to_hash.slice(*accessible_attributes)
       # product.save!
-      # debugger
-      # create_issue(row)
-
+      create_issue(row)
     end
   end
 
@@ -22,6 +20,25 @@ class Issues < ParseResource::Base
     when ".xlsx" then Roo::Excelx.new(file.path, packed: nil, file_warning: :ignore)
     else raise "Unknown file type: #{file.original_filename}"
     end
+  end
+
+  def self.create_issue(row)
+    row = row.except("S.No")
+    row["Project"] = ((row["Project"]).strip).upcase
+    row["isClosed"] = row["isClosed"] == "true" ? true : false
+    row["isManagementIssue"] = row["isManagementIssue"] == "true" ? true : false
+    row["isDeleted"] = false
+
+    # Set assigned_to with UserId name.
+    row["assignedTo"] = 'RAJAT JULKA' if row["isManagementIssue"] = "true"
+
+    row["assignedTo"] = row["assignedTo"].blank? ? 'RAJAT JULKA' : row["assignedTo"]
+
+    row["createdBy"] = 'Sunia'#current_user.Name
+    row["CommentsArray"] = []
+
+    new_issue = Issues.new(row)
+    new_issue.save
   end
 
 end

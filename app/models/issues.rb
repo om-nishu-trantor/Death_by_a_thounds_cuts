@@ -1,15 +1,12 @@
 class Issues < ParseResource::Base
 	 fields :Project, :Description, :mitigationPlan, :dateIdentified, :dateResolved, :Status, :Severity, :CommentsArray, :title, :isManagementIssue
 
-  def self.import(file)
+  def self.import(file, current_userName)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      # issue = find_by_id(row["id"]) || new
-      # product.attributes = row.to_hash.slice(*accessible_attributes)
-      # product.save!
-      create_issue(row)
+      create_issue(row, current_userName)
     end
   end
 
@@ -22,19 +19,18 @@ class Issues < ParseResource::Base
     end
   end
 
-  def self.create_issue(row)
+  def self.create_issue(row, current_userName)
     row = row.except("S.No")
     row["Project"] = ((row["Project"]).strip).upcase
     row["isClosed"] = row["isClosed"] == "true" ? true : false
     row["isManagementIssue"] = row["isManagementIssue"] == "true" ? true : false
     row["isDeleted"] = false
 
-    # Set assigned_to with UserId name.
-    row["assignedTo"] = 'RAJAT JULKA' if row["isManagementIssue"] = "true"
+    row["assignedTo"] = 'RAJAT JULKA' if row["isManagementIssue"] == true
 
     row["assignedTo"] = row["assignedTo"].blank? ? 'RAJAT JULKA' : row["assignedTo"]
 
-    row["createdBy"] = 'Sunia'#current_user.Name
+    row["createdBy"] = current_userName
     row["CommentsArray"] = []
 
     new_issue = Issues.new(row)

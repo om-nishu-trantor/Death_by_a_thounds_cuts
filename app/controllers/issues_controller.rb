@@ -53,19 +53,20 @@ class IssuesController < ApplicationController
 	def upload_issues
     if request.post?
       if params[:file].blank?
-        flash[:notice] = "Select file to upload."
+        flash[:notice] = "Select file to upload." 
       else
-        #if get_file_format(params[:file]) == 'xlsx'
+        if get_file_format(params[:file]) == 'xlsx'
           begin
-            Issues.import(params[:file])
-            flash[:notice] "Issues imported." 
+            Issues.import(params[:file], current_user.Name)
+            flash[:notice] ="Issues imported." 
+
           rescue Exception => e
-            flash[:error] = "Uploaded XLS is not in valid format specified in sample CSV. Please download sample xls for verification." 
+            flash[:error] = "Uploaded XLSX is not in valid format specified in sample format. Please download sample xlsx for verification." 
             redirect_to '/issues'
           end
-        #else
-          #flash[:error] = "Invalid file format, Please upload .xls file." and return
-        # end
+        else
+          flash[:error] = "Invalid file format, Please upload .xlsx file."
+        end
       end
       redirect_to '/issues'
     end

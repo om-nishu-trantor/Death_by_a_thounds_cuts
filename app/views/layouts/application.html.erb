@@ -11,13 +11,8 @@
     <% if current_user %>  
       <%= render "layouts/navbar"%>
     <%end%>
-     
-    <% flash.each do |name, msg| %>  
-      <div class="alert alert-<%=name%>" style="text-align: center;">
-        <a class="close" href="#">×</a>
-        <%= content_tag :div, msg, :id => "flash#{name}" %>
-      </div>
-    <% end %>  
+
+    <%= render 'layouts/flash_messages' %>
 
     <div class="container-fluid container-root"> 
     	<%= yield %>

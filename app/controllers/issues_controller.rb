@@ -61,7 +61,7 @@ class IssuesController < ApplicationController
             flash[:notice] ="Issues imported successfully" 
 
           rescue Exception => e
-            flash[:error] = "Something went wrong due to #{e}" 
+            flash[:error] = "#{e}" 
             redirect_to '/issues' and return
           end
         else

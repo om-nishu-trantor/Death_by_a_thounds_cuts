@@ -8,7 +8,7 @@ class Issues < ParseResource::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      create_issue(row, current_userName)
+      create_issue(row, current_userName) if find_by_title(row["title"]).blank?
     end
   end
 
@@ -20,7 +20,6 @@ class Issues < ParseResource::Base
   end
 
   def self.create_issue(row, current_userName)
-
     row = row.select {|k,v| ["Project","title", "Description", "mitigationPlan", "dateIdentified", "Status", "Severity", "assignedTo","isManagementIssue", "isClosed", "createdBy"].include?(k) }
     row["Project"] = ((row["Project"]).strip).upcase
     row["isClosed"] = row["isClosed"] == "true" ? true : false

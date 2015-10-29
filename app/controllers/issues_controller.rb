@@ -58,11 +58,11 @@ class IssuesController < ApplicationController
         if get_file_format(params[:file]) == 'xlsx'
           begin
             Issues.import(params[:file], current_user.Name)
-            flash[:notice] ="Issues imported." 
+            flash[:notice] ="Issues imported successfully" 
 
           rescue Exception => e
-            flash[:error] = "Uploaded XLSX is not in valid format specified in sample format. Please download sample xlsx for verification." 
-            redirect_to '/issues'
+            flash[:error] = "Something went wrong due to #{e}" 
+            redirect_to '/issues' and return
           end
         else
           flash[:error] = "Invalid file format, Please upload .xlsx file."

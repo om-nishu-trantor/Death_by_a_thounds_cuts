@@ -1,6 +1,8 @@
 class Issues < ParseResource::Base
 	 fields :Project, :Description, :mitigationPlan, :dateIdentified, :dateResolved, :Status, :Severity, :CommentsArray, :title, :isManagementIssue
 
+   validates :title, :presence => true
+
   def self.import(file, current_userName)
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
@@ -20,9 +22,11 @@ class Issues < ParseResource::Base
   end
 
   def self.create_issue(row, current_userName)
-    row = row.except("S.No")
+
+    row = row.select {|k,v| ["Project","title", "Description", "mitigationPlan", "dateIdentified", "Status", "Severity", "assignedTo","isManagementIssue", "isClosed", "createdBy"].include?(k) }
     row["Project"] = ((row["Project"]).strip).upcase
     row["isClosed"] = row["isClosed"] == "true" ? true : false
+
     row["isManagementIssue"] = row["isManagementIssue"] == "true" ? true : false
     row["isDeleted"] = false
 
@@ -33,8 +37,9 @@ class Issues < ParseResource::Base
     row["createdBy"] = current_userName
     row["CommentsArray"] = []
 
-    new_issue = Issues.new(row)
-    new_issue.save
+    # Create the record for the issue.
+    issue = Issues.new(row) 
+    raise 'Headers/values are not in proper format' and return unless issue.save
   end
 
 end

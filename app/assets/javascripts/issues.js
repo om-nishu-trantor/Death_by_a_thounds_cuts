@@ -123,6 +123,10 @@ $(document).ready(function(){
 		var assignedto = $('#new_issue_create_form #assignedto').val();
 		var project_select = $('#project_list_drop').val();
 		var cut_title = $('#cut_title').val()
+		var issueType =  $('#new_issue_create_form #issueType').val();
+		var isClientIssue =  $('#new_issue_create_form #isclientissue').prop('checked');
+		var projectOwner =  $('#new_issue_create_form #projectOwner').val();
+		var accountManager =  $('#new_issue_create_form #accountManager').val();
 		
 		if(cut_title.length == 0)
 		{
@@ -163,6 +167,10 @@ $(document).ready(function(){
 			'issues[isManagementIssue]' : manageable,
 			'issues[assignedTo]' : assignedto,
 			'issues[title]' : cut_title,
+			'issues[IssueType]' : issueType,
+			'issues[isClientIssue]' : isClientIssue,
+			'issues[ProjectOwner]' : projectOwner,
+			'issues[AccountManager]' : accountManager,
 			'project' : project_select
 		}
 		$('#create_new_issue').modal('hide')

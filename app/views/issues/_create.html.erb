@@ -54,13 +54,13 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">AccountManager</label>  
 				<div class="s">  
-					<input type="text" class="" id="accountManager" name="accountManager" required style="width: 65%;"> 
+				  <%= select_tag 'accountManager', options_for_select(all_users_with_id)%>
 				</div> 
 			</div>
 			<div class="col-sm-4">
 				<label class="" for="input01">ProjectOwner</label>  
 				<div class="">  
-					<input type="text" class="" id="projectOwner" name="projectOwner" required style="width: 65%;">
+				  <%= select_tag 'projectOwner', options_for_select(all_users_with_id)%>
 				</div> 
 			</div>
 			<div class="col-sm-4">

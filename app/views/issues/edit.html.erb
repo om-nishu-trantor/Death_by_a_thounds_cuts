@@ -93,13 +93,13 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">AccountManager</label>  
 				<div class="s">  
-				  <%=f.text_field :AccountManager, :required => 'required', :style => "width:65%"%>  
+				  <%= f.select :AccountManager, options_for_select(all_users_with_id, :selected => @object_issues.AccountManager)%> 
 				</div> 
 			</div>
 			<div class="col-sm-4">
 				<label class="" for="input01">ProjectOwner</label>  
-				<div class="">  
-				  <%=f.text_field :ProjectOwner, :required => 'required', :style => "width:65%"%>  
+				<div class=""> 
+				  <%= f.select :ProjectOwner, options_for_select(all_users_with_id, :selected => @object_issues.ProjectOwner)%> 
 				</div> 
 			</div>
 			<div class="col-sm-4">

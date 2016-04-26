@@ -10,3 +10,7 @@
 .sorting_disabled{
 	cursor: auto !important;
 }
+
+.margin_bottom {
+	margin-bottom: 25px;
+}

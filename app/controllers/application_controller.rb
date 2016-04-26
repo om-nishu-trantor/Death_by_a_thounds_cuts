@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base 
   protect_from_forgery
-  helper_method :current_user, :projects, :users, :all_users_with_id, :issue_types  
+  helper_method :current_user, :projects, :users, :all_users_with_id, :issue_types, :assigned_to  
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -45,6 +45,11 @@ class ApplicationController < ActionController::Base
   def issue_types
     @issue_types = []
     @issue_types =  IssueTypes.all.map(&:IssueType) 
+  end
+
+  def assigned_to
+    @assigned_to = []
+    @assigned_to =  Issues.all.map(&:assignedTo) 
   end
 
 end

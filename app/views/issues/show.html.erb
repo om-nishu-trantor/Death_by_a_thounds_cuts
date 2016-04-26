@@ -11,7 +11,7 @@
 	</div>
 	<div class="panel-body">
 		<div class="control-group">
-			<div class="col-sm-12"> 
+			<div class="col-sm-12 margin_bottom"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">Project</label>
 					<div class="">
@@ -31,7 +31,8 @@
 					</div> 
 				</div>
 			</div>
-			<div class="col-sm-12"> 
+			<br/>
+			<div class="col-sm-12 margin_bottom"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">DateIdentified</label>  
 					<div class="s">
@@ -51,7 +52,8 @@
 					</div> 
 				</div>
 			</div>
-			<div class="col-sm-12"> 
+			<br/>
+			<div class="col-sm-12 margin_bottom"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">Severity</label>  
 					<div class="">
@@ -65,13 +67,13 @@
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<label class="" for="input01">Is Management Issue</label>
-					<div class="s"> 
-						<%=@object_issues.isManagementIssue%>  
-					</div>
+					<label class="" for="input01">Is Management Issue</label>	
+					<% isManagementIssue = @object_issues.isManagementIssue %>
+					<%= check_box_tag 'isManagementIssue', false, isManagementIssue, :disabled => true %>
 				</div>				
 			</div>
-			<div class="col-sm-12"> 
+			<br/>
+			<div class="col-sm-12 margin_bottom"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">AccountManager</label>  
 					<div class="">
@@ -86,12 +88,12 @@
 				</div>
 				<div class="col-sm-4">
 			  	<label class="" for="input01">Is Client Issue</label>
-					<div class="s"> 
-						<%=@object_issues.isClientIssue%>  
-					</div>
+			  	<% isClientIssue = @object_issues.isClientIssue %>
+					<%= check_box_tag 'isClientIssue', false, isClientIssue, :disabled => true %>
 				</div>				
 			</div>
-			<div class="col-sm-12"> 
+			<br/>
+			<div class="col-sm-12 margin_bottom"> 
 				<div class="col-sm-4">
 					<label class="" for="input01">Issue Type</label>  
 					<div class="">

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base 
   protect_from_forgery
-  helper_method :current_user, :projects, :users, :all_users_with_id  
+  helper_method :current_user, :projects, :users, :all_users_with_id, :issue_types  
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -40,6 +40,11 @@ class ApplicationController < ActionController::Base
     fmt = file_to_upload.original_filename.split('.')
     indx = fmt.length - 1
     return fmt[indx].downcase
+  end
+
+  def issue_types
+    @issue_types = []
+    @issue_types =  IssueTypes.all.map(&:IssueType) 
   end
 
 end

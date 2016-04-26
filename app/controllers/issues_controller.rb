@@ -23,6 +23,7 @@ class IssuesController < ApplicationController
 		@issues = []
 		params[:issues][:isClosed] = params[:issues][:isClosed] == "true" ? true : false
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "true" ? true : false
+		params[:issues][:isClientIssue] = params[:issues][:isClientIssue] == "true" ? true : false
 		params[:issues][:isDeleted] = false
 
     assigned_user_id = params[:issues][:assignedTo]
@@ -120,6 +121,7 @@ class IssuesController < ApplicationController
 
 		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
+		params[:issues][:isClientIssue] = params[:issues][:isClientIssue] == "1" ? true : false
 		comment = [[params[:issues][:CommentsArray],"Update By #{current_user.username} on #{Time.now.strftime("%d-%m-%Y %I:%M:%S")}"]]
 		if (@object_issues.CommentsArray.nil? || @object_issues.CommentsArray.blank? ) && !params[:issues][:CommentsArray].blank?
 			params[:issues][:CommentsArray] = comment

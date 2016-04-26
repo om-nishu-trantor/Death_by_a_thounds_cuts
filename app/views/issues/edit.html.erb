@@ -93,19 +93,19 @@
 			<div class="col-sm-4">
 				<label class="" for="input01">AccountManager</label>  
 				<div class="s">  
-				  <%=f.text_field :accountManager, :required => 'required', :style => "width:65%"%>  
+				  <%=f.text_field :AccountManager, :required => 'required', :style => "width:65%"%>  
 				</div> 
 			</div>
 			<div class="col-sm-4">
 				<label class="" for="input01">ProjectOwner</label>  
 				<div class="">  
-				  <%=f.text_field :projectManager, :required => 'required', :style => "width:65%"%>  
+				  <%=f.text_field :ProjectOwner, :required => 'required', :style => "width:65%"%>  
 				</div> 
 			</div>
 			<div class="col-sm-4">
 				<label class="" for="input01">Issue Types</label>
 				<div class="s">
-				  <%= f.select :issueType, options_for_select(issue_types,:selected => @object_issues.IssueType) %>  
+				  <%= f.select :IssueType, options_for_select(issue_types,:selected => @object_issues.IssueType) %>  
 				</div>
 			</div>
 		</div>

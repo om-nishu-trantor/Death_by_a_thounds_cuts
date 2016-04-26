@@ -35,6 +35,9 @@
           <th style="width: 75px !important;">Severity</th>
           <th>Title</th>
           <th>Project</th>
+<!--           <th>isClientIssue</th>
+          <th>AccountManager</th>
+          <th>ProjectOwner</th> -->
           <th >Created By</th>
           <th >Assigned To</th>
           <th style="width: 120px !important;">Status</th>
@@ -53,6 +56,9 @@
           <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
           <td><%=link_to issue.title, issue_path(:id=>issue.objectId), :class =>"title_link", :title => "show" %></td>
           <td><%= issue.Project %></td>
+<!--           <td><%= issue.isClientIssue %></td>
+          <td><%= issue.AccountManager %></td>
+          <td><%= issue.ProjectOwner %></td> -->
           <td><%= issue.createdBy %></td>
           <td><%= issue.assignedTo %></td>
           <td><%= issue.Status %></td>

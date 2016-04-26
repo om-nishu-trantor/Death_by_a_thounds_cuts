@@ -20,11 +20,13 @@ class Issues < ParseResource::Base
   end
 
   def self.create_issue(row, current_userName)
-    row = row.select {|k,v| ["Project","title", "Description", "mitigationPlan", "dateIdentified", "Status", "Severity", "assignedTo","isManagementIssue", "isClosed", "createdBy"].include?(k) }
+    row = row.select {|k,v| ["Project","title", "Description", "mitigationPlan", "dateIdentified", "Status", "Severity", "assignedTo", "isClientIssue","isManagementIssue", 'AccountManager', 'ProjectOwner', "isClosed", "createdBy"].include?(k) }
     row["Project"] = ((row["Project"]).strip).upcase
     row["isClosed"] = row["isClosed"] == "true" ? true : false
 
     row["isManagementIssue"] = row["isManagementIssue"] == "true" ? true : false
+    row["isClientIssue"] = row["isClientIssue"] == "true" ? true : false
+
     row["isDeleted"] = false
 
     row["assignedTo"] = 'RAJAT JULKA' if row["isManagementIssue"] == true

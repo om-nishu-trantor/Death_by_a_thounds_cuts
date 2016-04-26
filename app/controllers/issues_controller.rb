@@ -27,6 +27,8 @@ class IssuesController < ApplicationController
 		params[:issues][:isDeleted] = false
 
     assigned_user_id = params[:issues][:assignedTo]
+    params[:issues][:AccountManager] = params[:issues][:AccountManager]
+		params[:issues][:ProjectOwner] = params[:issues][:ProjectOwner]
 
     # Set assigned_to with UserId name.
     params[:issues][:assignedTo] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:assignedTo].blank?
@@ -136,6 +138,8 @@ class IssuesController < ApplicationController
 		end	
 		params[:issues][:lastUpdatedBy] = current_user.Name
 		params[:issues][:Project] = ((params[:issues][:Project]).strip).upcase	
+		params[:issues][:AccountManager] = params[:issues][:AccountManager]
+		params[:issues][:ProjectOwner] = params[:issues][:ProjectOwner]
 		@issue = @object_issues.update_attributes(params[:issues])
 		
 		if @issue

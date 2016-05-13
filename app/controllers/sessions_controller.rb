@@ -1,11 +1,12 @@
 class SessionsController < ApplicationController
+
   def new
-    redirect_to  issues_path if current_user 
+    redirect_to issues_path if current_user
   end  
     
-  def create  
-    user = User.authenticate(params[:user_name], params[:password])  
-    if user  
+  def create
+    user = User.authenticate(params[:user_name], params[:password])
+    if user
       session[:user_id] = user.id  
       redirect_to root_url, :notice => "Logged in!"  
     else  

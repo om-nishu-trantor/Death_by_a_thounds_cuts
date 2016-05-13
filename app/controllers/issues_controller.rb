@@ -56,7 +56,7 @@ class IssuesController < ApplicationController
 	def upload_issues
     if request.post?
       if params[:file].blank?
-        flash[:notice] = "Select file to upload." 
+        flash[:notice] = "Pleae provide file to upload in xlsx format." 
       else
         if get_file_format(params[:file]) == 'xlsx'
           begin

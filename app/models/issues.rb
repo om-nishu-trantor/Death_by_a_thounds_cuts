@@ -8,7 +8,7 @@ class Issues < ParseResource::Base
     header = spreadsheet.row(1)
     (2..spreadsheet.last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
-      create_issue(row, current_userName) if find_by_title(row["title"]).blank?
+      create_issue(row, current_userName) if !row["title"].blank? && find_by_title(row["title"]).blank?
     end
   end
 
@@ -20,17 +20,16 @@ class Issues < ParseResource::Base
   end
 
   def self.create_issue(row, current_userName)
-    row = row.select {|k,v| ["Project","title", "Description", "mitigationPlan", "dateIdentified", "Status", "Severity", "assignedTo", "isClientIssue","isManagementIssue", 'AccountManager', 'ProjectOwner', "isClosed", "createdBy"].include?(k) }
+    row = row.select {|k,v| ["Project","title", "Description", 'dateIdentified', 'dateResolved', 'Status', 'Severity', "assignedTo", "isManagementIssue", "isClientIssue", "isClosed", 'closedBy', 'createdBy', 'IssueType', 'AccountManager', "ProjectOwner", "mitigationPlan"].include?(k) }
+    
     row["Project"] = ((row["Project"]).strip).upcase
-    row["isClosed"] = row["isClosed"] == "true" ? true : false
-
-    row["isManagementIssue"] = row["isManagementIssue"] == "true" ? true : false
-    row["isClientIssue"] = row["isClientIssue"] == "true" ? true : false
-
+    
+    row["isClosed"] = (row["isClosed"] == "true" || row["isClosed"] == 1 ? true : false)
+    row["isManagementIssue"] = (row["isManagementIssue"] == "true" || row["isManagementIssue"] == 1 ? true : false)
+    row["isClientIssue"] = (row["isClientIssue"] == "true" || row["isClientIssue"] == 1 ? true : false)
     row["isDeleted"] = false
 
     row["assignedTo"] = 'RAJAT JULKA' if row["isManagementIssue"] == true
-
     row["assignedTo"] = row["assignedTo"].blank? ? 'RAJAT JULKA' : row["assignedTo"]
 
     row["createdBy"] = current_userName

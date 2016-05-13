@@ -23,9 +23,9 @@ gem 'jquery-datatables-rails', '1.12.2'
 gem "cancan"
 gem 'wkhtmltopdf-binary'
 gem 'wisepdf'
+
 group :test do
   gem 'turn', '0.8.2', :require => false # Pretty printed test output
 end
 
-# Roo gem- For importing CSV and Excel
-gem 'roo', '~> 2.1.0'
+gem 'roo', '~> 2.3.2'

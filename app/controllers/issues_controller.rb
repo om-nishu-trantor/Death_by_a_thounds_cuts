@@ -1,8 +1,8 @@
 require 'csv'
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
-	before_filter :check_read, :only => [:index, :fetch_issue, :create, :destroy]
-	before_filter :mark_read, :only => [:show, :edit]
+	before_filter :check_read, only: [:index, :fetch_issue, :create, :destroy]
+	before_filter :mark_read, only: [:show, :edit]
 	
 	def index
 		@issues =  issue_query
@@ -172,7 +172,7 @@ class IssuesController < ApplicationController
 
 	def issue_query project = nil
 		issues = Issues.where(query(project)).all
-		unless  current_user.isAdmin
+		unless current_user.isAdmin
 			issues = issues + Issues.where(get_created_by_data(project)).all
 		end
 		issues	
@@ -187,8 +187,8 @@ class IssuesController < ApplicationController
 
 	def query project
 		query = {:isDeleted => false}
-		query.merge!(:assignedTo => current_user.Name)  unless  current_user.isAdmin
-		query.merge!(:Project => project)  if project
+		query.merge!(:assignedTo => current_user.Name) unless current_user.isAdmin
+		query.merge!(:Project => project) if project
 		query
 	end	
 

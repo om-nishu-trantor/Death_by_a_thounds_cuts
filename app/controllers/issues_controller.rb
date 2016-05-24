@@ -104,6 +104,7 @@ class IssuesController < ApplicationController
 
 	def show
 		@object_issues = Issues.find_by_objectId(params[:id])
+    
 		if @object_issues.nil?
 			flash[:notice] = "Issue not found"
 			redirect_to issues_path, :notice => "Cut not found"
@@ -120,6 +121,8 @@ class IssuesController < ApplicationController
     assigned_user_id = params[:issues][:assignedTo]
     # Set assigned_to with UserId name.
     params[:issues][:assignedTo] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:assignedTo].blank?
+    params[:issues][:AccountManager] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:AccountManager].blank?
+    params[:issues][:ProjectOwner] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:ProjectOwner].blank?
 
 		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false

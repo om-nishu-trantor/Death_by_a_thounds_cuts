@@ -43,7 +43,7 @@ class IssuesController < ApplicationController
 			# @issues = issue_query params[:issues][:Project]
 			send_mail @issue if params[:issues][:Status] == "CLOSED"
 			send_notification "create", @issue, assigned_user_id
-			UserNotifier.send_create_notification_mail(@issue).deliver!
+			# UserNotifier.send_create_notification_mail(@issue).deliver!
 			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
 		else

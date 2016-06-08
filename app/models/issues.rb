@@ -1,7 +1,7 @@
 class Issues < ParseResource::Base
 	 fields :Project, :Description, :mitigationPlan, :dateIdentified, :dateResolved, :Status, :Severity, :CommentsArray, :title, :isManagementIssue, :IssueType, :isClientIssue, :ProjectOwner, :AccountManager
 
-   validates :title, :presence => true
+   validates :Description, :presence => true
 
   def self.import(file, current_userName)
     spreadsheet = open_spreadsheet(file)

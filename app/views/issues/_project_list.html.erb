@@ -33,15 +33,15 @@
         <tr style="background-color: #F1EEEE;">
           <th>Severity</th>
           <th style="width: 75px !important;">Severity</th>
-          <th>Title</th>
+          <th>Issue Description</th>
           <th>Project</th>
-<!--           <th>isClientIssue</th>
+          <!--  <th>isClientIssue</th>
           <th>AccountManager</th>
           <th>ProjectOwner</th> -->
-          <th >Created By</th>
-          <th >Assigned To</th>
+          <th class="hide">Created By</th>
+          <th class="hide">Assigned To</th>
           <th style="width: 120px !important;">Status</th>
-          <th >Action</th>
+          <th style="width: 90px !important">Action</th>
 
         </tr>
       </thead>
@@ -54,15 +54,15 @@
         <tr class=<%= (@read_issues.include? issue.objectId) ? 'read_issue' : 'unread_issue' %>>
           <td ><%=issue.Severity%></td>
           <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
-          <td><%=link_to issue.title, issue_path(:id=>issue.objectId), :class =>"title_link", :title => "show" %></td>
-          <td><%= issue.Project %></td>
-<!--           <td><%= issue.isClientIssue %></td>
+          <td><%=link_to issue.Description, issue_path(:id=>issue.objectId), :class =>"title_link", :title => "show" %></td>
+          <td style="width: 200px !important"><%= issue.Project %></td>
+          <!-- <td><%= issue.isClientIssue %></td>
           <td><%= issue.AccountManager %></td>
           <td><%= issue.ProjectOwner %></td> -->
-          <td><%= issue.createdBy %></td>
-          <td><%= issue.assignedTo %></td>
+          <td class="hide"><%= issue.createdBy %></td>
+          <td class="hide"><%= issue.assignedTo %></td>
           <td><%= issue.Status %></td>
-          <td><%=link_to edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" ,:title => "EDIT" do %>
+          <td style="width: 90px !important"><%=link_to edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" ,:title => "EDIT" do %>
           <i><%=image_tag "glyphicons_150_edit.png"%></i>
           <%end%>
           <%=link_to  "", :data_id => issue.objectId, :class => "issue_delete",:title => "DELETE" do %>

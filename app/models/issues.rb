@@ -1,7 +1,8 @@
 class Issues < ParseResource::Base
-	 fields :Project, :Description, :mitigationPlan, :dateIdentified, :dateResolved, :Status, :Severity, :CommentsArray, :title, :isManagementIssue, :IssueType, :isClientIssue, :ProjectOwner, :AccountManager
+	 
+  fields :Project, :Description, :mitigationPlan, :dateIdentified, :dateResolved, :Status, :Severity, :CommentsArray, :title, :isManagementIssue, :IssueType, :isClientIssue, :ProjectOwner, :AccountManager
 
-   validates :Description, :presence => true
+  validates :Description, :Severity, presence: true
 
   def self.import(file, current_userName)
     spreadsheet = open_spreadsheet(file)
@@ -22,7 +23,9 @@ class Issues < ParseResource::Base
   def self.create_issue(row, current_userName)
     row = row.select {|k,v| ["Project","title", "Description", 'dateIdentified', 'dateResolved', 'Status', 'Severity', "assignedTo", "isManagementIssue", "isClientIssue", "isClosed", 'closedBy', 'createdBy', 'IssueType', 'AccountManager', "ProjectOwner", "mitigationPlan"].include?(k) }
     
-    row["Project"] = ((row["Project"]).strip).upcase
+    row["Project"] = row["Project"].strip.upcase
+    row["Status"] = row["Status"].strip.upcase
+    row["Severity"] = row["Severity"].strip.upcase
     
     row["isClosed"] = (row["isClosed"] == "true" || row["isClosed"] == 1 ? true : false)
     row["isManagementIssue"] = (row["isManagementIssue"] == "true" || row["isManagementIssue"] == 1 ? true : false)
@@ -30,7 +33,7 @@ class Issues < ParseResource::Base
     row["isDeleted"] = false
 
     row["assignedTo"] = 'RAJAT JULKA' if row["isManagementIssue"] == true
-    row["assignedTo"] = row["assignedTo"].blank? ? 'RAJAT JULKA' : row["assignedTo"]
+    row["assignedTo"] = row["assignedTo"].blank? ? 'RAJAT JULKA' : row["assignedTo"].strip.upcase!
 
     row["createdBy"] = current_userName
     row["CommentsArray"] = []

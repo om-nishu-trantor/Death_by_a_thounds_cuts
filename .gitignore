@@ -14,4 +14,5 @@
 /log/*.log
 /tmp
 /app/views/sessions/new.html.erb
-# /config/parse_resource.yml
+.sass-cache/
+/config/parse_resource.yml

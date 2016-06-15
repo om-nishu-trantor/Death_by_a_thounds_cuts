@@ -128,20 +128,20 @@ $(document).ready(function(){
 		var projectOwner =  $('#new_issue_create_form #projectOwner').val();
 		var accountManager =  $('#new_issue_create_form #accountManager').val();
 		
-		if(cut_title.length == 0)
-		{
-			alert("Please Enter cut title")
-			return false;
-		}
+		// if(cut_title.length == 0)
+		// {
+		// 	alert("Please Enter cut title")
+		// 	return false;
+		// }
 
 		if(project.length == 0)
 		{
-			alert("Please Enter cut name")
+			alert("Please Select a Project")
 			return false;
 		}
 
 		if (description.length ==0){
-			alert("Please Enter cut description ")
+			alert("Please Enter issue description ")
 			return false;
 		}
 

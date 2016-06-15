@@ -1,8 +1,8 @@
 require 'csv'
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
-	before_filter :check_read, :only => [:index, :fetch_issue, :create, :destroy]
-	before_filter :mark_read, :only => [:show, :edit]
+	before_filter :check_read, only: [:index, :fetch_issue, :create, :destroy]
+	before_filter :mark_read, only: [:show, :edit]
 	
 	def index
 		@issues =  issue_query
@@ -43,7 +43,7 @@ class IssuesController < ApplicationController
 			# @issues = issue_query params[:issues][:Project]
 			send_mail @issue if params[:issues][:Status] == "CLOSED"
 			send_notification "create", @issue, assigned_user_id
-			UserNotifier.send_create_notification_mail(@issue).deliver!
+			# UserNotifier.send_create_notification_mail(@issue).deliver!
 			@issues = params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
 			@serverty, @closed  = category(@issues)
 		else
@@ -56,7 +56,7 @@ class IssuesController < ApplicationController
 	def upload_issues
     if request.post?
       if params[:file].blank?
-        flash[:notice] = "Select file to upload." 
+        flash[:notice] = "Pleae provide file to upload in xlsx format." 
       else
         if get_file_format(params[:file]) == 'xlsx'
           begin
@@ -104,6 +104,7 @@ class IssuesController < ApplicationController
 
 	def show
 		@object_issues = Issues.find_by_objectId(params[:id])
+    
 		if @object_issues.nil?
 			flash[:notice] = "Issue not found"
 			redirect_to issues_path, :notice => "Cut not found"
@@ -120,6 +121,8 @@ class IssuesController < ApplicationController
     assigned_user_id = params[:issues][:assignedTo]
     # Set assigned_to with UserId name.
     params[:issues][:assignedTo] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:assignedTo].blank?
+    params[:issues][:AccountManager] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:AccountManager].blank?
+    params[:issues][:ProjectOwner] = User.find_by_objectId(assigned_user_id).Name unless params[:issues][:ProjectOwner].blank?
 
 		params[:issues][:assignedTo] = 'RAJAT JULKA' if params[:issues][:assignedTo].blank?
 		params[:issues][:isManagementIssue] = params[:issues][:isManagementIssue] == "1" ? true : false
@@ -172,7 +175,7 @@ class IssuesController < ApplicationController
 
 	def issue_query project = nil
 		issues = Issues.where(query(project)).all
-		unless  current_user.isAdmin
+		unless current_user.isAdmin
 			issues = issues + Issues.where(get_created_by_data(project)).all
 		end
 		issues	
@@ -187,8 +190,8 @@ class IssuesController < ApplicationController
 
 	def query project
 		query = {:isDeleted => false}
-		query.merge!(:assignedTo => current_user.Name)  unless  current_user.isAdmin
-		query.merge!(:Project => project)  if project
+		query.merge!(:assignedTo => current_user.Name) unless current_user.isAdmin
+		query.merge!(:Project => project) if project
 		query
 	end	
 

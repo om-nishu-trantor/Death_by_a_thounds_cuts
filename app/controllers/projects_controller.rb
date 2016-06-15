@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 		end	
 	end	
 
-	def destroy 
+	def destroy
 		project = Project.find_by_objectId(params[:id])
 		respond_to do |format|
 			if project	
@@ -33,7 +33,5 @@ class ProjectsController < ApplicationController
 			end
 		end
 	end
-
-
 
 end

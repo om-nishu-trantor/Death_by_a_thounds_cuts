@@ -1,0 +1,1 @@
+ParseResource::Base.load_settings

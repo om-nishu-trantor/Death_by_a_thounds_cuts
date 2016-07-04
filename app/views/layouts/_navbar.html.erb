@@ -8,9 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href=<%= root_path%>>
-        <%= image_tag('logo_small.png', width: '67')%>
-      </a>
+      <%= link_to image_tag('logo_small.png', width: '67'), root_path, class: 'navbar-brand' %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

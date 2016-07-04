@@ -65,8 +65,10 @@
           <td style="width: 90px !important"><%=link_to edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" ,:title => "EDIT" do %>
           <i><%=image_tag "glyphicons_150_edit.png"%></i>
           <%end%>
-          <%=link_to  "", :data_id => issue.objectId, :class => "issue_delete",:title => "DELETE" do %>
-          <i><%=image_tag "glyphicons_207_remove_2.png"%></i>
+          <% if current_user.isAdmin %>
+            <%=link_to  "", :data_id => issue.objectId, :class => "issue_delete",:title => "DELETE" do %>
+              <i><%=image_tag "glyphicons_207_remove_2.png"%></i>
+            <%end%>
           <%end%>
           </td>
         </tr>

@@ -1,183 +1,84 @@
-<style type="text/css">
-	.span_head{
-		padding: 10px;
-		color: #3276B1;
-		font-size: 17px;
-	}	
-#issues_dateResolved{
-	top: 0;
-	left: 0;
-	padding: 4px;
-	margin-top: 1px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-</style>
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">Update Issue</h3>
+		<h3 class="panel-title">Update Cut</h3>
 	</div>
 	<div class="panel-body">
-		<%=form_for(@object_issues)  do |f| %>  
-		<div class="control-group">
-			<div class="col-sm-12 create_cut_field"> 
-				<div class="col-sm-12">
-					<label class="" for="input01">Cut Title<span style="color: #FF0000;padding: 4px;">*</span></label>  
-					<div class="s">
-						<%#=f.text_field :Project, :required => 'required'%>  
-						<%if current_user.isAdmin%>
-							<%=f.text_field :title, :required => 'required', :style => "width:65%"%>  
-						<%else%>
-							<%=@object_issues.title%>
-						<%end%>
-						<%=hidden_field_tag :project , params[:project] %>
-					</div> 
-				</div>
-			</div>	
-			<div class="col-sm-12 create_cut_field"> 
-				<div class="col-sm-4">
-					<label class="" for="input01">Project<span style="color: #FF0000;padding: 4px;">*</span></label>  
-					<div class="s">
-						<%#=f.text_field :Project, :required => 'required'%>  
-						<%if current_user.isAdmin%>
-							<%=f.select :Project, options_for_select(projects, :selected =>@object_issues.Project ) , :style=>"width: 100%;" %>
-						<%else%>
-							<%=@object_issues.Project%>
-						<%end%>
-						<%=hidden_field_tag :project , params[:project] %>
-					</div> 
-				</div>
-				<div class="col-sm-4">
-					<label class="" for="input01">Description<span style="color: #FF0000;padding: 4px;">*</span></label>  
-					<div class="">
-						<%if current_user.isAdmin%>
-							<%=f.text_area :Description , :required => 'required' , :rows=>"3" , :style => "width: 100%;" %>
-						<%else%>
-							<%=@object_issues.Description%>
-						<%end%>	
-					</div> 
-				</div>
-				<div class="col-sm-4">
-					<label class="" for="input01">MitigationPlan</label>  
-					<div class="">
-						<%if current_user.isAdmin%>
-							<%=f.text_area :mitigationPlan , :rows=>"3" , :style => "width: 100%;" %>
-						<%else%>
-							<%=@object_issues.mitigationPlan%>
-						<%end%>
-					</div> 
-				</div>
-			</div>
-			<div class="col-sm-12 create_cut_field"> 
-				<div class="col-sm-4">
-					<label class="" for="input01">DateIdentified</label>  
-					<div class="s">
-						<%=f.text_field :dateIdentified , :required => 'required' ,:readonly => true, :class=>"datepicker"%>  
-					</div> 
-				</div>
-				<div class="col-sm-4">
-					<label class="" for="input01">DateResolved</label>  
-					<div class="">  
-						<%=f.text_field :dateResolved ,:readonly => true%>
-					</div> 
-				</div>
-				<div class="col-sm-4">
-					<label class="" for="input01">Status</label>  
-					<div class="">
-						<%= f.select :Status, options_for_select(status, :selected => @object_issues.Status)%>  
-					</div> 
-				</div>
-			</div>
-			<div class="col-sm-12 create_cut_field"> 
-			<div class="col-sm-4">
-				<label class="" for="input01">AccountManager</label>  
-				<div class="s">  
-				  <%= f.select :AccountManager, options_for_select(all_users_with_id, :selected => @object_issues.AccountManager)%> 
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">ProjectOwner</label>  
-				<div class=""> 
-				  <%= f.select :ProjectOwner, options_for_select(all_users_with_id, :selected => @object_issues.ProjectOwner)%> 
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">Issue Types</label>
-				<div class="s">
-				  <%= f.select :IssueType, options_for_select(issue_types,:selected => @object_issues.IssueType) %>  
-				</div>
-			</div>
-		</div>
-			<div class="col-sm-12 create_cut_field"> 
-				<div class="col-sm-4">
-					<label class="" for="input01">Severity</label>  
-					<div class="">
-						<%= f.select :Severity, options_for_select(servity,:selected => @object_issues.Severity) %>   
-					</div> 
-				</div>
-				<div class="col-sm-4">
-					<label class="" for="input01">Assigned To</label>
-					<div class="s">  
-						<%if current_user.isAdmin%> 
-						<%= f.select :assignedTo, options_for_select(all_users_with_id,:selected => @object_issues.assignedTo)%>
-						<%else%>
-						<%= f.select :assignedTo, options_for_select([[@object_issues.assignedTo,@object_issues.assignedTo]])%>
-						<%end%>
+		<%= form_for(@object_issues) do |f| %>
+			<div class="control-group">
+				<div class="col-sm-12 create_cut_field">
+					<div class="col-sm-4">
+						<label class="" for="input01">Project<span class="required">*</span></label>  
+						<div class="s">
+							<% if true #current_user.isAdmin %>
+								<%= f.select :Project, options_for_select(projects, selected: @object_issues.Project ) %>
+							<% else %>
+								<%= @object_issues.Project %>
+							<% end %>
+							<%= hidden_field_tag :project, params[:project] %>
+						</div> 
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<%if current_user.isAdmin%>
-					<label class="" for="input01">Is Management Issue</label>
-					<%=f.check_box :isManagementIssue %>
-					<!-- <input type="checkbox" id="ismanageable" > -->
-					<%end%>
-				</div>
-				<div class="col-sm-4">
-				<label class="" for="input01">Is Client Issue</label>
-				  <%=f.check_box :isClientIssue %>
-			</div>
-			</div>
-			<div class="col-sm-12 create_cut_field"> 
-				<div class="col-sm-8">
-					<label class="" for="input01">Comments<span style="color: #FF0000;padding: 4px;">*</span></label>  
-					<div class="">
-						<%=text_area_tag "issues[CommentsArray]" ,nil, :rows =>"3", :cols => "50", :style => "width: 100%;", :required => 'required' %>
-					</div>
-				</div>
-				<!-- <div class="col-sm-4">
 
-				</div> -->
-				<div class="col-sm-4">
-					<button type="submit" class="btn btn-primary"  style="margin-top: 23px;" >Update</button>
-					<%=link_to "Cancel" , '/' , :class => "btn btn-primary" , :style =>"margin-top: 23px;"%>
+				<div class="col-sm-12 create_cut_field">
+					<div class="col-sm-12">
+						<label class="" for="input01">Description<span class="required">*</span></label>
+						<div>
+							<% if true #current_user.isAdmin %>
+								<%= f.text_area :Description, required: 'required', class: "cut-area" %>
+							<% else %>
+								<%= @object_issues.Description %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12 create_cut_field">
+					<div class="col-sm-4">
+						<label class="" for="input01">Status<span class="required">*</span></label>
+						<div class="">
+							<%= f.select :Status, options_for_select(status, selected: @object_issues.Status) %>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-12 create_cut_field">
+					<div class="col-sm-4">
+						<label class="" for="input01">Severity<span class="required">*</span></label>
+						<div>
+							<%= f.select :Severity, options_for_select(servity,:selected => @object_issues.Severity) %>   
+						</div> 
+					</div>
+				</div>
+
+				<div class="col-sm-12 create_cut_field">
+					<div class="col-sm-12">
+						<label for="input01">Comments</label>
+						<div>
+							<%= text_area_tag "issues[CommentsArray]", nil, rows: "3", cols: "50", style: "width: 100%;" %>
+						</div>
+					</div>
 				</div>
 				
-			</div>   
-			<div class="col-sm-12 create_cut_field" style="margin-left: 15px;"> 
-				<div class="">
-				<% if !@object_issues.CommentsArray.nil?  %>	
-					<% if !@object_issues.CommentsArray.blank?  %>
-					<h4 style="padding: 7px;background: #CCC;">Audit Trails</h4>
-					<%(@object_issues.CommentsArray.reverse).each do |comment|%>
-					<%data = comment[1].split(' ')%>
-					<span ><span style = "color: #428BCA;">Audit Trail For :</span><b><%= "#{data[4]} #{data[5]}" %></b></span><br/>
-					<span ><span style = "color: #428BCA;">Created By      :</span> <b><%= "#{data[2]}" %></b></span><br/>
-					<span ><span style = "color: #428BCA;float: left;margin-right: 5px;">Note		 	  		 :</span> <%= simple_format(comment[0]) %></span>
-					<hr/>
-					<%end%>
-					<%end%>
-				<%end%>	
+				<div class="col-sm-12">
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-primary">Update</button>
+						<%= link_to "Cancel", '/', class: "btn btn-primary" %>
+					</div>
 				</div>
-			</div> 
 
-		</div>  
-		<%end%>  
+				<div class="col-sm-12">
+					<% unless @object_issues.CommentsArray.blank? %>
+						<% render partial: 'comments', locals: {comments: @object_issues.CommentsArray } %>
+					<% end %>
+				</div>
+				
+			</div> 
+		<% end %> <!--Form End-->
 	</div>
 </div>
+
 <script>
- if(<%= @object_issues.isManagementIssue == true %>)
- 	{
-	document.getElementById("issues_assignedTo").disabled=true;
+  if(<%= @object_issues.isManagementIssue == true %>) {
+		document.getElementById("issues_assignedTo").disabled=true;
 	}
 </script>

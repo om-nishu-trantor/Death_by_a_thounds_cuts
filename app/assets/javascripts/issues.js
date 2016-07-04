@@ -6,6 +6,7 @@ $(document).ready(function(){
 	var endDate=null;
 	var nowTemp = new Date();
 	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	
 	$('.startDate').datepicker({
 		format : 'dd-mm-yyyy',
 		onRender: function(date) {
@@ -20,6 +21,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+	
 	$('.endDate').datepicker({
 		format : 'dd-mm-yyyy',
 		onRender: function(date) {
@@ -36,6 +38,7 @@ $(document).ready(function(){
 	});
 
 	$("checkbox").bootstrapSwitch();
+
 	$('#project_list_drop').change(function() {
 		var val = $("#project_list_drop option:selected").text();
 		window.history.pushState("object or string", "Title",'issues?project='+val);
@@ -49,7 +52,8 @@ $(document).ready(function(){
 			color: '#fff' 
 		} 
 	}); 
-		$.get('/issues/fetch_issue',{'project': val} , function(data){
+
+	$.get('/issues/fetch_issue',{'project': val} , function(data){
 			$('.project_list_div').empty();
 			$('.project_list_div').html(data)
 			$.unblockUI();
@@ -66,7 +70,6 @@ $(document).ready(function(){
 		{
 			alert("please enter information")
 			return false;
-
 		}else{
 			if($(this).attr('data_pdf') == "true")
 			{
@@ -83,30 +86,27 @@ $(document).ready(function(){
 			// window.location = '/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date
 			window.open('/issues/pdf_report.pdf?project='+project+'&start_date='+start_date+'&end_date=' + end_date, '_blank');
 			// $.get('/issues/pdf_report.pdf',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
-   //  		});
+   		//  		});
 	    $.unblockUI();
-	}else{
-		$.blockUI({ css: {
-			border: 'none',
-			padding: '15px',
-			backgroundColor: '#000',
-			'-webkit-border-radius': '10px',
-			'-moz-border-radius': '10px',
-			opacity: .5,
-			color: '#fff'
+			}else{
+				$.blockUI({ css: {
+					border: 'none',
+					padding: '15px',
+					backgroundColor: '#000',
+					'-webkit-border-radius': '10px',
+					'-moz-border-radius': '10px',
+					opacity: .5,
+					color: '#fff' }
+				});
+				$.get('/issues/fetch_issue_report',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
+					$('.project_list_report_div').empty();
+					$('.project_list_report_div').html(data)
+					$.unblockUI();
+					configureIssueReportTable($('#table-issues-report'));
+				});
+			}
 		}
 	});
-		$.get('/issues/fetch_issue_report',{'project': project , 'start_date': start_date , 'end_date': end_date} , function(data){
-			$('.project_list_report_div').empty();
-			$('.project_list_report_div').html(data)
-			$.unblockUI();
-			configureIssueReportTable($('#table-issues-report'));
-		});
-	}
-	}
-
-	});
-
 
 	$('#create_issue').on('click',function(){
 		var name = $('#issue_user_name').val();
@@ -140,7 +140,7 @@ $(document).ready(function(){
 			return false;
 		}
 
-		if (description.length ==0){
+		if(description.length == 0){
 			alert("Please Enter issue description ")
 			return false;
 		}
@@ -173,7 +173,9 @@ $(document).ready(function(){
 			'issues[AccountManager]' : accountManager,
 			'project' : project_select
 		}
-		$('#create_new_issue').modal('hide')
+		
+		$('#create_new_issue').modal('hide');
+		
 		$.blockUI({ css: { 
 			border: 'none', 
 			padding: '15px', 
@@ -181,17 +183,18 @@ $(document).ready(function(){
 			'-webkit-border-radius': '10px', 
 			'-moz-border-radius': '10px', 
 			opacity: .5, 
-			color: '#fff' 
-		} 
-	});
+			color: '#fff' } 
+		});
+
 		$.post('/issues', data_form, function(data){
 			$('.project_list_div').empty();
 			$('.project_list_div').html(data)
 			$.unblockUI();
 			configureIssueTable($('#table-issues'));
 			$("#new_issue_div").toggle();
-			$('#new_issue_create_form')[0].reset()
-			document.getElementById("assignedto").disabled=false;
+			$('#new_issue_create_form')[0].reset();
+			var fieldAssignedTo = document.getElementById("assignedto");
+			if(fieldAssignedTo) fieldAssignedTo.disabled=false;
 			var isExist = !!$('#project_list_drop option').filter(function() {
 				return $(this).attr('value').toLowerCase() === project.toLowerCase();
 			}).length;

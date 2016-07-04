@@ -1,7 +1,38 @@
 #welcome {
-  text-align: right;
   width: 100%;
-  float: right;
   font-size: 9px;
   font-weight: bold;
+  position: relative;
+  bottom: 5px;
+}
+.required {
+  color: #FF0000;
+}
+.cut-area {
+  width: 100%;
+  height: 90px;
+}
+#issues_dateResolved {
+  top: 0;
+  left: 0;
+  padding: 4px;
+  margin-top: 1px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.unread_issue {
+  background-color: #E2E5D8 !important;
+}
+.read_issue {
+  background-color: white !important;
+}
+.create_cut_field {
+  margin-bottom: 10px;
+}
+.sorting_disabled {
+  cursor: auto !important;
+}
+.margin_bottom {
+  margin-bottom: 25px;
 }

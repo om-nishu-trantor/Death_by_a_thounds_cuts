@@ -12,10 +12,7 @@ module IssuesHelper
   def status
     [
       ["OPEN","OPEN"],
-      ["IN-PROGRESS","IN-PROGRESS"],
       ["CLOSED","CLOSED"],
-      ["ASSIGNED","ASSIGNED"],
-      ["ON HOLD","ON HOLD"],
       ["RESOLVED","RESOLVED"]
     ]
   end

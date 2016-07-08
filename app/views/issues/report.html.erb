@@ -1,21 +1,24 @@
-<fieldset class="fieldset">
+<fieldset class="fieldset" id="report">
 	<div class="row-fluid">
-			<fieldset class="" style="margin-bottom: 10px;">
+			<fieldset id="filter">
 				<div class="col-sm-12">
-					<label class="control-label"><strong style="font-size: 16px; color:#428BCA">Project Creation Summary:</strong></label>
+					<label class="control-label">
+						<strong class="f-head">Project Creation Summary:</strong>
+					</label>
 					<%= select_tag 'project_list_report', options_for_select(project_list(@projects)) , :style=>"margin-top: 8px; margin-right: 10px; margin-left: 10px; width: 15%;" %>
-					<label style="font-size: 16px; color:#428BCA" >Start Date Identified:</label>
-					<input type="text" class="startDate" id="dateStartReport" required readonly %> <label style="font-size: 16px; color:#428BCA" >End Date Identified:</label>
+					<label class="f-head" >Start Date Identified:</label>
+					<input type="text" class="startDate" id="dateStartReport" required readonly%>
+						<label class="f-head" >End Date Identified:</label>
 					<input type="text" class="endDate" id="dateEndReport" required readonly %>
-					<%=link_to "Find" , '#' , :class => "btn btn-primary find_issues",:data_pdf => false  %> 
-					<%=link_to "PDF" , '#' , :class => "btn btn-primary find_issues",:data_pdf => true, :target => "_blank" %> 
+					<%=link_to "Find" , '#' , class: "btn btn-primary find_issues", data_pdf: false  %> 
+					<%=link_to "PDF" , '#' , class: "btn btn-primary find_issues", data_pdf: true, target: "_blank" %> 
 				</div>
 				<div class="col-sm-8">
 					
 				</div>
 			</fieldset>
-			<div class = "project_list_report_div">
-				<%= render "project_list_report"%>
+			<div class="project_list_report_div" >
+				<%= render "project_list_report" %>
 			</div">	
 	</div>  
 </fieldset>

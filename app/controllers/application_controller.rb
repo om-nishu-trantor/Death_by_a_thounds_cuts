@@ -20,9 +20,12 @@ class ApplicationController < ActionController::Base
   end
 
   def projects
-    @projects = []
-    projects = Project.all.map(&:ProjectName)
-    @projects = projects.collect! { |c| [ c, c ] }  if projects
+    # Moin - delete below shits if @projects variable is not required somewhere down deep
+      # Also, create a helper for options_for_project_select
+    # @projects = []
+    # projects = 
+    # @projects = projects.collect! { |c| [ c, c ] }  if projects
+    Project.active
   end  
 
   def users

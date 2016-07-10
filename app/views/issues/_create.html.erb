@@ -7,7 +7,7 @@
           Project<span class="required">*</span>
         </label>
         <div>
-          <%= select_tag 'project', options_for_select(projects, selected: params[:project]) , style: 'width: 100%;' %>
+          <%= select_tag 'project', options_for_select(options_for_projects_select, selected: params[:project]) , style: 'width: 100%;' %>
         </div>
       </div>
 
@@ -42,7 +42,7 @@
           </textarea>
         </div> 
       </div>
-      
+
     </div>
     
   </div>  

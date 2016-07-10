@@ -5,7 +5,7 @@
 					<label class="control-label">
 						<strong class="f-head">Project Creation Summary:</strong>
 					</label>
-					<%= select_tag 'project_list_report', options_for_select(project_list(@projects)) , :style=>"margin-top: 8px; margin-right: 10px; margin-left: 10px; width: 15%;" %>
+					<%= select_tag 'project_list_report', options_for_select(options_for_projects_select(true)) , :style=>"margin-top: 8px; margin-right: 10px; margin-left: 10px; width: 15%;" %>
 					<label class="f-head" >Start Date Identified:</label>
 					<input type="text" class="startDate" id="dateStartReport" required readonly%>
 						<label class="f-head" >End Date Identified:</label>

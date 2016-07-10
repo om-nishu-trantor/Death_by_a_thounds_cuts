@@ -1,98 +1,111 @@
 <style type="text/css">
-  /*
- * Filter
- */
-.dataTables_filter {
+  .dataTables_filter {
     margin-top: -49px !important;
     margin-right: 10px;
-}
-.dataTables_length{
-  margin-left: 15px;
-  margin-bottom: 3px;
-}
-#table-issues_filter{
-  display: none !important;
-}
-
-
+  }
+  .dataTables_length{
+    margin-left: 15px;
+    margin-bottom: 3px;
+  }
+  #table-issues_filter{
+    display: none !important;
+  }
 </style>
 
 <div class = "project_list_div">
   <div class="panel panel-primary">
-    <!-- Default panel contents -->
     <div class="panel-heading">Cuts</div>
+    
     <div class="panel-body" id = "panel-body-active">
-      <button type="button" class="btn btn-default navbar-btn filter-btn-all active" data-text = "^((?!CLOSED).)*$">ALL ACTIVE <span class="badge" id = ""><%=(@serverty.count - @closed.count("CLOSED")) if @serverty && @closed%></span></button>
-      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "HIGH">HIGH <span class="badge"><%=@serverty.count("HIGH") if @serverty%></span></button>
-      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "MEDIUM">MEDIUM <span class="badge"><%=@serverty.count("MEDIUM") if @serverty%></span></button>
-      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text = "LOW">LOW <span class="badge"><%=@serverty.count("LOW") if @serverty%></span></button>
-      <button type="button" class="btn btn-default navbar-btn filter-btn-stat" data-text = "CLOSED" id = "closed_issue_button">CLOSED <span class="badge" ><%=@closed.count("CLOSED") if @closed%></span></button>
+      <button type="button" class="btn btn-default navbar-btn filter-btn-all active" data-text="^((?!CLOSED).)*$">
+        ALL ACTIVE <span class="badge" id="">
+          <%=(@serverty.count - @closed.count("CLOSED")) if @serverty && @closed%>
+        </span>
+      </button>
+      
+      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text="HIGH">
+        HIGH <span class="badge"><%=@serverty.count("HIGH") if @serverty%></span>
+      </button>
+      
+      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text="MEDIUM">
+        MEDIUM <span class="badge"><%=@serverty.count("MEDIUM") if @serverty%></span>
+      </button>
+      
+      <button type="button" class="btn btn-default navbar-btn filter-btn-ser" data-text="LOW">
+        LOW <span class="badge"><%=@serverty.count("LOW") if @serverty%></span>
+      </button>
+      
+      <button type="button" class="btn btn-default navbar-btn filter-btn-stat" data-text="CLOSED" id="closed_issue_button">
+        CLOSED <span class="badge" ><%=@closed.count("CLOSED") if @closed%></span>
+      </button>
     </div>  
+    
     <table  class="table  no-margin" id="table-issues" cellspacing="0" width="100%">
       <thead>
         <tr style="background-color: #F1EEEE;">
-          <th>Severity</th>
+          <th width="5%">Severity</th>
           <th style="width: 75px !important;">Severity</th>
-          <th>Issue Description</th>
-          <th>Project</th>
-          <!--  <th>isClientIssue</th>
-          <th>AccountManager</th>
-          <th>ProjectOwner</th> -->
+          <th width="65%">Issue Description</th>
+          <th width="20%">Project</th>
           <th class="hide">Created By</th>
           <th class="hide">Assigned To</th>
-          <th style="width: 120px !important;">Status</th>
-          <th style="width: 90px !important">Action</th>
-
+          <th width="5%">Status</th>
+          <th width="5%">Action</th>
         </tr>
       </thead>
       <tbody>
-      <%issue_list = []%>
-      <% if @issues%>        
-        <% @issues.each do |issue| %>
-        <%unless issue_list.include? issue.objectId %>
-        <%issue_list << issue.objectId%>
-        <tr class=<%= (@read_issues.include? issue.objectId) ? 'read_issue' : 'unread_issue' %>>
-          <td ><%=issue.Severity%></td>
-          <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
-          <td><%=link_to issue.Description, issue_path(:id=>issue.objectId), :class =>"title_link", :title => "show" %></td>
-          <td style="width: 200px !important"><%= issue.Project %></td>
-          <!-- <td><%= issue.isClientIssue %></td>
-          <td><%= issue.AccountManager %></td>
-          <td><%= issue.ProjectOwner %></td> -->
-          <td class="hide"><%= issue.createdBy %></td>
-          <td class="hide"><%= issue.assignedTo %></td>
-          <td><%= issue.Status %></td>
-          <td style="width: 90px !important"><%=link_to edit_issue_path(:id=>issue.objectId) , :data_id => issue.objectId, :class => "issue_update" ,:title => "EDIT" do %>
-          <i><%=image_tag "glyphicons_150_edit.png"%></i>
-          <%end%>
-          <% if current_user.isAdmin %>
-            <%=link_to  "", :data_id => issue.objectId, :class => "issue_delete",:title => "DELETE" do %>
-              <i><%=image_tag "glyphicons_207_remove_2.png"%></i>
-            <%end%>
-          <%end%>
-          </td>
-        </tr>
-        <%end%>
+        <% issue_list = [] %>
+        <% if @issues && @issues.any? %>
+          <% @issues.each do |issue| %>
+            <% unless issue_list.include? issue.objectId %>
+              <% issue_list << issue.objectId %>
+              <tr class=<%= (@read_issues.include? issue.objectId) ? 'read_issue' : 'unread_issue' %>>
+                <td >
+                  <%= issue.Severity %>
+                </td>
+                <td class=<%=issue.Severity%> style="text-align: center;">
+                  <%= image_tag image_icon(issue.Severity), width: '50%' %>
+                </td>
+                <td>
+                  <%=link_to issue.Description, issue_path(issue.objectId), class: 'title_link', title: 'Show' %>
+                </td>
+                <td><%= issue.Project %></td>
+                <td class="hide"><%= issue.createdBy %></td>
+                <td class="hide"><%= issue.assignedTo %></td>
+                <td><%= issue.Status %></td>
+                <td>
+                  <%= link_to edit_issue_path(issue.objectId), data_id: issue.objectId, class: 'issue_update', title: "EDIT" do %>
+                    <i><%= image_tag "glyphicons_150_edit.png" %></i>
+                  <%end%>
+                  <% if current_user.isAdmin %>
+                    <%= link_to  "", data_id: issue.objectId, class: "issue_delete", title: "DELETE" do %>
+                      <i><%= image_tag "glyphicons_207_remove_2.png" %></i>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
         <% end %>
-      <%end%>    
       </tbody>
     </table>
   </div>
-  <div class="modal fade" id="delete_issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content" >
-              <div class="modal-header" style="background-color: #428BCA;">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                Delete Issue  
-              </div>
-              <div class="modal-body">
-                <p>Do you want to delete this Issue?</p>
-              </div>
-              <div class="modal-footer" style="background-color: whiteSmoke;">
-                <button data-dismiss="modal" class="btn btn-primary">No</button>
-                <button id="id-confirm-delete" class="btn btn-danger ">Yes</button>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->  
+
+  <div class='modal fade' id='delete_issue' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #428BCA;">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          Delete Issue
         </div>
+        <div class="modal-body">
+          <p>Do you really want to delete this Issue?</p>
+        </div>
+        <div class="modal-footer" style="background-color: whiteSmoke;">
+          <button data-dismiss="modal" class="btn btn-primary">No</button>
+          <button id="id-confirm-delete" class="btn btn-danger ">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>  

@@ -1,0 +1,5 @@
+<% flash.each do |type, message| %>
+  $("#flash-notifications").append("<div class='alert <%= flash_class(key) %> alert-dismissible' role='alert'><button class='close' data-dismiss='alert'>×</button><%= message.html_safe %></div>")
+<% end %>
+$('#flash-notifications').show();
+$('#flash-notifications').delay(15000).fadeOut('slow');

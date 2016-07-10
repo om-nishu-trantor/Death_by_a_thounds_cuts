@@ -1,4 +1,5 @@
 require 'csv'
+
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :check_read, only: [:index, :fetch_issue, :create, :destroy]
@@ -189,7 +190,7 @@ class IssuesController < ApplicationController
 	end	
 
 	def query project
-		query = {:isDeleted => false}
+		query = {isDeleted: false}
 		query.merge!(:assignedTo => current_user.Name) unless current_user.isAdmin
 		query.merge!(:Project => project) if project
 		query
@@ -291,6 +292,6 @@ class IssuesController < ApplicationController
   	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', assigned_user_id)
   	push.where = query.where
   	push.save
-    end	
+  end
 
 end

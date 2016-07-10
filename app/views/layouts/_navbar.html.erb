@@ -18,8 +18,8 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to 'Dashboard', root_path %></li>
         <% if current_user.isAdmin %>
-          <li><%= link_to 'Create Project', projects_path %></li>
-        <%end%>
+          <li><%= link_to 'Manage Project', projects_path %></li>
+        <% end %>
         <li><a href="#create_new_issue" data-toggle = "modal" >Create New Cut</a></li>
         <li><a href="#import_new_issue" data-toggle = "modal" >Import Cuts</a></li>
         <li><%= link_to 'Reset Password', edit_user_path(current_user.objectId) %></li>

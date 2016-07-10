@@ -1,45 +1,39 @@
 <style type="text/css">
-.dataTables_filter {
+  .dataTables_filter {
     margin-right: 10px;
-}
-.dataTables_length{
-  margin-left: 15px;
-}
-
-.dataTables_wrapper{
-  margin-top: 10px;
-}
+  }
+  .dataTables_length {
+    margin-left: 15px;
+  }
+  .dataTables_wrapper {
+    margin-top: 10px;
+  }
 </style>
-  <div class="panel panel-primary">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Cuts</div>
-    <table  class="table  no-margin" id="table-issues-report" cellspacing="0" width="100%" style="margin-top: 10px;">
-      <thead>
-        <tr style="background-color: #F1EEEE;">
-          <th>Severity</th>
-          <th>Project</th>
-          <th>Description</th>
-          <th>MitigationPlan</th>
-          <th>Identified</th>
-          <th>Resolved</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% if @issues%>        
-        <% @issues.each do |issue| %>
-        <tr>
-          <td class = <%=issue.Severity%> style="text-align: center;"><%=image_tag image_icon(issue.Severity), :width => '50%' %></td>
-          <td><%= issue.Project %></td>
-          <td><%= issue.Description %></td>
-          <td><%= issue.mitigationPlan %></td>
-          <td><%= issue.dateIdentified %></td>
-          <td><%= issue.dateResolved %></td>
-          <td><%= issue.Status %></td>
-        </tr>
-        <% end %>
-      <%end%>     
-      </tbody>
-    </table>
-  </div>
- 
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Cuts</div>
+  <table  class="table  no-margin" id="table-issues-report" cellspacing="0" width="100%" style="margin-top: 10px;">
+    <thead>
+      <tr style="background-color: #F1EEEE;">
+        <th width="10%">Severity</th>
+        <th width="30%">Project</th>
+        <th width="50%">Description</th>
+        <th width="10%">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% if @issues%>        
+      <% @issues.each do |issue| %>
+      <tr>
+        <td class=<%=issue.Severity%> style="text-align: center;">
+          <%= image_tag image_icon(issue.Severity), width: '50%' %>
+        </td>
+        <td><%= issue.Project %></td>
+        <td><%= issue.Description %></td>
+        <td><%= issue.Status %></td>
+      </tr>
+      <% end %>
+    <%end%>     
+    </tbody>
+  </table>
+</div>

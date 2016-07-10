@@ -9,13 +9,15 @@
   <body> 
 
     <% if current_user %>
-      <%= render "layouts/navbar"%>
+      <%= render "layouts/navbar" %>
     <% end %>
 
     <%= render 'layouts/flash_messages' %>
 
     <div class="container-fluid container-root">
-      <span id="welcome">Hi, <%= current_user.Name %></span>
+      <% if current_user %>
+        <span id="welcome">Hi, <%= current_user.Name %></span>
+      <% end -%>
     	<%= yield %>
       <% if current_user %>
         <input type="hidden" id="issue_user_name" value=<%= current_user.username %>>

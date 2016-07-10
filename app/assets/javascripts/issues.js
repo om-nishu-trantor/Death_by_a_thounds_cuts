@@ -314,49 +314,43 @@ $(document).ready(function(){
 		}
 	})
 
-	$('#delete_project').on('click',function(){
-		id = $(this).attr('data_id');
-		$.ajax({
-			url: '/projects/'+id,
-			type: 'DELETE',
-			success: function(result) {
-				
-			}
-		});
-	});
-
 	$('.title_link').on('click', function(){
 		$(this).parents('tr').removeClass('unread_issue').addClass('read_issue');
 	});
 
+	//Delete Project
 	$("#project_list_create_form").delegate(".delete_project", "click", function(event) {
 		event.preventDefault();
-		obj = $(this)
-		object_id = $(this).attr('data_id')
-		$.blockUI({ css: { 
-			border: 'none', 
-			padding: '15px', 
-			backgroundColor: '#000', 
-			'-webkit-border-radius': '10px', 
-			'-moz-border-radius': '10px', 
-			opacity: .5, 
-			color: '#fff' 
-		} 
-	});
+		obj = $(this);
+		object_id = $(this).attr('data_id');
+		$.blockUI({
+			css: { 
+				border: 'none', 
+				padding: '15px', 
+				backgroundColor: '#000', 
+				'-webkit-border-radius': '10px', 
+				'-moz-border-radius': '10px', 
+				opacity: .5, 
+				color: '#fff' 
+			} 
+		});
 		$.ajax({
-			url: '/projects/'+object_id,
+			url: '/projects/' + object_id,
 			type: 'DELETE',
 			success: function(result) {
 				$.unblockUI();
-				alert(result)
+				console.info('Destroying project ', object_id);
 				if(result == "Project deleted successfully")
 				{
 					obj.parent().remove();
-					$.each($("#new_issue_create_form #project option"),function(){ if($(this).val() == obj.parent().text().split(' ')[0].trim().toUpperCase()){$(this).remove()} })
+					$.each($("#new_issue_create_form #project option"), function(){
+						if($(this).val() == obj.parent().text().split(' ')[0].trim().toUpperCase()) {
+							$(this).remove();
+						}
+					});
 				}	
 			}
 		});
 	});
 
-});	
-
+});

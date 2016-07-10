@@ -14,9 +14,9 @@ gem 'thin'
 gem 'jquery-rails'
 # gem 'parse_resource', :git => 'https://github.com/adelevie/parse_resource.git'
 gem 'parse_resource', git: 'https://github.com/mointrantor/parse_resource.git', branch: 'update-parse-header'
-gem "parse-ruby-client", '>= 0.3.0'
+gem 'parse-ruby-client', '>= 0.3.0'
 gem 'jquery-datatables-rails', '1.12.2'
-gem "cancan"
+gem 'cancan'
 gem 'wkhtmltopdf-binary'
 gem 'wisepdf'
 gem 'roo', '~> 2.3.2'
@@ -26,5 +26,5 @@ group :development, :test do
 end
 
 group :test do
-  gem 'turn', '0.8.2', :require => false # Pretty printed test output
+  gem 'turn', '0.8.2', require: false # Pretty printed test output
 end

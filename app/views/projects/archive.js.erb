@@ -1,0 +1,10 @@
+<% if @project %>
+  var targetElement = "#project_<%= @project.objectId.downcase %>";
+  $(targetElement).text("<%= @project.Archived ? 'Restore' : 'Archive' %>");
+  $(targetElement).removeClass('hidden');
+  $(targetElement).fadeOut();
+  $(targetElement).fadeIn(1000);
+  $(targetElement).next().addClass('hidden');
+<% else %>
+  console.error('Oops happened with: ', @project.objectId.downcase);
+<% end %>

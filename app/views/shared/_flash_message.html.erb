@@ -1,0 +1,8 @@
+<div id='flash-notifications'>
+  <% flash.each do |type, message| %>
+    <div class="alert #{bootstrap_class_for(type.to_sym)} alert-dismissable fade in">
+      <button class="close", "aria-hidden" => "true", "data-dismiss" => "alert">×</button>
+      <%= message %>
+    </div>
+  <% end %>
+</div>

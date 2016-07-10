@@ -7,6 +7,7 @@
 }
 .required {
   color: #FF0000;
+  padding-left: 3px;
 }
 .cut-area {
   width: 100%;
@@ -35,4 +36,18 @@
 }
 .margin_bottom {
   margin-bottom: 25px;
+}
+#report {
+  #filter {
+    margin-bottom: 10px;
+    .f-head {
+      font-size: 16px;
+      color:#428BCA
+    }
+  }
+
+}
+.p-action {
+  float:right;
+  margin-right: 5px;
 }

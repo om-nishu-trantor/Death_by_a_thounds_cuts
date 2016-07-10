@@ -1,15 +1,26 @@
 require 'csv'
+
 class IssuesController < ApplicationController
 	before_filter :authenticate_user!
 	before_filter :check_read, only: [:index, :fetch_issue, :create, :destroy]
 	before_filter :mark_read, only: [:show, :edit]
 	
 	def index
-		@issues =  issue_query
-		@projects = all_projects @issues
-		@users = all_users
-		@issues =  params[:project] == "ALL" ?	issue_query : issue_query(params[:project]) if params[:project]
-		@serverty, @closed  = category(@issues)
+    archived = Project.archived.include?(params[:project]) if params[:project].present?
+
+    if archived
+      flash[:notice] = "Project #{params[:project]} has been archived!"
+      redirect_to '/'
+    end
+
+    @issues = if params[:project] && params[:project] != 'ALL'
+      issue_query(params[:project])
+    else
+      issue_query
+    end
+    @serverty, @closed  = category(@issues)
+		#@projects = all_projects @issues # Moin - remove if all well
+		#@users = all_users # Moin - remove if all well
 	end	
 
 
@@ -173,27 +184,28 @@ class IssuesController < ApplicationController
 		format_create response	
 	end	
 
-	def issue_query project = nil
+	def issue_query(project = nil)
 		issues = Issues.where(query(project)).all
 		unless current_user.isAdmin
 			issues = issues + Issues.where(get_created_by_data(project)).all
 		end
-		issues	
+    archived_projects = Project.archived
+    issues.select {|issue| !archived_projects.include?(issue.Project) }
 	end
 
-	def get_created_by_data project
-		query = {:isDeleted => false}
-		query.merge!(:createdBy => current_user.Name)
-		query.merge!(:Project => project)  if project
-		query
-	end	
+  def query(project)
+    query = { isDeleted: false }
+    query.merge!(assignedTo: current_user.Name) unless current_user.isAdmin
+    query.merge!(Project: project) if project
+    query
+  end
 
-	def query project
-		query = {:isDeleted => false}
-		query.merge!(:assignedTo => current_user.Name) unless current_user.isAdmin
-		query.merge!(:Project => project) if project
+	def get_created_by_data(project)
+		query = { isDeleted: false }
+		query.merge!(createdBy: current_user.Name)
+		query.merge!(Project: project)  if project
 		query
-	end	
+	end
 
 	def format_create response
 		respond_to do |format|
@@ -291,6 +303,6 @@ class IssuesController < ApplicationController
   	query = Parse::Query.new(Parse::Protocol::CLASS_INSTALLATION).eq('GCMSenderId', assigned_user_id)
   	push.where = query.where
   	push.save
-    end	
+  end
 
 end

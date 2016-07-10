@@ -4,16 +4,16 @@
       
       <div class="col-sm-4">
         <label for="input01">
-          Project <span class="required">*</span>
+          Project<span class="required">*</span>
         </label>
         <div>
-          <%= select_tag 'project', options_for_select(projects, selected: params[:project]) , style: 'width: 100%;' %>
+          <%= select_tag 'project', options_for_select(options_for_projects_select, selected: params[:project]) , style: 'width: 100%;' %>
         </div>
       </div>
 
       <div class="col-sm-4">
         <label for="input01">
-          Status <span class="required">*</span>
+          Status<span class="required">*</span>
         </label>
         <div class="">
           <%= select_tag 'status', options_for_select(status)%>
@@ -22,7 +22,7 @@
 
       <div class="col-sm-4">
         <label for="input01">
-          Severity <span class="required">*</span>
+          Severity<span class="required">*</span>
         </label>
         <div>
           <%= select_tag 'severity', options_for_select(servity)%>
@@ -35,10 +35,10 @@
       
       <div class="col-sm-12">
         <label for="input01">
-          Issue Description <span class="required">*</span>
-        </label>  
-        <div class="">
-          <textarea name="description" id="description" placeholder='Enter Description' class="cut-area" required>
+          Issue Description<span class="required">*</span>
+        </label>
+        <div>
+          <textarea name="description" id="description" placeholder='Enter Description' class='cut-area' required>
           </textarea>
         </div> 
       </div>

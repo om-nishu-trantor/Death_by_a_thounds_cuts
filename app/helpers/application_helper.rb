@@ -14,5 +14,9 @@ module ApplicationHelper
     projects.unshift('ALL') if all
     projects
   end
+
+  def options_for_users_select
+    User.active.map{|user| [user.Name, user.objectId] }.unshift(['Please Select', ''])
+  end
   
 end

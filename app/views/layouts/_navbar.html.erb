@@ -8,8 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href=<%= root_path%>><%= image_tag('logo_small.png',width: '67'
-)%></a>
+      <%= link_to image_tag('logo_small.png', width: '67'), root_path, class: 'navbar-brand' %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,25 +16,19 @@
       <ul class="nav navbar-nav">
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="/">Dashboard</a>
-        </li>
-        <%if current_user.isAdmin%>
-          <li><a href=<%= projects_path() %>>Create Project</a></li>
-        <%end%>
-        <li>
-          <a href="#create_new_issue" data-toggle = "modal" >Create new cut</a>
-        </li>
-        <li>
-          <a href="#import_new_issue" data-toggle = "modal" >Import Cuts</a>
-        </li>
-        <li><a href=<%= edit_user_path(:id => current_user.objectId) %>>Reset Password</a></li>
+        <li><%= link_to 'Dashboard', root_path %></li>
+        <% if current_user.isAdmin %>
+          <li><%= link_to 'Manage Project', projects_path %></li>
+        <% end %>
+        <li><a href="#create_new_issue" data-toggle = "modal" >Create New Cut</a></li>
+        <li><a href="#import_new_issue" data-toggle = "modal" >Import Cuts</a></li>
+        <li><%= link_to 'Reset Password', edit_user_path(current_user.objectId) %></li>
         <% if can? :new, User %>
-         <li><a href=<%=sign_up_path %>>Create User</a></li>
-         <li><a href=<%=report_issues_path%>>Report</a></li>
-        <%end%>
-        <li><a href=<%=log_out_path%>>Logout</a></li>
+          <li><%= link_to 'Create User', sign_up_path %></li>
+          <li><%= link_to 'Report', report_issues_path %></li>
+        <% end %>
+        <li><%= link_to 'Logout', log_out_path %></li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>

@@ -1,22 +1,25 @@
 <!DOCTYPE html>  
 <html>  
   <head>  
-    <title>Death BY A Thousand Cuts</title>  
-    <%= stylesheet_link_tag "application", :media => "all" %>
+    <title>Death By Thousand Cuts</title>
+    <%= stylesheet_link_tag "application", media: "all" %>
     <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tag %>  
+    <%= csrf_meta_tag %>
   </head>  
   <body> 
 
-    <% if current_user %>  
-      <%= render "layouts/navbar"%>
-    <%end%>
+    <% if current_user %>
+      <%= render "layouts/navbar" %>
+    <% end %>
 
     <%= render 'layouts/flash_messages' %>
 
-    <div class="container-fluid container-root"> 
+    <div class="container-fluid container-root">
+      <% if current_user %>
+        <span id="welcome">Hi, <%= current_user.Name %></span>
+      <% end -%>
     	<%= yield %>
-      <%if current_user%>
+      <% if current_user %>
         <input type="hidden" id="issue_user_name" value=<%= current_user.username %>>
         <div class="modal fade" id="create_new_issue" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog" style="width: 65%;">
@@ -26,7 +29,7 @@
                 Create New Cut  
               </div>
               <div class="modal-body" style="height: 350px;">
-                <%=render "/issues/create"%>
+                <%= render "/issues/create" %>
               </div>
               <div class="modal-footer" style="background-color: whiteSmoke;">
                 <button type="button" data-dismiss="modal" class="btn">Close</button>

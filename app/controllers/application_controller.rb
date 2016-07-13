@@ -12,16 +12,20 @@ class ApplicationController < ActionController::Base
   		redirect_to log_in_path
   	end	
   end	
-    
-  private  
-  def current_user  
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]  
+  
+  private 
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   def projects
-    @projects = []
-    projects = Project.all.map(&:ProjectName)
-    @projects = projects.collect! { |c| [ c, c ] }  if projects
+    # Moin - delete below shits if @projects variable is not required somewhere down deep
+      # Also, create a helper for options_for_project_select
+    # @projects = []
+    # projects = 
+    # @projects = projects.collect! { |c| [ c, c ] }  if projects
+    Project.active
   end  
 
   def users

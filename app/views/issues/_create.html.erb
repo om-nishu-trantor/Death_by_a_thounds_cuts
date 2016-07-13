@@ -1,117 +1,51 @@
-<form class="form-horizontal" , id = "new_issue_create_form">  
-	<div class="control-group">
+<form class="form-horizontal", id="new_issue_create_form">  
+  <div class="control-group">
+    <div class="col-sm-12 create_cut_field" style="margin-top: 10px;"> 
+      
+      <div class="col-sm-4">
+        <label for="input01">
+          Project<span class="required">*</span>
+        </label>
+        <div>
+          <%= select_tag 'project', options_for_select(options_for_projects_select, selected: params[:project]) , style: 'width: 100%;' %>
+        </div>
+      </div>
 
-		<div class="col-sm-12">
-			<div class="col-sm-12">
-				<label class="" for="input01">Cut Title<span style="color: #FF0000;padding: 4px;">*</span></label>  
-				<div class="s">  
-					<input type="text" class="" id="cut_title" name="title" required style="width: 65%;"> 
-				</div> 
-			</div>
-		</div>	
-		<div class="col-sm-12 create_cut_field" style="margin-top: 10px;"> 
-			<div class="col-sm-4">
-				<label class="" for="input01">Project</label>  
-				<div class="s">  
-					<!-- <input type="text" class="" id="project" name="project" required>  -->
-					<%= select_tag 'project', options_for_select(projects,:selected => params[:project]) , :style=>"width: 100%;" %>
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">Description<span style="color: #FF0000;padding: 4px;">*</span></label>  
-				<div class="">
-					<textarea name="description" id="description" placeholder = "Enter Description" required rows="2" cols="35" style = "width: 100%;" ></textarea>
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">MitigationPlan</label>  
-				<div class="">
-					<textarea name="mitigationPlan" id="mitigationPlan" placeholder = "Enter MitigationPlan" rows="2" cols="35" style = "width: 100%;"></textarea>
-				</div> 
-			</div>
-		</div>
-		<div class="col-sm-12 create_cut_field"> 
-			<div class="col-sm-4">
-				<label class="" for="input01">DateIdentified</label>  
-				<div class="s">  
-					<input type="text" class="datepicker" id="dateIdentified" name="dateIdentified"required readonly value="<%=Date.today.strftime('%d-%m-%Y')%>">  
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">DateResolved</label>  
-				<div class="">  
-					<input type="text" class="" id="dateResolved" name="dateResolved" readonly>  
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">Status</label>  
-				<div class="">
-					<%= select_tag 'status', options_for_select(status)%>  
-				</div> 
-			</div>
-		</div>
-		<div class="col-sm-12 create_cut_field"> 
-			<div class="col-sm-4">
-				<label class="" for="input01">AccountManager</label>  
-				<div class="s">  
-				  <%= select_tag 'accountManager', options_for_select(all_users_with_id)%>
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">ProjectOwner</label>  
-				<div class="">  
-				  <%= select_tag 'projectOwner', options_for_select(all_users_with_id)%>
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">Issue Types</label>
-				<div class="s">
-						<%= select_tag 'issueType', options_for_select(issue_types)%>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-12 create_cut_field"> 
-			<div class="col-sm-4">
-				<label class="" for="input01">Severity</label>  
-				<div class="">
-					<%= select_tag 'severity', options_for_select(servity)%>   
-				</div> 
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">Assigned To</label>
+      <div class="col-sm-4">
+        <label for="input01">
+          Status<span class="required">*</span>
+        </label>
+        <div class="">
+          <%= select_tag 'status', options_for_select(status)%>
+        </div> 
+      </div>
 
-				<div class="s">
-					<%if current_user.isAdmin%>
-						<%= select_tag 'assignedto', options_for_select(all_users_with_id, :selected => 'RAJAT JULKA') , :style => "width: 100%;"%>
-					<%else%>
-						<%= select_tag 'assignedto', options_for_select(all_users_with_id)%>
-					<%end%>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<%if current_user.isAdmin%>
-				<label class="" for="input01">Is Management Issue</label>
-				<input type="checkbox" id="ismanageable" >
-				<%end%>
-			</div>
-			<div class="col-sm-4">
-				<label class="" for="input01">Is Client Issue</label>
-				<input type="checkbox" id="isclientissue" >
-			</div>
-		</div>  
-		<div class="col-sm-12 create_cut_field">
-			<div class="col-sm-4">
+      <div class="col-sm-4">
+        <label for="input01">
+          Severity<span class="required">*</span>
+        </label>
+        <div>
+          <%= select_tag 'severity', options_for_select(servity)%>
+        </div> 
+      </div>
+      
+    </div>
 
-			</div>
-			<div class="col-sm-4">
+    <div class="col-sm-12 create_cut_field">
+      
+      <div class="col-sm-12">
+        <label for="input01">
+          Issue Description<span class="required">*</span>
+        </label>
+        <div>
+          <textarea name="description" id="description" placeholder='Enter Description' class='cut-area' required>
+          </textarea>
+        </div> 
+      </div>
 
-			</div>
-			<div class="col-sm-4">
-				<!-- <button type="button" class="btn btn-primary" , id ="create_issue" style="margin-top: 23px;" >Create</button>
-				<button class="btn create_new_issue" , style="margin-top: 23px;">Cancel</button> -->
-			</div>
-		</div>
-	</div>  
+    </div>
+    
+  </div>  
 </form>  
 
 

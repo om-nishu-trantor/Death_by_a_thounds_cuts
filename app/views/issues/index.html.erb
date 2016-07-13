@@ -2,21 +2,21 @@
 	<div class="row-fluid">
 			<fieldset>
 				<div class="col-sm-4">
-					<label class="control-label"><strong style="font-size: 16px; color:#428BCA">Select Project</strong></label>
-					<%= select_tag 'project_list_drop', options_for_select(project_list(projects),:selected => params[:project]) , :style=>"margin-top: 8px; margin-left: 10px; width: 52%;" %>
-					<%#=link_to "Create new issue" , '#' , :class => "btn btn-primary create_new_issue" %>
+					<label class="control-label">
+            <strong style="font-size: 16px; color:#428BCA">Select Project</strong>
+          </label>
+					<%= select_tag 'project_list_drop', options_for_select(options_for_projects_select(true), selected: params[:project]), style: "margin-top: 8px; margin-left: 10px; width: 52%;" %>
 				</div>
 				<div class="col-sm-8">
-					
 				</div>
 
 				<!-- <input type="hidden" id="issue_user_name" value=<%= current_user.username %>> -->
-				<div class="col-sm-12" style = "margin-top: 10px;">
+				<div class="col-sm-12" style="margin-top: 10px;">
 					<div class="collapse" id="new_issue_div">
 						<%#=render "create"%>	
 					</div>
 				</div>
 			</fieldset>
-			<%= render "project_list"%>	
+			<%= render "project_list" %>
 	</div>  
 </fieldset>

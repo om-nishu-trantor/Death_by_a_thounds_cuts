@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base 
   protect_from_forgery
-  helper_method :current_user, :projects, :users, :all_users_with_id, :issue_types, :assigned_to  
+  helper_method :current_user, :users, :all_users_with_id, :issue_types, :assigned_to  
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
@@ -19,7 +19,8 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def projects
+  # MOIN - this was helper method with projects
+  def _projects
     # Moin - delete below shits if @projects variable is not required somewhere down deep
       # Also, create a helper for options_for_project_select
     # @projects = []

@@ -8,7 +8,7 @@ class Project < ParseResource::Base
   end
 
   def self.active
-    where(Archived: false).collect { |p| p.ProjectName }
+    where(Archived: false).sort_by{|p| p.ProjectName}.collect { |p| p.ProjectName }
   end
 
 end
